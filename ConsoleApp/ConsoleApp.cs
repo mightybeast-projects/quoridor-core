@@ -1,5 +1,4 @@
 using System;
-using Quoridor.Main;
 
 namespace Quoridor.ConsoleApp
 {

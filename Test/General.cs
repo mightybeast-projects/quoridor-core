@@ -1,6 +1,6 @@
 using System.Numerics;
 using NUnit.Framework;
-using Quoridor.Main;
+using Quoridor.Core;
 
 namespace Quoridor.Test
 {

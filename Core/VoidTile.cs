@@ -1,4 +1,4 @@
-namespace Quoridor.Main
+namespace Quoridor.Core
 {
     public class VoidTile: Tile
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Quoridor.Main
+namespace Quoridor.Core
 {
     public abstract class Tile
     {

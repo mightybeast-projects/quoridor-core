@@ -1,7 +1,7 @@
 using System;
 using System.Numerics;
 
-namespace Quoridor.Main
+namespace Quoridor.Core
 {
     public class Player
     {
