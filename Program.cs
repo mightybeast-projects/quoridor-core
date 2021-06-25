@@ -1,4 +1,4 @@
-﻿using Quoridor.ConsoleApp;
+﻿using Quoridor.Terminal;
 using Quoridor.Core;
 
 namespace Quoridor
@@ -10,7 +10,7 @@ namespace Quoridor
             Board board = new Board(17, 17);
             Player player = new Player(board);
             ConsoleDrawer consoleDrawer = new ConsoleDrawer(board, player);
-            IOutput consoleApp = new ConsoleApp.ConsoleApp(consoleDrawer);
+            IOutput consoleApp = new ConsoleApp(consoleDrawer);
             consoleApp.Start();
         }
     }

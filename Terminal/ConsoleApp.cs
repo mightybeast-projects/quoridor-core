@@ -1,6 +1,6 @@
 using System;
 
-namespace Quoridor.ConsoleApp
+namespace Quoridor.Terminal
 {
     public class ConsoleApp : IOutput
     {

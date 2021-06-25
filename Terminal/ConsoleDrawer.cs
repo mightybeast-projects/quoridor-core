@@ -1,7 +1,7 @@
 using System;
 using Quoridor.Core;
 
-namespace Quoridor.ConsoleApp
+namespace Quoridor.Terminal
 {
     public class ConsoleDrawer
     {
