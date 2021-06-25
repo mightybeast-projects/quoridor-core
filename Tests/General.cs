@@ -1,26 +1,12 @@
 using System.Numerics;
 using NUnit.Framework;
-using Quoridor.Core;
+using Quoridor.Test;
 
-namespace Quoridor.Test
+namespace Quoridor.Tests
 {
     [TestFixture]
-    public class General
+    public class General : Initialization
     {
-        private SolidTile _testSolidTile;
-        private VoidTile  _testVoidTile;
-        private Board _board;
-        private Player _player;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _testSolidTile = new SolidTile();
-            _testVoidTile = new VoidTile();
-            _board = new Board(17, 17);
-            _player = new Player(_board);
-        }
-
         [Test]
         public void CreateSolidTile()
         {
@@ -60,9 +46,14 @@ namespace Quoridor.Test
         public void CreatePlayer()
         {
             Assert.IsNotNull(_player.board);
+            Assert.IsTrue(!_board.grid[0, 0].isEmpty);
             Assert.AreEqual(new Vector2(0, 0), _player.position);
-            _player.SetPosition(0, 8);
-            Assert.AreEqual(new Vector2(0, 8), _player.position);
+
+            _player.SetPosition(8, 0);
+
+            Assert.IsTrue(_board.grid[0, 0].isEmpty);
+            Assert.IsTrue(!_board.grid[8, 0].isEmpty);
+            Assert.AreEqual(new Vector2(8, 0), _player.position);
         }
     }
 }
