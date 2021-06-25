@@ -5,7 +5,7 @@ namespace Quoridor.Core
         public VoidTile()
         {
             _solid = false;
-            _symbol = "2";
+            _symbol = "🟥";
         }
     }
 }
