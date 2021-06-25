@@ -5,7 +5,7 @@ namespace Quoridor.Core
         public SolidTile()
         {
             _solid = true;
-            _symbol = "⬜";
+            _symbol = "1";
         }
     }
 }
