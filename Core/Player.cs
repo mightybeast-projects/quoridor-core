@@ -26,10 +26,5 @@ namespace Quoridor.Core
         {
             
         }
-
-        public void MoveDown()
-        {
-            
-        }
     }
 }
