@@ -17,9 +17,14 @@ namespace Quoridor.Core
             SetPosition(0, 0);
         }
 
-        internal void SetPosition(int x, int y)
+        public void SetPosition(int x, int y)
         {
             _position = new Vector2(x, y);
+        }
+
+        public void Move()
+        {
+            
         }
     }
 }
