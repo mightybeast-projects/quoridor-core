@@ -21,5 +21,10 @@ namespace Quoridor.Core
         {
             _position = new Vector2(x, y);
         }
+
+        public void MoveUp()
+        {
+            
+        }
     }
 }
