@@ -9,8 +9,9 @@ namespace Quoridor
         {
             Board board = new Board(17, 17);
             Player player = new Player(board);
-            ConsoleDrawer consoleDrawer = new ConsoleDrawer(board, player);
-            IOutput consoleApp = new ConsoleApp(consoleDrawer);
+            player.SetPosition(8, 0);
+            IOutput consoleApp = new ConsoleApp(board, player);
+            player.SetOutput(consoleApp);
             consoleApp.Start();
         }
     }
