@@ -11,9 +11,9 @@ namespace Quoridor.Tests
         [Test]
         public void CreateHorizontalWall()
         {
-            _wall = new Wall(new Vector2(0, 1), new Vector2(2, 1));
+            _wall = new Wall(new Vector2(3, 3), new Vector2(5, 3));
 
-            Assert.AreEqual(new Vector2(1, 1), _wall.middlePosition);
+            Assert.AreEqual(new Vector2(4, 3), _wall.middlePosition);
         }
 
         [Test]

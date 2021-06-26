@@ -22,21 +22,15 @@ namespace Quoridor.Core
 
         public void Draw()
         {
-            Console.BackgroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.DarkGray;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(" W ");
         }
 
         private void CalculateMiddlePosition()
         {
-            _middlePosition.X = _endPosition.X - _startPosition.X;
-            _middlePosition.Y = _endPosition.Y - startPosition.Y;
-
-            if(_middlePosition.X == 0) _middlePosition.X = startPosition.X;
-            if(_middlePosition.Y == 0) _middlePosition.Y = startPosition.Y;
-
-            if(_middlePosition.X == _endPosition.X) _middlePosition.X = 1;
-            if(_middlePosition.Y == _endPosition.Y) _middlePosition.Y = 1;
+            _middlePosition.X = (_endPosition.X + _startPosition.X) / 2;
+            _middlePosition.Y = (_endPosition.Y + startPosition.Y) / 2;
         }
     }
 }

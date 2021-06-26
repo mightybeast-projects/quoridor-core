@@ -35,8 +35,7 @@ namespace Quoridor.Terminal
                 Tile tile = _board.grid[i, j];
                 tile.Draw();
             }
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ResetColor();
         }
 
         private bool UnitIsWall(int i, int j)

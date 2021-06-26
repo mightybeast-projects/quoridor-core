@@ -73,9 +73,9 @@ namespace Quoridor.Core
             Move(new Vector2(-2, 0));
         }
 
-        public void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        public bool PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
-            if (WallIsTooLong(wallStartPosition, wallEndPosition)) return;
+            if (WallIsTooLong(wallStartPosition, wallEndPosition)) return false;
 
             _wallCounter--;
 
@@ -95,6 +95,8 @@ namespace Quoridor.Core
                     tile.isEmpty = false;
                 }
             }
+
+            return true;
         }
 
         private void Move(Vector2 moveVector)
