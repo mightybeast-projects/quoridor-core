@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Quoridor.Core;
 
 namespace Quoridor.Terminal
@@ -27,6 +28,8 @@ namespace Quoridor.Terminal
         {
             if (UnitIsPlayer(i, j))
                 _player.Draw();
+            else if (UnitIsWall(i, j))
+                _player.placedWalls[0].Draw();
             else
             {
                 Tile tile = _board.grid[i, j];
@@ -34,6 +37,22 @@ namespace Quoridor.Terminal
             }
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        private bool UnitIsWall(int i, int j)
+        {
+            Vector2 currentPosition = new Vector2(i, j);
+            foreach(Wall wall in _player.placedWalls)
+                if (CurrentPositionIsWall(currentPosition, wall)) return true;
+
+            return false;
+        }
+
+        private static bool CurrentPositionIsWall(Vector2 currentPosition, Wall wall)
+        {
+            return wall.startPosition == currentPosition || 
+                    wall.middlePosition == currentPosition || 
+                    wall.endPosition == currentPosition;
         }
 
         private bool UnitIsPlayer(int i, int j)

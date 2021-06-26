@@ -1,5 +1,6 @@
 ﻿using Quoridor.Terminal;
 using Quoridor.Core;
+using System.Numerics;
 
 namespace Quoridor
 {
@@ -12,6 +13,7 @@ namespace Quoridor
             player.SetPosition(8, 0);
             IOutput consoleApp = new ConsoleApp(board, player);
             player.SetOutput(consoleApp);
+            player.PlaceWall(new Vector2(1, 0), new Vector2(1, 2));
             consoleApp.Start();
         }
     }

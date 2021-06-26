@@ -20,6 +20,13 @@ namespace Quoridor.Core
             CalculateMiddlePosition();
         }
 
+        public void Draw()
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" W ");
+        }
+
         private void CalculateMiddlePosition()
         {
             _middlePosition.X = _endPosition.X - _startPosition.X;
@@ -27,6 +34,9 @@ namespace Quoridor.Core
 
             if(_middlePosition.X == 0) _middlePosition.X = startPosition.X;
             if(_middlePosition.Y == 0) _middlePosition.Y = startPosition.Y;
+
+            if(_middlePosition.X == _endPosition.X) _middlePosition.X = 1;
+            if(_middlePosition.Y == _endPosition.Y) _middlePosition.Y = 1;
         }
     }
 }
