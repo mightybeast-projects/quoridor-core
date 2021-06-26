@@ -11,6 +11,7 @@ namespace Quoridor.Tests
         protected VoidTile  _testVoidTile;
         protected Board _board;
         protected Player _player;
+        protected Wall _wall;
 
         [SetUp]
         protected void SetUp()

@@ -1,5 +1,6 @@
 using System.Numerics;
 using NUnit.Framework;
+using Quoridor.Core;
 using Quoridor.Tests;
 
 namespace Quoridor.Tests
@@ -7,6 +8,14 @@ namespace Quoridor.Tests
     [TestFixture]
     public class WallPlacement : Initialization
     {
+        [Test]
+        public void CreateWall()
+        {
+            _wall = new Wall(new Vector2(1, 1), new Vector2(3, 1));
+
+            Assert.AreEqual(new Vector2(2, 1), _wall.middlePosition);
+        }
+
         [Test]
         public void PlaceWall()
         {
