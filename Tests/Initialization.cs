@@ -3,7 +3,7 @@ using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core;
 
-namespace Quoridor.Test
+namespace Quoridor.Tests
 {
     public class Initialization
     {

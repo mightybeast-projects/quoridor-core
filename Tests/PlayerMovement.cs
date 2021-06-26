@@ -2,7 +2,7 @@ using System;
 using System.Numerics;
 using NUnit.Framework;
 
-namespace Quoridor.Test
+namespace Quoridor.Tests
 {
     [TestFixture]
     public class PlayerMovement : Initialization
