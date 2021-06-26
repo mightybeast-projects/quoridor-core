@@ -37,6 +37,12 @@ namespace Quoridor.Tests
         }
 
         [Test]
+        public void PlaceLongWall()
+        {
+            PlaceAndAssertWrongWall(new Vector2(0, 1), new Vector2(4, 1));
+        }
+
+        [Test]
         public void PlaceWallInDifferentLines()
         {
             PlaceAndAssertWrongWall(new Vector2(0, 1), new Vector2(2, 4));
@@ -49,9 +55,9 @@ namespace Quoridor.Tests
         }
 
         [Test]
-        public void PlaceLongWall()
+        public void PlaceWallWhichDoesNotCoverTwoSolidTiles()
         {
-            PlaceAndAssertWrongWall(new Vector2(0, 1), new Vector2(4, 1));
+            PlaceAndAssertWrongWall(new Vector2(1, 1), new Vector2(3, 1));
         }
 
         private void PlaceAndAssertWrongWall(Vector2 startPosition, Vector2 endPosition)
