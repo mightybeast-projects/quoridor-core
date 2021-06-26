@@ -1,4 +1,4 @@
-namespace Quoridor
+namespace Quoridor.Core
 {
     public interface IOutput
     {
