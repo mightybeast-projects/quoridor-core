@@ -20,14 +20,14 @@ namespace Quoridor.Core.Player
         private Board _board;
         private IOutput _output;
 
-        private PlayerMovementController _movementController;
-        private PlayerWallPlacementController _wallPlacementController;
+        private MovementController _movementController;
+        private WallPlacementController _wallPlacementController;
 
         public Player(Board board)
         {
             _board = board;
-            _movementController = new PlayerMovementController(this);
-            _wallPlacementController = new PlayerWallPlacementController(this);
+            _movementController = new MovementController(this);
+            _wallPlacementController = new WallPlacementController(this);
 
             SetPosition(0, 0);
         }

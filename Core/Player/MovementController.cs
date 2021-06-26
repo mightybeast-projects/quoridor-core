@@ -3,11 +3,11 @@ using System.Numerics;
 
 namespace Quoridor.Core.Player
 {
-    public class PlayerMovementController
+    public class MovementController
     {
         private Player _player;
 
-        public PlayerMovementController(Player player)
+        public MovementController(Player player)
         {
             _player = player;
         }

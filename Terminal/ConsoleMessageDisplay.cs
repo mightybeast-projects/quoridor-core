@@ -46,6 +46,7 @@ namespace Quoridor.Terminal
             Console.WriteLine("Wall only can be 3 tiles long.");
             Console.WriteLine("Wall can be placed in horizontal or vertical direction.");
             Console.WriteLine("Wall can't cover tile with paired indexes.");
+            Console.WriteLine("Wall must cover two solid tiles.");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
         }
