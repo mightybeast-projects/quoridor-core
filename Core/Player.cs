@@ -20,6 +20,11 @@ namespace Quoridor.Core
         private int _wallCounter = 10;
         private List<Wall> _placedWalls;
 
+        private int _wallStartPositionX;
+        private int _wallStartPositionY;
+        private int _wallEndPositionX;
+        private int _wallEndPositionY;
+
         public Player(Board board)
         {
             _board = board;
@@ -34,6 +39,7 @@ namespace Quoridor.Core
             _position = new Vector2(x, y);
             ChangeCurrentPositionTileEmptyStatus(false);
         }
+
         public void SetPosition(Vector2 newPosition)
         {
             ChangeCurrentPositionTileEmptyStatus(true);
@@ -75,21 +81,23 @@ namespace Quoridor.Core
 
         public bool PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
+            _wallStartPositionX = (int)wallStartPosition.X;
+            _wallStartPositionY = (int)wallStartPosition.Y;
+            _wallEndPositionX = (int)wallEndPosition.X;
+            _wallEndPositionY = (int)wallEndPosition.Y;
+
             if (WallIsTooLong(wallStartPosition, wallEndPosition)) return false;
+            if (WallIsNotOnTheSameLine(wallStartPosition, wallEndPosition)) return false;
+            if (WallTilesHavePairCoordinates()) return false;
 
             _wallCounter--;
 
             Wall newWall = new Wall(wallStartPosition, wallEndPosition);
             _placedWalls.Add(newWall);
 
-            int wallStartPositionX = (int)wallStartPosition.X;
-            int wallStartPositionY = (int)wallStartPosition.Y;
-            int wallEndPositionX = (int)wallEndPosition.X;
-            int wallEndPositionY = (int)wallEndPosition.Y;
-
-            for (int i = wallStartPositionX; i <= wallEndPositionX; i++)
+            for (int i = _wallStartPositionX; i <= _wallEndPositionX; i++)
             {
-                for (int j = wallStartPositionY; j <= wallEndPositionY; j++)
+                for (int j = _wallStartPositionY; j <= _wallEndPositionY; j++)
                 {
                     Tile tile = _board.grid[i, j];
                     tile.isEmpty = false;
@@ -125,10 +133,27 @@ namespace Quoridor.Core
             _board.grid[(int)_position.X, (int)_position.Y].isEmpty = isEmpty;
         }
 
-        private static bool WallIsTooLong(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        private bool WallIsTooLong(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
             return wallEndPosition.X - wallStartPosition.X > 2 || 
                     wallEndPosition.Y - wallStartPosition.Y > 2;
+        }
+
+        private bool WallIsNotOnTheSameLine(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        {
+            return wallStartPosition.X != wallEndPosition.X && 
+                    wallStartPosition.Y != wallEndPosition.Y;
+        }
+
+        private bool WallTilesHavePairCoordinates()
+        {
+            int middlePositionX = (_wallEndPositionX + _wallStartPositionX) / 2;
+            int middlePositionY = (_wallEndPositionY + _wallStartPositionY) / 2;
+
+            if((_wallStartPositionX % 2 == 0 && _wallStartPositionY % 2 == 0)) return true;
+            if((middlePositionX % 2 == 0 && middlePositionY % 2 == 0)) return true;
+
+            return false;
         }
     }
 }

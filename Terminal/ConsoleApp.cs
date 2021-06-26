@@ -81,10 +81,10 @@ namespace Quoridor.Terminal
             Console.WriteLine("Input wall end position (Example: 2 1)");
             string endPositionString = Console.ReadLine();
 
-            int startPositionX = int.Parse(startPositionString[0].ToString());
-            int startPositionY = int.Parse(startPositionString[2].ToString());
-            int endPositionX = int.Parse(endPositionString[0].ToString());
-            int endPositionY = int.Parse(endPositionString[2].ToString());
+            int startPositionX = int.Parse(startPositionString.Split(" ")[0]);
+            int startPositionY = int.Parse(startPositionString.Split(" ")[1]);
+            int endPositionX = int.Parse(endPositionString.Split(" ")[0]);
+            int endPositionY = int.Parse(endPositionString.Split(" ")[1]);
 
             Vector2 wallStartPosition = new Vector2(startPositionX, startPositionY);
             Vector2 wallEndPosition = new Vector2(endPositionX, endPositionY);
@@ -127,7 +127,7 @@ namespace Quoridor.Terminal
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Incorrect wall placement or length.");
             Console.WriteLine("Walls only can be 3 tiles long.");
-            Console.WriteLine("You can only place walls which cover two tiles.");
+            Console.WriteLine("You can only place walls which cover two tiles in one line.");
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
         }
