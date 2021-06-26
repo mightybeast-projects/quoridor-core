@@ -11,35 +11,34 @@ namespace Quoridor.Terminal
         private Board _board;
         private Player _player;
 
+        private ConsoleMessageDisplay _messageDisplay;
+
         public ConsoleApp(Board board, Player player)
         {
             _board = board;
             _player = player;
             _drawer = new ConsoleDrawer(board, player);
+            _messageDisplay = new ConsoleMessageDisplay();
         }
         
         public void Start()
         {
             while(true){
                 try { DisplayGameAndHandleInput(); }
-                catch (FormatException) { DisplayIncorrectMenuItemMessage(); }
+                catch (FormatException) { _messageDisplay.DisplayIncorrectMenuItemMessage(); }
             }
         }
 
         private void DisplayGameAndHandleInput()
         {
             _drawer.DrawBoard();
-            PrintConsoleMenu();
+            _messageDisplay.PrintConsoleMenu();
             HandleConsoleInput();
         }
 
         public void DisplayEdgeMoveErrorMessage()
         {
-            Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Can't move to the given direction. Player is at the edge of the board.");
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
+            _messageDisplay.DisplayEdgeMoveErrorMessage();
         }
 
         private void HandleConsoleInput()
@@ -55,7 +54,8 @@ namespace Quoridor.Terminal
 
         private void NavigateMovementMenu()
         {
-            PrintMovePlayerMenu();
+            _messageDisplay.PrintMovePlayerMenu();
+
             int commandIndex = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine(commandIndex);
             switch (commandIndex)
@@ -94,43 +94,7 @@ namespace Quoridor.Terminal
 
             bool wallPlaced = _player.PlaceWall(wallStartPosition, wallEndPosition);
 
-            if(!wallPlaced) DesplayWallPlacementError();
-        }
-
-        private void PrintConsoleMenu()
-        {
-            Console.WriteLine("Input command number:");
-            Console.WriteLine("1: Move player");
-            Console.WriteLine("2: Place wall");
-        }
-
-        private void PrintMovePlayerMenu()
-        {
-            Console.WriteLine("Input command number:");
-            Console.WriteLine("1: Move player up");
-            Console.WriteLine("2: Move player down");
-            Console.WriteLine("3: Move player right");
-            Console.WriteLine("4: Move player left");
-        }
-
-        private void DisplayIncorrectMenuItemMessage()
-        {
-            Console.BackgroundColor = ConsoleColor.DarkYellow;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Incorrect menu index.");
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
-        private void DesplayWallPlacementError()
-        {
-            Console.BackgroundColor = ConsoleColor.DarkYellow;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Incorrect wall placement or length.");
-            Console.WriteLine("Walls only can be 3 tiles long.");
-            Console.WriteLine("You can only place walls which cover two tiles in one line.");
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
+            if(!wallPlaced) _messageDisplay.DesplayWallPlacementError();
         }
     }
 }

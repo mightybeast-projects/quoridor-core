@@ -1,6 +1,5 @@
 using System.Numerics;
 using NUnit.Framework;
-using Quoridor.Tests;
 
 namespace Quoridor.Tests
 {
@@ -38,8 +37,8 @@ namespace Quoridor.Tests
             Assert.IsNotNull(_board.grid);
             Assert.AreEqual(17, _board.grid.GetLength(0));
             Assert.AreEqual(17, _board.grid.GetLength(1));
-            Assert.IsNotNull(_board.grid[0,0]);
-            Assert.IsNotNull(_board.grid[16,16]);
+            Assert.IsNotNull(_board.grid[0, 0]);
+            Assert.IsNotNull(_board.grid[16, 16]);
         }
 
         [Test]

@@ -1,5 +1,3 @@
-using System;
-using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core;
 using Quoridor.Core.Player;
