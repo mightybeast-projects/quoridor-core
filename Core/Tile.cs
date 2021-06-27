@@ -15,12 +15,5 @@ namespace Quoridor.Core
         protected bool _solid;
         protected string _symbol;
         private bool _isEmpty = true;
-        
-        public void Draw()
-        {
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.Write(_symbol);
-        }
     }
 }

@@ -51,13 +51,6 @@ namespace Quoridor.Core.Player
             _output = output;
         }
 
-        public void Draw()
-        {
-            Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" P ");
-        }
-
         public void MoveUp()
         {
             _movementController.Move(new Vector2(0, 2));

@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using Quoridor.Core;
 using Quoridor.Core.Player;
+using Quoridor.Terminal.Drawable;
 
 namespace Quoridor.Terminal
 {
@@ -9,6 +10,7 @@ namespace Quoridor.Terminal
     {
         private Board _board;
         private Player _player;
+        private IDrawable _drawable;
 
         public ConsoleDrawer(Board board, Player player)
         {
@@ -47,14 +49,19 @@ namespace Quoridor.Terminal
         private void DrawBoardUnit(int i, int j)
         {
             if (UnitIsPlayer(i, j))
-                _player.Draw();
+                _drawable = new PlayerDrawable();
             else if (UnitIsWall(i, j))
-                _player.placedWalls[0].Draw();
+                _drawable = new WallDrawable();
             else
             {
-                Tile tile = _board.grid[i, j];
-                tile.Draw();
+                if(TileIndexesAreDividableByTwo(i, j))
+                    _drawable = new SolidTileDrawable();
+                else
+                    _drawable = new VoidTileDrawable();
             }
+
+            _drawable.Draw();
+
             Console.ResetColor();
         }
 
@@ -77,6 +84,11 @@ namespace Quoridor.Terminal
         private bool UnitIsPlayer(int i, int j)
         {
             return _player.position.X == i && _player.position.Y == j;
+        }
+
+        private bool TileIndexesAreDividableByTwo(int i, int j)
+        {
+            return i % 2 == 0 && j % 2 == 0;
         }
     }
 }

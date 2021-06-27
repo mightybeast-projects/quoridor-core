@@ -20,13 +20,6 @@ namespace Quoridor.Core
             CalculateMiddlePosition();
         }
 
-        public void Draw()
-        {
-            Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" W ");
-        }
-
         private void CalculateMiddlePosition()
         {
             _middlePosition.X = (_endPosition.X + _startPosition.X) / 2;
