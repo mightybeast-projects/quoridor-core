@@ -27,11 +27,10 @@ namespace Quoridor.Core.Player
         public bool PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
             _wallValidator.InitializeVectors(wallStartPosition, wallEndPosition);
-            _wallStartPosition = wallStartPosition;
-            _wallEndPosition = wallEndPosition;
-
             if (_wallValidator.WallDoesNotMeetTheRequirements()) return false;
 
+            _wallStartPosition = wallStartPosition;
+            _wallEndPosition = wallEndPosition;
             PlaceNewWall();
 
             return true;
