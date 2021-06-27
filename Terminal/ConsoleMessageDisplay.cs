@@ -1,18 +1,10 @@
 using System;
+using Quoridor.Core;
 
 namespace Quoridor.Terminal
 {
-    public class ConsoleMessageDisplay
+    public class ConsoleMessageDisplay : IOutput
     {
-        public void DisplayEdgeMoveErrorMessage()
-        {
-            Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Can't move to the given direction. Player is at the edge of the board.");
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
-        }
-
         public void PrintConsoleMenu()
         {
             Console.WriteLine("Input command number:");
@@ -29,24 +21,59 @@ namespace Quoridor.Terminal
             Console.WriteLine("4: Move player left");
         }
 
+        public void DisplayEdgeMoveErrorMessage()
+        {
+            SetErrorMessageConsoleColor();
+            Console.WriteLine("Can't move to the given direction. Player is at the edge of the board.");
+            ResetConsoleColor();
+        }
+
         public void DisplayIncorrectMenuItemMessage()
         {
-            Console.BackgroundColor = ConsoleColor.DarkYellow;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Incorrect menu index.");
-            Console.BackgroundColor = ConsoleColor.Black;
+            DisplayWarningMessage("Incorrect menu index.");
+        }
+
+        public void DisplayWallIsTooLongMessage()
+        {
+            DisplayWarningMessage("Wall is too long. Walls can only be 3 tiles long.");
+        }
+
+        public void DisplayWallIsNotOnTheSameLine()
+        {
+            DisplayWarningMessage("Wall is not on the same line. Walls can be placed in horizontal or vertical direction.");
+        }
+
+        public void DisplayWallTilesHavePairCoordinates()
+        {
+            DisplayWarningMessage("Wall covers walkable tile.");
+        }
+
+        public void DisplayWallDoesNotCoverTwoSolidTiles()
+        {
+            DisplayWarningMessage("Wall does not line up with two walkable tiles.");
+        }
+
+        private void DisplayWarningMessage(String messageToShow)
+        {
+            SetWarningMessageConsoleColor();
+            Console.WriteLine(messageToShow);
+            ResetConsoleColor();
+        }
+
+        private void SetErrorMessageConsoleColor()
+        {
+            Console.BackgroundColor = ConsoleColor.DarkRed;
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public void DesplayWallPlacementError()
+        private void SetWarningMessageConsoleColor()
         {
             Console.BackgroundColor = ConsoleColor.DarkYellow;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Wall did not met all requirements.");
-            Console.WriteLine("Wall only can be 3 tiles long.");
-            Console.WriteLine("Wall can be placed in horizontal or vertical direction.");
-            Console.WriteLine("Wall can't cover tile with paired indexes.");
-            Console.WriteLine("Wall must cover two solid tiles.");
+        }
+
+        private void ResetConsoleColor()
+        {
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
         }

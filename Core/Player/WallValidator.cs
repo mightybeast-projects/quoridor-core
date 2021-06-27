@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 
 namespace Quoridor.Core.Player
@@ -7,6 +8,12 @@ namespace Quoridor.Core.Player
         private Vector2 _wallStartPosition;
         private Vector2 _wallMiddlePosition;
         private Vector2 _wallEndPosition;
+        private Player _player;
+
+        public WallValidator(Player player)
+        {
+            _player = player;
+        }
 
         public void InitializeVectors(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
@@ -16,18 +23,35 @@ namespace Quoridor.Core.Player
 
         public bool WallDoesNotMeetTheRequirements()
         {
-            if (WallIsTooLong() || 
-                WallIsNotOnTheSameLine() || 
-                WallTilesHavePairCoordinates() || 
+            SendAppropriateMessageIfWallDoesNotMeetTheRequirements();
+
+            if (WallIsNotOnTheSameLine() ||
+                WallIsTooLong() ||
+                WallTilesHavePairCoordinates() ||
                 WallDoesNotCoverTwoSolidTiles())
                 return true;
-                
+
             return false;
+        }
+
+        private void SendAppropriateMessageIfWallDoesNotMeetTheRequirements()
+        {
+            if (_player.output != null)
+            {
+                if (WallIsNotOnTheSameLine())
+                    _player.output.DisplayWallIsNotOnTheSameLine();
+                if (WallIsTooLong())
+                    _player.output.DisplayWallIsTooLongMessage();
+                if (WallTilesHavePairCoordinates())
+                    _player.output.DisplayWallTilesHavePairCoordinates();
+                if (WallDoesNotCoverTwoSolidTiles())
+                    _player.output.DisplayWallDoesNotCoverTwoSolidTiles();
+            }
         }
 
         private bool WallIsTooLong()
         {
-            return _wallEndPosition.X - _wallStartPosition.X > 2 ||
+            return _wallEndPosition.X - _wallStartPosition.X > 2 || 
                     _wallEndPosition.Y - _wallStartPosition.Y > 2;
         }
 

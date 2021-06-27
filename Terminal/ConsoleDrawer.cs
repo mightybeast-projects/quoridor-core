@@ -18,11 +18,30 @@ namespace Quoridor.Terminal
 
         public void DrawBoard()
         {
-            for (int i = _board.grid.GetLength(0) - 1; i >= 0 ; i--){
+            DrawTiles();
+            DrawIndexLines();
+        }
+
+        private void DrawTiles()
+        {
+            for (int i = _board.grid.GetLength(0) - 1; i >= 0; i--)
+            {
                 for (int j = 0; j < _board.grid.GetLength(1); j++)
                     DrawBoardUnit(j, i);
-                Console.WriteLine();
+                Console.WriteLine(" " + i);
             }
+        }
+
+        private void DrawIndexLines()
+        {
+            for (int i = 0; i < _board.grid.GetLength(1); i++)
+            {
+                if (i < 10)
+                    Console.Write(" " + i + " ");
+                else
+                    Console.Write(" " + i);
+            }
+            Console.WriteLine();
         }
 
         private void DrawBoardUnit(int i, int j)

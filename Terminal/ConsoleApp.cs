@@ -5,7 +5,7 @@ using Quoridor.Core.Player;
 
 namespace Quoridor.Terminal
 {
-    public class ConsoleApp : IOutput
+    public class ConsoleApp
     {
         private ConsoleDrawer _drawer;
         private Board _board;
@@ -19,6 +19,8 @@ namespace Quoridor.Terminal
             _player = player;
             _drawer = new ConsoleDrawer(board, player);
             _messageDisplay = new ConsoleMessageDisplay();
+
+            _player.SetOutput(_messageDisplay);
         }
         
         public void Start()
@@ -34,11 +36,6 @@ namespace Quoridor.Terminal
             _drawer.DrawBoard();
             _messageDisplay.PrintConsoleMenu();
             HandleConsoleInput();
-        }
-
-        public void DisplayEdgeMoveErrorMessage()
-        {
-            _messageDisplay.DisplayEdgeMoveErrorMessage();
         }
 
         private void HandleConsoleInput()
@@ -92,9 +89,7 @@ namespace Quoridor.Terminal
 
             Console.WriteLine(wallStartPosition + " " + wallEndPosition);
 
-            bool wallPlaced = _player.PlaceWall(wallStartPosition, wallEndPosition);
-
-            if(!wallPlaced) _messageDisplay.DesplayWallPlacementError();
+            _player.PlaceWall(wallStartPosition, wallEndPosition);
         }
     }
 }

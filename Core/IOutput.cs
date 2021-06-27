@@ -2,7 +2,10 @@ namespace Quoridor.Core
 {
     public interface IOutput
     {
-        void Start();
         void DisplayEdgeMoveErrorMessage();
+        void DisplayWallIsTooLongMessage();
+        void DisplayWallIsNotOnTheSameLine();
+        void DisplayWallTilesHavePairCoordinates();
+        void DisplayWallDoesNotCoverTwoSolidTiles();
     }
 }

@@ -12,8 +12,8 @@ namespace Quoridor
             Board board = new Board(17, 17);
             Player player = new Player(board);
             player.SetPosition(8, 0);
-            IOutput consoleApp = new ConsoleApp(board, player);
-            player.SetOutput(consoleApp);
+            
+            ConsoleApp consoleApp = new ConsoleApp(board, player);
             consoleApp.Start();
         }
     }

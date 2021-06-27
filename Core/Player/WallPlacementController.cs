@@ -21,19 +21,18 @@ namespace Quoridor.Core.Player
         {
             _player = player;
             _placedWalls = new List<Wall>();
-            _wallValidator = new WallValidator();
+            _wallValidator = new WallValidator(player);
         }
 
-        public bool PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        public void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
             _wallValidator.InitializeVectors(wallStartPosition, wallEndPosition);
-            if (_wallValidator.WallDoesNotMeetTheRequirements()) return false;
+            if (_wallValidator.WallDoesNotMeetTheRequirements()) return;
 
             _wallStartPosition = wallStartPosition;
             _wallEndPosition = wallEndPosition;
+            
             PlaceNewWall();
-
-            return true;
         }
 
         private void PlaceNewWall()

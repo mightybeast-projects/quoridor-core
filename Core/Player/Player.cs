@@ -78,9 +78,9 @@ namespace Quoridor.Core.Player
             _movementController.Move(new Vector2(-2, 0));
         }
 
-        public bool PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        public void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
-            return _wallPlacementController.PlaceWall(wallStartPosition, wallEndPosition);
+            _wallPlacementController.PlaceWall(wallStartPosition, wallEndPosition);
         }
     }
 }
