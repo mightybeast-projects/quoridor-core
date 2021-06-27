@@ -53,6 +53,11 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("Wall does not line up with two walkable tiles.");
         }
 
+        public void DisplayWallInterceptsWithOtherWall()
+        {
+            DisplayWarningMessage("Wall intercepts with other wall.");
+        }
+
         private void DisplayWarningMessage(String messageToShow)
         {
             SetWarningMessageConsoleColor();

@@ -7,5 +7,6 @@ namespace Quoridor.Core
         void DisplayWallIsNotOnTheSameLine();
         void DisplayWallTilesHavePairCoordinates();
         void DisplayWallDoesNotCoverTwoSolidTiles();
+        void DisplayWallInterceptsWithOtherWall();
     }
 }

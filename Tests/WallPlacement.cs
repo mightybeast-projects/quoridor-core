@@ -60,6 +60,18 @@ namespace Quoridor.Tests
             PlaceAndAssertWrongWall(new Vector2(1, 1), new Vector2(3, 1));
         }
 
+        [Test]
+        public void PlaceWallWhichInterceptsWithOtherWall()
+        {
+            _player.PlaceWall(new Vector2(0, 1), new Vector2(2, 1));
+            _player.PlaceWall(new Vector2(1, 0), new Vector2(1, 2));
+
+            Assert.AreEqual(9, _player.wallCounter);
+            Assert.AreEqual(1, _player.placedWalls.Count);
+            Assert.IsTrue(_board.grid[1, 0].isEmpty);
+            Assert.IsTrue(_board.grid[1, 2].isEmpty);
+        }
+
         private void PlaceAndAssertWrongWall(Vector2 startPosition, Vector2 endPosition)
         {
             _player.PlaceWall(startPosition, endPosition);
