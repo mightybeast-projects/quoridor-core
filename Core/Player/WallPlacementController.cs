@@ -9,11 +9,12 @@ namespace Quoridor.Core.Player
         public List<Wall> placedWalls => _placedWalls;
         
         private Player _player;
+        private WallValidator _wallValidator;
         private int _wallCounter = 10;
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;
         private List<Wall> _placedWalls;
-        private WallValidator _wallValidator;
+        private bool _wallPlaced;
 
         internal WallPlacementController(Player player)
         {
@@ -55,8 +56,18 @@ namespace Quoridor.Core.Player
             Wall newWall = new Wall(_wallStartPosition, _wallEndPosition);
             _placedWalls.Add(newWall);
 
-            for (int i = (int)_wallStartPosition.X; i <= (int)_wallEndPosition.X; i++)
-                for (int j = (int)_wallStartPosition.Y; j <= (int)_wallEndPosition.Y; j++)
+            for (int i = (int) _wallStartPosition.X; i <= (int) _wallEndPosition.X; i++)
+                for (int j = (int) _wallStartPosition.Y; j <= (int) _wallEndPosition.Y; j++)
+                    InitializeTile(i, j);
+
+            PlaceReversedWallOnBoard(_wallEndPosition, _wallStartPosition);
+            PlaceReversedWallOnBoard(_wallStartPosition, _wallEndPosition);
+        }
+
+        private void PlaceReversedWallOnBoard(Vector2 start, Vector2 end)
+        {
+            for (int i = (int) start.X; i <= (int) end.X; i++)
+                for (int j = (int) end.Y; j <= (int) start.Y; j++)
                     InitializeTile(i, j);
         }
 

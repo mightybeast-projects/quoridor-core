@@ -17,6 +17,7 @@ namespace Quoridor.Core
         {
             _startPosition = startPosition;
             _endPosition = endPosition;
+
             CalculateMiddlePosition();
         }
 
