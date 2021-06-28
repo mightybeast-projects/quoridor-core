@@ -23,10 +23,13 @@ namespace Quoridor.Core.Player
             _wallEndPosition = wallEndPosition;
         }
 
+        internal void SetOutput(IOutput output)
+        {
+            _output = output;
+        }
+
         internal bool WallDoesNotMeetTheRequirements()
         {
-            SendAppropriateMessageIfWallDoesNotMeetTheRequirements();
-
             if (WallIsNotOnTheSameLine() ||
                 WallIsTooLong() ||
                 WallTilesHavePairCoordinates() ||
@@ -37,12 +40,7 @@ namespace Quoridor.Core.Player
             return false;
         }
 
-        internal void SetOutput(IOutput output)
-        {
-            _output = output;
-        }
-
-        private void SendAppropriateMessageIfWallDoesNotMeetTheRequirements()
+        internal void SendAppropriateMessage()
         {
             if (_output != null)
             {

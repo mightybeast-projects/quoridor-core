@@ -33,7 +33,11 @@ namespace Quoridor.Core.Player
             }
 
             _wallValidator.InitializeVectors(wallStartPosition, wallEndPosition);
-            if (_wallValidator.WallDoesNotMeetTheRequirements()) return;
+            if (_wallValidator.WallDoesNotMeetTheRequirements())
+            {
+                _wallValidator.SendAppropriateMessage();
+                return;
+            } 
 
             _wallStartPosition = wallStartPosition;
             _wallEndPosition = wallEndPosition;
