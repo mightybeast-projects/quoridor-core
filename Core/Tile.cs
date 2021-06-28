@@ -2,18 +2,20 @@ using System;
 
 namespace Quoridor.Core
 {
-    public abstract class Tile
+    public class Tile
     {
-        public bool isSolid => _solid;
-        public bool isEmpty {
-            get => _isEmpty; 
-            set
-            {
-                _isEmpty = value;
-            }
+        public bool isSolid 
+        { 
+            get => _isSolid; 
+            set => _isSolid = value;
         }
-        protected bool _solid;
-        protected string _symbol;
+        public bool isEmpty 
+        {
+            get => _isEmpty; 
+            set => _isEmpty = value;
+        }
+
+        private bool _isSolid = true;
         private bool _isEmpty = true;
     }
 }

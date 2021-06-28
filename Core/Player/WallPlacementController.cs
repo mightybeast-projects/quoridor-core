@@ -10,10 +10,8 @@ namespace Quoridor.Core.Player
         
         private Player _player;
         private int _wallCounter = 10;
-
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;
-
         private List<Wall> _placedWalls;
         private WallValidator _wallValidator;
 

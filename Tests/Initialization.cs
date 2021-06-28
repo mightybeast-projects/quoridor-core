@@ -6,8 +6,7 @@ namespace Quoridor.Tests
 {
     public class Initialization
     {
-        protected SolidTile _testSolidTile;
-        protected VoidTile  _testVoidTile;
+        protected Tile _tile;
         protected Board _board;
         protected Player _player;
         protected Wall _wall;
@@ -15,8 +14,7 @@ namespace Quoridor.Tests
         [SetUp]
         protected void SetUp()
         {
-            _testSolidTile = new SolidTile();
-            _testVoidTile = new VoidTile();
+            _tile = new Tile();
             _board = new Board(17, 17);
             _player = new Player(_board);
         }

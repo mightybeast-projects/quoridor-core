@@ -29,11 +29,8 @@ namespace Quoridor.Core
 
         private void GenerateNewTile(int i, int j)
         {
-            Tile newTile;
-            if (TileIndexesAreDividableByTwo(i, j))
-                newTile = new SolidTile();
-            else
-                newTile = new VoidTile();
+            Tile newTile = new Tile();
+            newTile.isSolid = TileIndexesAreDividableByTwo(i, j);
 
             _grid[i, j] = newTile;
         }

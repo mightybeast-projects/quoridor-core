@@ -7,15 +7,9 @@ namespace Quoridor.Tests
     public class General : Initialization
     {
         [Test]
-        public void CreateSolidTile()
+        public void CreateTile()
         {
-            Assert.IsTrue(_testSolidTile.isSolid);
-        }
-
-        [Test]
-        public void CreateVoidTile()
-        {
-            Assert.IsFalse(_testVoidTile.isSolid);
+            Assert.IsTrue(_tile.isSolid);
         }
 
         [Test]
