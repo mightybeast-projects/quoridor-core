@@ -42,29 +42,26 @@ namespace Quoridor.Tests.WallPlacement
         [Test]
         public void PlaceCorrectWall()
         {
-            _player.PlaceWall(new Vector2(0, 1), new Vector2(2, 1));
-
-            AssertWallPlacedAndCheckTiles(new Vector2(0, 1), new Vector2(2, 1));
+            PlaceAndAssertCorrectWall(new Vector2(0, 1), new Vector2(2, 1));
         }
 
         [Test]
         public void PlaceReversedHorizontalWall()
         {
-            _player.PlaceWall(new Vector2(2, 1), new Vector2(0, 1));
-
-            AssertWallPlacedAndCheckTiles(new Vector2(2, 1), new Vector2(0, 1));
+            PlaceAndAssertCorrectWall(new Vector2(2, 1), new Vector2(0, 1));
         }
 
         [Test]
         public void PlaceReversedVerticalWall()
         {
-            _player.PlaceWall(new Vector2(1, 2), new Vector2(1, 0));
+            PlaceAndAssertCorrectWall(new Vector2(1, 2), new Vector2(1, 0));
+        }
 
-            Assert.AreEqual(9, _player.wallCounter);
-            Assert.AreEqual(1, _player.placedWalls.Count);
-            Assert.IsFalse(_board.grid[1, 0].isEmpty);
-            Assert.IsFalse(_board.grid[1, 1].isEmpty);
-            Assert.IsFalse(_board.grid[1, 2].isEmpty);
+        private void PlaceAndAssertCorrectWall(Vector2 startTile, Vector2 endTile)
+        {
+            _player.PlaceWall(startTile, endTile);
+
+            AssertWallPlacedAndCheckTiles(startTile, endTile);
         }
 
         private void AssertWallPlacedAndCheckTiles(Vector2 startTile, Vector2 endTile)

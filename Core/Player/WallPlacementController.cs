@@ -14,7 +14,6 @@ namespace Quoridor.Core.Player
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;
         private List<Wall> _placedWalls;
-        private bool _wallPlaced;
 
         internal WallPlacementController(Player player)
         {
