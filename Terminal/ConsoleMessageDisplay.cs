@@ -58,6 +58,11 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("Wall intercepts with other wall.");
         }
 
+        public void DisplayPlacedAllAvailableWallsMessage()
+        {
+            DisplayWarningMessage("You placed all of your available walls.");
+        }
+
         private void DisplayWarningMessage(String messageToShow)
         {
             SetWarningMessageConsoleColor();

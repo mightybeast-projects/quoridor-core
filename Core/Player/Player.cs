@@ -6,22 +6,16 @@ namespace Quoridor.Core.Player
 {
     public class Player
     {
-        public Vector2 position
-        {
-            get => _position;
-            internal set { _position = value; }
-        }
-        public Board board => _board;
-        public IOutput output => _output;
+        public Vector2 position => _movementController.position;
         public List<Wall> placedWalls => _wallPlacementController.placedWalls;
         public int wallCounter => _wallPlacementController.wallCounter;
-
-        private Vector2 _position;
-        private Board _board;
-        private IOutput _output;
-
+        public Board board => _board;
+        public IOutput output => _output;
+        
         private MovementController _movementController;
         private WallPlacementController _wallPlacementController;
+        private Board _board;
+        private IOutput _output;
 
         public Player(Board board)
         {
@@ -34,21 +28,18 @@ namespace Quoridor.Core.Player
 
         public void SetPosition(int x, int y)
         {
-            _movementController.ChangeCurrentPositionTileEmptyStatus(true);
-            _position = new Vector2(x, y);
-            _movementController.ChangeCurrentPositionTileEmptyStatus(false);
+            _movementController.SetPosition(x, y);
         }
 
         public void SetPosition(Vector2 newPosition)
         {
-            _movementController.ChangeCurrentPositionTileEmptyStatus(true);
-            _position = newPosition;
-            _movementController.ChangeCurrentPositionTileEmptyStatus(false);
+            _movementController.SetPosition(newPosition);
         }
 
         public void SetOutput(IOutput output)
         {
             _output = output;
+            _wallPlacementController.SetOutput(output);
         }
 
         public void MoveUp()

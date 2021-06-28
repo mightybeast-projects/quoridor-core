@@ -17,15 +17,21 @@ namespace Quoridor.Core.Player
         private List<Wall> _placedWalls;
         private WallValidator _wallValidator;
 
-        public WallPlacementController(Player player)
+        internal WallPlacementController(Player player)
         {
             _player = player;
             _placedWalls = new List<Wall>();
             _wallValidator = new WallValidator(player);
         }
 
-        public void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        internal void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
+            if(_wallCounter == 0)
+            {
+                _player.output.DisplayPlacedAllAvailableWallsMessage();
+                return;
+            }
+
             _wallValidator.InitializeVectors(wallStartPosition, wallEndPosition);
             if (_wallValidator.WallDoesNotMeetTheRequirements()) return;
 
@@ -33,6 +39,11 @@ namespace Quoridor.Core.Player
             _wallEndPosition = wallEndPosition;
             
             PlaceNewWall();
+        }
+
+        internal void SetOutput(IOutput output)
+        {
+            _wallValidator.SetOutput(output);
         }
 
         private void PlaceNewWall()

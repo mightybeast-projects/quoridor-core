@@ -10,20 +10,20 @@ namespace Quoridor.Core.Player
         private Vector2 _wallMiddlePosition;
         private Vector2 _wallEndPosition;
         private Player _player;
-        private List<Wall> _placedWalls;
+        private IOutput _output;
 
-        public WallValidator(Player player)
+        internal WallValidator(Player player)
         {
             _player = player;
         }
 
-        public void InitializeVectors(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        internal void InitializeVectors(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
             _wallStartPosition = wallStartPosition;
             _wallEndPosition = wallEndPosition;
         }
 
-        public bool WallDoesNotMeetTheRequirements()
+        internal bool WallDoesNotMeetTheRequirements()
         {
             SendAppropriateMessageIfWallDoesNotMeetTheRequirements();
 
@@ -37,20 +37,25 @@ namespace Quoridor.Core.Player
             return false;
         }
 
+        internal void SetOutput(IOutput output)
+        {
+            _output = output;
+        }
+
         private void SendAppropriateMessageIfWallDoesNotMeetTheRequirements()
         {
-            if (_player.output != null)
+            if (_output != null)
             {
                 if (WallIsNotOnTheSameLine())
-                    _player.output.DisplayWallIsNotOnTheSameLine();
+                    _output.DisplayWallIsNotOnTheSameLine();
                 if (WallIsTooLong())
-                    _player.output.DisplayWallIsTooLongMessage();
+                    _output.DisplayWallIsTooLongMessage();
                 if (WallTilesHavePairCoordinates())
-                    _player.output.DisplayWallTilesHavePairCoordinates();
+                    _output.DisplayWallTilesHavePairCoordinates();
                 if (WallDoesNotCoverTwoSolidTiles())
-                    _player.output.DisplayWallDoesNotCoverTwoSolidTiles();
+                    _output.DisplayWallDoesNotCoverTwoSolidTiles();
                 if(WallInterceptsWithOtherWall())
-                    _player.output.DisplayWallInterceptsWithOtherWall();
+                    _output.DisplayWallInterceptsWithOtherWall();
             }
         }
 
@@ -84,9 +89,7 @@ namespace Quoridor.Core.Player
 
         private bool WallInterceptsWithOtherWall()
         {
-            _placedWalls = _player.placedWalls;
-
-            foreach(Wall placedWall in _placedWalls)
+            foreach(Wall placedWall in _player.placedWalls)
                 if (CurrentWallContainsSameTilesOf(placedWall))
                     return true;
 
