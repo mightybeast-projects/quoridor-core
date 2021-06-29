@@ -37,13 +37,17 @@ namespace Quoridor.Terminal
         private void DrawIndexLines()
         {
             for (int i = 0; i < _board.grid.GetLength(1); i++)
-            {
-                if (i < 10)
-                    Console.Write(" " + i + " ");
-                else
-                    Console.Write(" " + i);
-            }
+                DrawIndexLabel(i);
+                
             Console.WriteLine();
+        }
+
+        private static void DrawIndexLabel(int i)
+        {
+            if (i < 10)
+                Console.Write(" " + i + " ");
+            else
+                Console.Write(" " + i);
         }
 
         private void DrawBoardUnit(int i, int j)
