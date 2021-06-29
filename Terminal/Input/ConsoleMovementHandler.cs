@@ -1,15 +1,16 @@
 using System;
 using Quoridor.Core.Player;
 
-namespace Quoridor.Terminal.ConsoleInputHandler
+namespace Quoridor.Terminal.Input
 {
     public class ConsoleMovementHandler : InputHandler
     {
         public ConsoleMessageDisplay messageDisplay 
         { 
-            get => _messageDisplay; 
+            get => _messageDisplay;
             internal set => _messageDisplay = value; 
         }
+
         private ConsoleMessageDisplay _messageDisplay;
 
         public ConsoleMovementHandler(Player player) : base(player) {}

@@ -1,6 +1,6 @@
 using Quoridor.Core.Player;
 
-namespace Quoridor.Terminal
+namespace Quoridor.Terminal.Input
 {
     public abstract class InputHandler
     {

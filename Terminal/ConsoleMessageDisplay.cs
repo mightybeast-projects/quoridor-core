@@ -23,9 +23,7 @@ namespace Quoridor.Terminal
 
         public void DisplayEdgeMoveErrorMessage()
         {
-            SetErrorMessageConsoleColor();
-            Console.WriteLine("Can't move to the given direction. Player is at the edge of the board.");
-            ResetConsoleColor();
+            DisplayErrorMessage("Can't move to the given direction. Player is at the edge of the board.");
         }
 
         public void DisplayIncorrectMenuItemMessage()
@@ -66,6 +64,13 @@ namespace Quoridor.Terminal
         private void DisplayWarningMessage(String messageToShow)
         {
             SetWarningMessageConsoleColor();
+            Console.WriteLine(messageToShow);
+            ResetConsoleColor();
+        }
+
+        private void DisplayErrorMessage(String messageToShow)
+        {
+            SetErrorMessageConsoleColor();
             Console.WriteLine(messageToShow);
             ResetConsoleColor();
         }
