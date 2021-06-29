@@ -6,24 +6,36 @@ namespace Quoridor.Terminal.ConsoleInputHandler
 {
     public class ConsoleWallPlacementHandler : InputHandler
     {
+        private string _startPositionString;
+        private string _endPositionString;
+
+        private Vector2 _wallStartPosition = Vector2.Zero;
+        private Vector2 _wallEndPosition = Vector2.Zero;
+
         public ConsoleWallPlacementHandler(Player player) : base(player) {}
 
         public override void HandleInput()
         {
+            ReadInput();
+            ParseInput();
+
+            _player.PlaceWall(_wallStartPosition, _wallEndPosition);
+        }
+
+        private void ReadInput()
+        {
             Console.WriteLine("Input wall start position (Example: 0 1)");
-            string startPositionString = Console.ReadLine();
+            _startPositionString = Console.ReadLine();
             Console.WriteLine("Input wall end position (Example: 2 1)");
-            string endPositionString = Console.ReadLine();
+            _endPositionString = Console.ReadLine();
+        }
 
-            int wallStartPositionX = int.Parse(startPositionString.Split(" ")[0]);
-            int wallStartPositionY = int.Parse(startPositionString.Split(" ")[1]);
-            int wallEndPositionX = int.Parse(endPositionString.Split(" ")[0]);
-            int wallEndPositionY = int.Parse(endPositionString.Split(" ")[1]);
-
-            Vector2 wallStartPosition = new Vector2(wallStartPositionX, wallStartPositionY);
-            Vector2 wallEndPosition = new Vector2(wallEndPositionX, wallEndPositionY);
-
-            _player.PlaceWall(wallStartPosition, wallEndPosition);
+        private void ParseInput()
+        {
+            _wallStartPosition.X = int.Parse(_startPositionString.Split(" ")[0]);
+            _wallStartPosition.Y = int.Parse(_startPositionString.Split(" ")[1]);
+            _wallEndPosition.X = int.Parse(_endPositionString.Split(" ")[0]);
+            _wallEndPosition.Y = int.Parse(_endPositionString.Split(" ")[1]);
         }
     }
 }
