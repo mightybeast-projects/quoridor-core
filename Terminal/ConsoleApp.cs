@@ -11,7 +11,7 @@ namespace Quoridor.Terminal
         private Player _player;
         private ConsoleDrawer _drawer;
         private ConsoleMessageDisplay _messageDisplay;
-        private ConsoleMainMenuHandler _mainMenuHandler;
+        private InputHandler _inputHandler;
 
         public ConsoleApp(Board board, Player player)
         {
@@ -19,7 +19,7 @@ namespace Quoridor.Terminal
             _player = player;
             _drawer = new ConsoleDrawer(board, player);
             _messageDisplay = new ConsoleMessageDisplay();
-            _mainMenuHandler = new ConsoleMainMenuHandler(_messageDisplay, _player);
+            _inputHandler = new ConsoleMainMenuHandler(_messageDisplay, _player);
 
             _player.SetOutput(_messageDisplay);
         }
@@ -37,7 +37,7 @@ namespace Quoridor.Terminal
         {
             _drawer.DrawBoard();
             _messageDisplay.PrintConsoleMenu();
-            _mainMenuHandler.HandleInput();
+            _inputHandler.HandleInput();
         }
     }
 }
