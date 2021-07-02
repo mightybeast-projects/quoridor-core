@@ -59,6 +59,18 @@ namespace Quoridor.Tests
             AssertPositionAndTileDidNotChangeAfterMoveOnEdge(new Vector2(0, 0), _player.MoveLeft);
         }
 
+        [Test]
+        public void MovePlayerUpWithWallOnTheWay()
+        {
+            _player.SetPosition(8, 2);
+            _player.PlaceWall(new Vector2(8, 3), new Vector2(10, 3));
+            _player.MoveUp();
+
+            Assert.AreEqual(new Vector2(8, 2), _player.position);
+            Assert.IsTrue(_board.grid[8, 4].isEmpty);
+            Assert.IsFalse(_board.grid[8, 2].isEmpty);
+        }
+
         private void MovePlayerAndAssertPostion(Action movementFunction, Vector2 previousPosition, Vector2 currentPosition)
         {
             movementFunction();

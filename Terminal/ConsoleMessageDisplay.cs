@@ -61,6 +61,11 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("You placed all of your available walls.");
         }
 
+        public void DisplayWallIsOnTheWayMessage()
+        {
+            DisplayWarningMessage("Wall is on the way of movement.");
+        }
+
         private void DisplayWarningMessage(String messageToShow)
         {
             SetWarningMessageConsoleColor();

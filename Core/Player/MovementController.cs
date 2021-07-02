@@ -9,6 +9,8 @@ namespace Quoridor.Core.Player
 
         private Player _player;
         private Vector2 _position;
+        private Vector2 _moveVector;
+        private bool _wallIsOnTheWay;
         public MovementController(Player player)
         {
             _player = player;
@@ -37,23 +39,47 @@ namespace Quoridor.Core.Player
 
         internal void Move(Vector2 moveVector)
         {
-            try { MakeMove(moveVector); }
-            catch (Exception) { RevertMove(moveVector); }
+            _moveVector = moveVector;
+
+            try { CheckForWallOnTheWay(); }
+            catch (Exception) { return; }
+
+            if(_wallIsOnTheWay) return;
+            
+            try { MakeMove(); }
+            catch (IndexOutOfRangeException) { RevertMove(); }
         }
 
-        private void MakeMove(Vector2 moveVector)
+        private void CheckForWallOnTheWay()
         {
-            ChangeCurrentPositionTileEmptyStatus(true);
-            _position += moveVector;
-            ChangeCurrentPositionTileEmptyStatus(false);
+            if(WallIsOnTheWay())
+            {
+                if(_player.output != null)
+                    _player.output.DisplayWallIsOnTheWayMessage();
+                _wallIsOnTheWay = true;
+            }
         }
 
-        private void RevertMove(Vector2 moveVector)
+        private void MakeMove()
+        {
+            SetPosition(_position + _moveVector);
+        }
+
+        private void RevertMove()
         {
             if (_player.output != null)
                 _player.output.DisplayEdgeMoveErrorMessage();
-            _position -= moveVector;
+            _position -= _moveVector;
             ChangeCurrentPositionTileEmptyStatus(false);
+        }
+
+        private bool WallIsOnTheWay()
+        {
+            Vector2 wallCheckVector = new Vector2(_moveVector.X / 2, _moveVector.Y / 2);
+            int wallPositionX = (int) (wallCheckVector.X + _position.X);
+            int wallPositionY = (int) (wallCheckVector.Y + _position.Y);
+
+            return !_player.board.grid[wallPositionX, wallPositionY].isEmpty;
         }
     }
 }
