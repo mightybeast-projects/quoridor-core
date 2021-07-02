@@ -7,6 +7,9 @@ namespace Quoridor.Tests.WallPlacement
     [TestFixture]
     public class CorrectWallPlacement : Initialization
     {
+        private Vector2 _startTile;
+        private Vector2 _endTile;
+
         [Test]
         public void PlaceCorrectWall()
         {
@@ -27,20 +30,22 @@ namespace Quoridor.Tests.WallPlacement
 
         private void PlaceAndAssertCorrectWall(Vector2 startTile, Vector2 endTile)
         {
+            _startTile = startTile;
+            _endTile = endTile;
             _player.PlaceWall(startTile, endTile);
 
-            AssertWallPlacedAndCheckTiles(startTile, endTile);
+            AssertWallPlacedAndTilesAreNotEmpty();
         }
 
-        private void AssertWallPlacedAndCheckTiles(Vector2 startTile, Vector2 endTile)
+        private void AssertWallPlacedAndTilesAreNotEmpty()
         {
             Assert.AreEqual(9, _player.wallCounter);
             Assert.AreEqual(1, _player.placedWalls.Count);
-            Assert.IsFalse(_board.grid[(int) startTile.X, (int) startTile.Y].isEmpty);
+            Assert.IsFalse(_board.grid[(int) _startTile.X, (int) _startTile.Y].isEmpty);
             Assert.IsFalse(
-                _board.grid[(int) (startTile.X + endTile.X) / 2,
-                            (int) (startTile.Y + endTile.Y) / 2].isEmpty);
-            Assert.IsFalse(_board.grid[(int) endTile.X, (int) endTile.Y].isEmpty);
+                _board.grid[(int) (_startTile.X + _endTile.X) / 2,
+                            (int) (_startTile.Y + _endTile.Y) / 2].isEmpty);
+            Assert.IsFalse(_board.grid[(int) _endTile.X, (int) _endTile.Y].isEmpty);
         }
     }
 }
