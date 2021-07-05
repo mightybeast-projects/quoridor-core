@@ -11,37 +11,37 @@ namespace Quoridor.Tests.PlayerMovement
         public void MovePlayerUpWithWallOnTheWay()
         {
             AssertPlayerDidNotMoveWithWallOnTheWay(
-                _player.MoveUp, new Vector2(8, 3), new Vector2(10, 3));
+                _firstPlayer.MoveUp, new Vector2(8, 3), new Vector2(10, 3));
         }
 
         [Test]
         public void MovePlayerDownWithWallOnTheWay()
         {
             AssertPlayerDidNotMoveWithWallOnTheWay(
-                _player.MoveDown, new Vector2(8, 1), new Vector2(10, 1));
+                _firstPlayer.MoveDown, new Vector2(8, 1), new Vector2(10, 1));
         }
 
         [Test]
         public void MovePlayerRightWithWallOnTheWay()
         {
             AssertPlayerDidNotMoveWithWallOnTheWay(
-                _player.MoveRight, new Vector2(9, 0), new Vector2(9, 2));
+                _firstPlayer.MoveRight, new Vector2(9, 0), new Vector2(9, 2));
         }
         
         [Test]
         public void MovePlayerLeftWithWallOnTheWay()
         {
             AssertPlayerDidNotMoveWithWallOnTheWay(
-                _player.MoveLeft, new Vector2(7, 0), new Vector2(7, 2));
+                _firstPlayer.MoveLeft, new Vector2(7, 0), new Vector2(7, 2));
         }
         private void AssertPlayerDidNotMoveWithWallOnTheWay(
             Action MovementFunction, Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
-            _player.SetPosition(8, 2);
-            _player.PlaceWall(wallStartPosition, wallEndPosition);
+            _firstPlayer.SetPosition(8, 2);
+            _firstPlayer.PlaceWall(wallStartPosition, wallEndPosition);
             MovementFunction();
 
-            Assert.AreEqual(new Vector2(8, 2), _player.position);
+            Assert.AreEqual(new Vector2(8, 2), _firstPlayer.position);
             Assert.IsTrue(!_board.grid[8, 2].isEmpty);
         }
     }

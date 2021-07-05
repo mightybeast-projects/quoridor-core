@@ -8,7 +8,8 @@ namespace Quoridor.Tests
     {
         protected Tile _tile;
         protected Board _board;
-        protected Player _player;
+        protected Player _firstPlayer;
+        protected Player _secondPlayer;
         protected Wall _wall;
 
         [SetUp]
@@ -16,7 +17,8 @@ namespace Quoridor.Tests
         {
             _tile = new Tile();
             _board = new Board(17, 17);
-            _player = new Player(_board);
+            _firstPlayer = new Player(_board);
+            _secondPlayer = new Player(_board);
         }
     }
 }

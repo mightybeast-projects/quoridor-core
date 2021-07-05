@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 using System.Numerics;
 using Quoridor.Core;
@@ -9,13 +10,14 @@ namespace Quoridor.Terminal
     public class ConsoleDrawer
     {
         private Board _board;
-        private Player _player;
+        private List<Player> _players;
+        private Player _currentPlayer;
         private IDrawable _drawable;
 
-        public ConsoleDrawer(Board board, Player player)
+        public ConsoleDrawer(Board board, List<Player> players)
         {
             _board = board;
-            _player = player;
+            _players = players;
         }
 
         public void DrawBoard()
@@ -52,30 +54,52 @@ namespace Quoridor.Terminal
 
         private void DrawBoardUnit(int i, int j)
         {
-            if (UnitIsPlayer(i, j))
-                _drawable = new PlayerDrawable();
-            else if (UnitIsWall(i, j))
-                _drawable = new WallDrawable();
-            else
-            {
-                if(TileIndexesAreDividableByTwo(i, j))
-                    _drawable = new SolidTileDrawable();
-                else
-                    _drawable = new VoidTileDrawable();
-            }
+            ChooseDrawable(i, j);
 
             _drawable.Draw();
 
             Console.ResetColor();
         }
 
+        private void ChooseDrawable(int i, int j)
+        {
+            for (int k = 0; k < _players.Count; k++)
+            {
+                Player player = _players[k];
+                _currentPlayer = player;
+                if (UnitIsPlayer(i, j))
+                {
+                    _drawable = new PlayerDrawable(k);
+                    return;
+                }
+            }
+            
+            if (UnitIsWall(i, j))
+                _drawable = new WallDrawable();
+            else if (TileIndexesAreDividableByTwo(i, j))
+                _drawable = new SolidTileDrawable();
+            else
+                _drawable = new VoidTileDrawable();
+        }
+
         private bool UnitIsWall(int i, int j)
         {
             Vector2 currentPosition = new Vector2(i, j);
-            foreach(Wall wall in _player.placedWalls)
-                if (CurrentPositionIsWall(currentPosition, wall) && !_board.grid[i, j].isEmpty) return true;
+            foreach(Player player in _players)
+                foreach(Wall wall in player.placedWalls)
+                    if (CurrentPositionIsWall(currentPosition, wall) && !_board.grid[i, j].isEmpty) return true;
 
             return false;
+        }
+
+        private bool UnitIsPlayer(int i, int j)
+        {
+            return _currentPlayer.position.X == i && _currentPlayer.position.Y == j;
+        }
+
+        private bool TileIndexesAreDividableByTwo(int i, int j)
+        {
+            return i % 2 == 0 && j % 2 == 0;
         }
 
         private static bool CurrentPositionIsWall(Vector2 currentPosition, Wall wall)
@@ -83,16 +107,6 @@ namespace Quoridor.Terminal
             return wall.startPosition == currentPosition || 
                     wall.middlePosition == currentPosition || 
                     wall.endPosition == currentPosition;
-        }
-
-        private bool UnitIsPlayer(int i, int j)
-        {
-            return _player.position.X == i && _player.position.Y == j;
-        }
-
-        private bool TileIndexesAreDividableByTwo(int i, int j)
-        {
-            return i % 2 == 0 && j % 2 == 0;
         }
     }
 }

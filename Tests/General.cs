@@ -38,15 +38,15 @@ namespace Quoridor.Tests
         [Test]
         public void CreatePlayer()
         {
-            Assert.IsNotNull(_player.board);
+            Assert.IsNotNull(_firstPlayer.board);
             Assert.IsTrue(!_board.grid[0, 0].isEmpty);
-            Assert.AreEqual(new Vector2(0, 0), _player.position);
+            Assert.AreEqual(new Vector2(0, 0), _firstPlayer.position);
 
-            _player.SetPosition(8, 0);
+            _firstPlayer.SetPosition(8, 0);
 
             Assert.IsTrue(_board.grid[0, 0].isEmpty);
             Assert.IsTrue(!_board.grid[8, 0].isEmpty);
-            Assert.AreEqual(new Vector2(8, 0), _player.position);
+            Assert.AreEqual(new Vector2(8, 0), _firstPlayer.position);
         }
     }
 }
