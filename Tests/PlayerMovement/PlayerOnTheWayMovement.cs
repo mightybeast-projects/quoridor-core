@@ -59,20 +59,61 @@ namespace Quoridor.Tests.PlayerMovement
         [Test]
         public void PlayerOnTheWayUpAndOnTheEdge()
         {
-            _firstPlayer.SetPosition(8, 14);
-            _secondPlayer.SetPosition(8, 16);
-            _firstPlayer.MoveUp();
+            _firstPlayerPosition = new Vector2(8, 14);
+            _secondPlayerPosition = new Vector2(8, 16);
+            FirstPlayerMovementFunction = _firstPlayer.MoveUp;
 
-            Assert.IsFalse(_board.grid[8, 14].isEmpty);
-            Assert.IsFalse(_board.grid[8, 16].isEmpty);
-            Assert.AreEqual(new Vector2(8, 14), _firstPlayer.position);
+            MoveAndAssertThatNothingChanged();
+        }
+
+        [Test]
+        public void PlayerOnTheWayDownAndOnTheEdge()
+        {
+            _firstPlayerPosition = new Vector2(8, 2);
+            _secondPlayerPosition = new Vector2(8, 0);
+            FirstPlayerMovementFunction = _firstPlayer.MoveDown;
+
+            MoveAndAssertThatNothingChanged();
+        }
+
+        [Test]
+        public void PlayerOnTheWayRightAndOnTheEdge()
+        {
+            _firstPlayerPosition = new Vector2(14, 0);
+            _secondPlayerPosition = new Vector2(16, 0);
+            FirstPlayerMovementFunction = _firstPlayer.MoveRight;
+
+            MoveAndAssertThatNothingChanged();
+        }
+
+        [Test]
+        public void PlayerOnTheWayLeftAndOnTheEdge()
+        {
+            _firstPlayerPosition = new Vector2(2, 0);
+            _secondPlayerPosition = new Vector2(0, 0);
+            FirstPlayerMovementFunction = _firstPlayer.MoveLeft;
+
+            MoveAndAssertThatNothingChanged();
+        }
+
+        private void MoveAndAssertThatNothingChanged()
+        {
+            ApplyInitializedFields();
+
+            Assert.IsFalse(
+                _board.grid[(int)_firstPlayerPosition.X, (int)_firstPlayerPosition.Y]
+                .isEmpty);
+            Assert.IsFalse(
+                _board.grid[(int)_secondPlayerPosition.X, (int)_secondPlayerPosition.Y]
+                .isEmpty);
+            Assert.AreEqual(
+                new Vector2((int)_firstPlayerPosition.X, (int)_firstPlayerPosition.Y),
+                _firstPlayer.position);
         }
 
         private void MoveAndAssertWhilePlayerOnTheWay()
         {
-            _firstPlayer.SetPosition(_firstPlayerPosition);
-            _secondPlayer.SetPosition(_secondPlayerPosition);
-            FirstPlayerMovementFunction();
+            ApplyInitializedFields();
 
             Assert.IsTrue(
                 _board.grid[(int) _firstPlayerPosition.X, (int) _firstPlayerPosition.Y]
@@ -86,6 +127,13 @@ namespace Quoridor.Tests.PlayerMovement
             Assert.AreEqual(
                 new Vector2((int) _expectedPosition.X, (int) _expectedPosition.Y), 
                 _firstPlayer.position);
+        }
+
+        private void ApplyInitializedFields()
+        {
+            _firstPlayer.SetPosition(_firstPlayerPosition);
+            _secondPlayer.SetPosition(_secondPlayerPosition);
+            FirstPlayerMovementFunction();
         }
     }
 }

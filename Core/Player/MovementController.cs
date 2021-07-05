@@ -47,31 +47,52 @@ namespace Quoridor.Core.Player
         internal void Move(Vector2 moveVector)
         {
             _moveVector = moveVector;
+
+            CalculateExpectedPosition();
+
+            if (ExpectedPositionDoesNotMeetRequirements()) return;
+
+            MakeMove();
+        }
+
+        private bool ExpectedPositionDoesNotMeetRequirements()
+        {
+            return CheckForExpectedPosition() || CheckForPlayerOnTheWay() || CheckForWallOnTheWay();
+        }
+
+        private void CalculateExpectedPosition()
+        {
             _expectedPosition = _position + _moveVector;
-
-            try { CheckForWallOnTheWay(); }
-            catch (IndexOutOfRangeException) { return; }
-
-            if (_wallIsOnTheWay) return;
 
             _expectedPositionX = (int)_expectedPosition.X;
             _expectedPositionY = (int)_expectedPosition.Y;
+        }
+
+        private bool CheckForPlayerOnTheWay()
+        {
             if (AnotherPlayerIsOnExpectedPosition())
                 _expectedPosition = _position + _moveVector * 2;
+
+            if (CheckForExpectedPosition()) return true;
+
+            return false;
+        }
+
+        private bool CheckForExpectedPosition()
+        {
             if (ExpectedPositionIsBeyondTheBoard())
             {
                 if (_player.output != null)
-                    _player.output.DisplayEdgeMoveErrorMessage();
-                return;
+                    _player.output.DisplayCantMoveErrorMessage();
+                return true;
             }
-
-            try { MakeMove(); }
-            catch (IndexOutOfRangeException) { RevertMove(); }
+            return false;
         }
 
         private bool ExpectedPositionIsBeyondTheBoard()
         {
-            return _expectedPosition.X > 16 || _expectedPosition.Y > 16;
+            return _expectedPosition.X > 16 || _expectedPosition.Y > 16 || 
+                    _expectedPosition.X < 0 || _expectedPosition.Y < 0;
         }
 
         private static bool PositionIsNotSolidTile(int x, int y)
@@ -79,14 +100,15 @@ namespace Quoridor.Core.Player
             return x % 2 != 0 || y % 2 != 0;
         }
 
-        private void CheckForWallOnTheWay()
+        private bool CheckForWallOnTheWay()
         {
             if(WallIsOnTheWay())
             {
                 if(_player.output != null)
                     _player.output.DisplayWallIsOnTheWayMessage();
-                _wallIsOnTheWay = true;
+                return true;
             }
+            return false;
         }
 
         private void MakeMove()
@@ -97,13 +119,6 @@ namespace Quoridor.Core.Player
         private bool AnotherPlayerIsOnExpectedPosition()
         {
             return !_player.board.grid[_expectedPositionX, _expectedPositionY].isEmpty;
-        }
-
-        private void RevertMove()
-        {
-            
-            _position -= _moveVector;
-            ChangeCurrentPositionTileEmptyStatus(false);
         }
 
         private bool WallIsOnTheWay()

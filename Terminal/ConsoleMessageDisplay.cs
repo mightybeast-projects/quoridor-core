@@ -21,9 +21,9 @@ namespace Quoridor.Terminal
             Console.WriteLine("4: Move player left");
         }
 
-        public void DisplayEdgeMoveErrorMessage()
+        public void DisplayCantMoveErrorMessage()
         {
-            DisplayErrorMessage("Can't move to the given direction. Player is at the edge of the board.");
+            DisplayErrorMessage("Can't move to the given direction.");
         }
 
         public void DisplayIncorrectMenuItemMessage()
