@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 using NUnit.Framework;
 
@@ -6,56 +7,73 @@ namespace Quoridor.Tests.PlayerMovement
     [TestFixture]
     public class PlayerOnTheWayMovement : Initialization
     {
+        private Vector2 _firstPlayerPosition;
+        private Vector2 _secondPlayerPosition;
+        private Vector2 _expectedPosition;
+        private Action FirstPlayerMovementFunction;
+
         [Test]
         public void PlayerOnTheWayUp()
         {
-            _firstPlayer.SetPosition(8, 8);
-            _secondPlayer.SetPosition(8, 10);
-            _firstPlayer.MoveUp();
+            _firstPlayerPosition = new Vector2(8, 8);
+            _secondPlayerPosition = new Vector2(8, 10);
+            _expectedPosition = new Vector2(8, 12);
+            FirstPlayerMovementFunction = _firstPlayer.MoveUp;
 
-            Assert.IsTrue(_board.grid[8, 8].isEmpty);
-            Assert.IsFalse(_board.grid[8, 10].isEmpty);
-            Assert.IsFalse(_board.grid[8, 12].isEmpty);
-            Assert.AreEqual(new Vector2(8, 12), _firstPlayer.position);
+            MoveAndAssertWhilePlayerOnTheWay();
         }
 
         [Test]
         public void PlayerOnTheWayDown()
         {
-            _firstPlayer.SetPosition(8, 10);
-            _secondPlayer.SetPosition(8, 8);
-            _firstPlayer.MoveDown();
+            _firstPlayerPosition = new Vector2(8, 10);
+            _secondPlayerPosition = new Vector2(8, 8);
+            _expectedPosition = new Vector2(8, 6);
+            FirstPlayerMovementFunction = _firstPlayer.MoveDown;
 
-            Assert.IsTrue(_board.grid[8, 10].isEmpty);
-            Assert.IsFalse(_board.grid[8, 8].isEmpty);
-            Assert.IsFalse(_board.grid[8, 6].isEmpty);
-            Assert.AreEqual(new Vector2(8, 6), _firstPlayer.position);
+            MoveAndAssertWhilePlayerOnTheWay();
         }
 
         [Test]
         public void PlayerOnTheWayRight()
         {
-            _firstPlayer.SetPosition(8, 8);
-            _secondPlayer.SetPosition(10, 8);
-            _firstPlayer.MoveRight();
+            _firstPlayerPosition = new Vector2(8, 8);
+            _secondPlayerPosition = new Vector2(10, 8);
+            _expectedPosition = new Vector2(12, 8);
+            FirstPlayerMovementFunction = _firstPlayer.MoveRight;
 
-            Assert.IsTrue(_board.grid[8, 8].isEmpty);
-            Assert.IsFalse(_board.grid[10, 8].isEmpty);
-            Assert.IsFalse(_board.grid[12, 8].isEmpty);
-            Assert.AreEqual(new Vector2(12, 8), _firstPlayer.position);
+            MoveAndAssertWhilePlayerOnTheWay();
         }
 
         [Test]
         public void PlayerOnTheWayLeft()
         {
-            _firstPlayer.SetPosition(8, 8);
-            _secondPlayer.SetPosition(6, 8);
-            _firstPlayer.MoveLeft();
+            _firstPlayerPosition = new Vector2(8, 8);
+            _secondPlayerPosition = new Vector2(6, 8);
+            _expectedPosition = new Vector2(4, 8);
+            FirstPlayerMovementFunction = _firstPlayer.MoveLeft;
 
-            Assert.IsTrue(_board.grid[8, 8].isEmpty);
-            Assert.IsFalse(_board.grid[6, 8].isEmpty);
-            Assert.IsFalse(_board.grid[4, 8].isEmpty);
-            Assert.AreEqual(new Vector2(4, 8), _firstPlayer.position);
+            MoveAndAssertWhilePlayerOnTheWay();
+        }
+
+        private void MoveAndAssertWhilePlayerOnTheWay()
+        {
+            _firstPlayer.SetPosition(_firstPlayerPosition);
+            _secondPlayer.SetPosition(_secondPlayerPosition);
+            FirstPlayerMovementFunction();
+
+            Assert.IsTrue(
+                _board.grid[(int) _firstPlayerPosition.X, (int) _firstPlayerPosition.Y]
+                .isEmpty);
+            Assert.IsFalse(
+                _board.grid[(int) _secondPlayerPosition.X, (int) _secondPlayerPosition.Y]
+                .isEmpty);
+            Assert.IsFalse(
+                _board.grid[(int) _expectedPosition.X, (int) _expectedPosition.Y]
+                .isEmpty);
+            Assert.AreEqual(
+                new Vector2((int) _expectedPosition.X, (int) _expectedPosition.Y), 
+                _firstPlayer.position);
         }
     }
 }
