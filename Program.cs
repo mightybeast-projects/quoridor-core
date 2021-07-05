@@ -18,6 +18,7 @@ namespace Quoridor
 
             //SinglePlayerExample();
             TwoPlayersExample();
+            //FourPlayersExample();
 
             StartConsoleApp();
         }
@@ -28,12 +29,30 @@ namespace Quoridor
             _players = new List<Player>();
         }
 
+        private static void FourPlayersExample()
+        {
+            Player firstPlayer = new Player(_board);
+            _players.Add(firstPlayer);
+            Player secondPlayer = new Player(_board);
+            _players.Add(secondPlayer);
+            Player thirdPlayer = new Player(_board);
+            _players.Add(thirdPlayer);
+            Player fourthPlayer = new Player(_board);
+            _players.Add(fourthPlayer);
+
+            firstPlayer.SetPosition(8, 0);
+            secondPlayer.SetPosition(8, 16);
+            thirdPlayer.SetPosition(0, 8);
+            fourthPlayer.SetPosition(16, 8);
+        }
+
         private static void TwoPlayersExample()
         {
             Player firstPlayer = new Player(_board);
             _players.Add(firstPlayer);
             Player secondPlayer = new Player(_board);
             _players.Add(secondPlayer);
+
             firstPlayer.SetPosition(8, 0);
             secondPlayer.SetPosition(8, 4);
         }
@@ -42,6 +61,7 @@ namespace Quoridor
         {
             Player player = new Player(_board);
             _players.Add(player);
+            
             player.SetPosition(8, 0);
         }
 
