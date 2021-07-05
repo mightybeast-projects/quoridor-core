@@ -71,7 +71,18 @@ namespace Quoridor.Core.Player
 
         private void MakeMove()
         {
-            SetPosition(_position + _moveVector);
+            Vector2 expectedPosition = _position + _moveVector;
+            int expectedPositionX = (int)expectedPosition.X;
+            int expectedPositionY = (int)expectedPosition.Y;
+            if (PlayerIsOnExpectedPosition(expectedPositionX, expectedPositionY))
+                expectedPosition = _position + _moveVector * 2;
+
+            SetPosition(expectedPosition);
+        }
+
+        private bool PlayerIsOnExpectedPosition(int expectedPositionX, int expectedPositionY)
+        {
+            return !_player.board.grid[expectedPositionX, expectedPositionY].isEmpty;
         }
 
         private void RevertMove()

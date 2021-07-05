@@ -61,7 +61,7 @@ namespace Quoridor
         {
             Player player = new Player(_board);
             _players.Add(player);
-            
+
             player.SetPosition(8, 0);
         }
 
