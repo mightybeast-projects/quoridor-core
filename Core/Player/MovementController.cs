@@ -18,6 +18,7 @@ namespace Quoridor.Core.Player
 
         internal void SetPosition(int x, int y)
         {
+            if (PositionIsNotSolidTile(x, y)) return;
             ChangeCurrentPositionTileEmptyStatus(true);
             _position = new Vector2(x, y);
             ChangeCurrentPositionTileEmptyStatus(false);
@@ -25,6 +26,7 @@ namespace Quoridor.Core.Player
 
         internal void SetPosition(Vector2 newPosition)
         {
+            if (PositionIsNotSolidTile((int) newPosition.X, (int) newPosition.Y)) return;
             ChangeCurrentPositionTileEmptyStatus(true);
             _position = newPosition;
             ChangeCurrentPositionTileEmptyStatus(false);
@@ -48,6 +50,11 @@ namespace Quoridor.Core.Player
             
             try { MakeMove(); }
             catch (IndexOutOfRangeException) { RevertMove(); }
+        }
+
+        private static bool PositionIsNotSolidTile(int x, int y)
+        {
+            return x % 2 != 0 || y % 2 != 0;
         }
 
         private void CheckForWallOnTheWay()

@@ -48,5 +48,15 @@ namespace Quoridor.Tests
             Assert.IsTrue(!_board.grid[8, 0].isEmpty);
             Assert.AreEqual(new Vector2(8, 0), _firstPlayer.position);
         }
+
+        [Test]
+        public void SetWrongPlayerPosition()
+        {
+            _firstPlayer.SetPosition(0, 1);
+
+            Assert.IsTrue(_board.grid[0, 1].isEmpty);
+            Assert.IsFalse(_board.grid[0, 0].isEmpty);
+            Assert.AreEqual(new Vector2(0, 0), _firstPlayer.position);
+        }
     }
 }
