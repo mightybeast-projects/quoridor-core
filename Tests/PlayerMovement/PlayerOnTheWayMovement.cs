@@ -56,6 +56,18 @@ namespace Quoridor.Tests.PlayerMovement
             MoveAndAssertWhilePlayerOnTheWay();
         }
 
+        [Test]
+        public void PlayerOnTheWayUpAndOnTheEdge()
+        {
+            _firstPlayer.SetPosition(8, 14);
+            _secondPlayer.SetPosition(8, 16);
+            _firstPlayer.MoveUp();
+
+            Assert.IsFalse(_board.grid[8, 14].isEmpty);
+            Assert.IsFalse(_board.grid[8, 16].isEmpty);
+            Assert.AreEqual(new Vector2(8, 14), _firstPlayer.position);
+        }
+
         private void MoveAndAssertWhilePlayerOnTheWay()
         {
             _firstPlayer.SetPosition(_firstPlayerPosition);

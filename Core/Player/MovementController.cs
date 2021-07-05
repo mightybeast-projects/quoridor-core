@@ -10,6 +10,9 @@ namespace Quoridor.Core.Player
         private Player _player;
         private Vector2 _position;
         private Vector2 _moveVector;
+        private Vector2 _expectedPosition;
+        private int _expectedPositionX;
+        private int _expectedPositionY;
         private bool _wallIsOnTheWay;
         public MovementController(Player player)
         {
@@ -44,14 +47,31 @@ namespace Quoridor.Core.Player
         internal void Move(Vector2 moveVector)
         {
             _moveVector = moveVector;
+            _expectedPosition = _position + _moveVector;
 
             try { CheckForWallOnTheWay(); }
             catch (IndexOutOfRangeException) { return; }
 
-            if(_wallIsOnTheWay) return;
-            
+            if (_wallIsOnTheWay) return;
+
+            _expectedPositionX = (int)_expectedPosition.X;
+            _expectedPositionY = (int)_expectedPosition.Y;
+            if (AnotherPlayerIsOnExpectedPosition())
+                _expectedPosition = _position + _moveVector * 2;
+            if (ExpectedPositionIsBeyondTheBoard())
+            {
+                if (_player.output != null)
+                    _player.output.DisplayEdgeMoveErrorMessage();
+                return;
+            }
+
             try { MakeMove(); }
             catch (IndexOutOfRangeException) { RevertMove(); }
+        }
+
+        private bool ExpectedPositionIsBeyondTheBoard()
+        {
+            return _expectedPosition.X > 16 || _expectedPosition.Y > 16;
         }
 
         private static bool PositionIsNotSolidTile(int x, int y)
@@ -71,24 +91,17 @@ namespace Quoridor.Core.Player
 
         private void MakeMove()
         {
-            Vector2 expectedPosition = _position + _moveVector;
-            int expectedPositionX = (int)expectedPosition.X;
-            int expectedPositionY = (int)expectedPosition.Y;
-            if (PlayerIsOnExpectedPosition(expectedPositionX, expectedPositionY))
-                expectedPosition = _position + _moveVector * 2;
-
-            SetPosition(expectedPosition);
+            SetPosition(_expectedPosition);
         }
 
-        private bool PlayerIsOnExpectedPosition(int expectedPositionX, int expectedPositionY)
+        private bool AnotherPlayerIsOnExpectedPosition()
         {
-            return !_player.board.grid[expectedPositionX, expectedPositionY].isEmpty;
+            return !_player.board.grid[_expectedPositionX, _expectedPositionY].isEmpty;
         }
 
         private void RevertMove()
         {
-            if (_player.output != null)
-                _player.output.DisplayEdgeMoveErrorMessage();
+            
             _position -= _moveVector;
             ChangeCurrentPositionTileEmptyStatus(false);
         }

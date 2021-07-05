@@ -53,8 +53,8 @@ namespace Quoridor
             Player secondPlayer = new Player(_board);
             _players.Add(secondPlayer);
 
-            firstPlayer.SetPosition(8, 0);
-            secondPlayer.SetPosition(8, 4);
+            firstPlayer.SetPosition(8, 14);
+            secondPlayer.SetPosition(8, 16);
         }
 
         private static void SinglePlayerExample()
