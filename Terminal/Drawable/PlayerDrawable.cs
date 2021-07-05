@@ -16,6 +16,12 @@ namespace Quoridor.Terminal.Drawable
                 case 1:
                     _playerColor = ConsoleColor.DarkBlue;
                 break;
+                case 2:
+                    _playerColor = ConsoleColor.DarkYellow;
+                break;
+                case 3:
+                    _playerColor = ConsoleColor.DarkMagenta;
+                break;
             }
         }
 
