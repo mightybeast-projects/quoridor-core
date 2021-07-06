@@ -13,7 +13,7 @@ namespace Quoridor.Tests
         protected Wall _wall;
 
         [SetUp]
-        protected void SetUp()
+        protected virtual void SetUp()
         {
             _tile = new Tile();
             _board = new Board(17, 17);

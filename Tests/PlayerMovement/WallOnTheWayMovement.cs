@@ -7,38 +7,54 @@ namespace Quoridor.Tests.PlayerMovement
     [TestFixture]
     public class WallOnTheWayMovement : Initialization
     {
+        private Vector2 _wallStartPosition;
+        private Vector2 _wallEndPosition;
+        private Action MovementFunction;
+        
         [Test]
         public void MovePlayerUpWithWallOnTheWay()
         {
-            AssertPlayerDidNotMoveWithWallOnTheWay(
-                _firstPlayer.MoveUp, new Vector2(8, 3), new Vector2(10, 3));
+            _wallStartPosition = new Vector2(8, 3);
+            _wallEndPosition = new Vector2(10, 3);
+            MovementFunction = _firstPlayer.MoveUp;
+
+            AssertPlayerDidNotMoveWithWallOnTheWay();
         }
 
         [Test]
         public void MovePlayerDownWithWallOnTheWay()
         {
-            AssertPlayerDidNotMoveWithWallOnTheWay(
-                _firstPlayer.MoveDown, new Vector2(8, 1), new Vector2(10, 1));
+            _wallStartPosition = new Vector2(8, 1);
+            _wallEndPosition = new Vector2(10, 1);
+            MovementFunction = _firstPlayer.MoveDown;
+
+            AssertPlayerDidNotMoveWithWallOnTheWay();
         }
 
         [Test]
         public void MovePlayerRightWithWallOnTheWay()
         {
-            AssertPlayerDidNotMoveWithWallOnTheWay(
-                _firstPlayer.MoveRight, new Vector2(9, 0), new Vector2(9, 2));
+            _wallStartPosition = new Vector2(9, 0);
+            _wallEndPosition = new Vector2(9, 2);
+            MovementFunction = _firstPlayer.MoveRight;
+
+            AssertPlayerDidNotMoveWithWallOnTheWay();
         }
-        
+
         [Test]
         public void MovePlayerLeftWithWallOnTheWay()
         {
-            AssertPlayerDidNotMoveWithWallOnTheWay(
-                _firstPlayer.MoveLeft, new Vector2(7, 0), new Vector2(7, 2));
+            _wallStartPosition = new Vector2(7, 0);
+            _wallEndPosition = new Vector2(7, 2);
+            MovementFunction = _firstPlayer.MoveLeft;
+
+            AssertPlayerDidNotMoveWithWallOnTheWay();
         }
-        private void AssertPlayerDidNotMoveWithWallOnTheWay(
-            Action MovementFunction, Vector2 wallStartPosition, Vector2 wallEndPosition)
+        
+        private void AssertPlayerDidNotMoveWithWallOnTheWay()
         {
             _firstPlayer.SetPosition(8, 2);
-            _firstPlayer.PlaceWall(wallStartPosition, wallEndPosition);
+            _firstPlayer.PlaceWall(_wallStartPosition, _wallEndPosition);
             MovementFunction();
 
             Assert.AreEqual(new Vector2(8, 2), _firstPlayer.position);

@@ -7,38 +7,52 @@ namespace Quoridor.Tests.PlayerMovement
     [TestFixture]
     public class BoardEdgeMovement : Initialization
     {
+        private Vector2 _playerPosition;
+        private Action MovementFunction;
+
         [Test]
         public void MovePlayerOnTopEdgeOneSolidTileUp()
         {
-            AssertPositionAndTileDidNotChangeAfterMoveOnEdge(new Vector2(8, 16), _firstPlayer.MoveUp);
+            _playerPosition = new Vector2(8, 16);
+            MovementFunction = _firstPlayer.MoveUp;
+            
+            AssertNothingChangedAfterMoveOnEdge();
         }
 
         [Test]
         public void MovePlayerOnBottomEdgeOneSolidTileDown()
         {
-            AssertPositionAndTileDidNotChangeAfterMoveOnEdge(new Vector2(8, 0), _firstPlayer.MoveDown);
+            _playerPosition = new Vector2(8, 0);
+            MovementFunction = _firstPlayer.MoveDown;
+            
+            AssertNothingChangedAfterMoveOnEdge();
         }
 
         [Test]
         public void MovePlayerOnRightEdgeOneSolidTileRight()
         {
-            AssertPositionAndTileDidNotChangeAfterMoveOnEdge(new Vector2(16, 0), _firstPlayer.MoveRight);
+            _playerPosition = new Vector2(16, 0);
+            MovementFunction = _firstPlayer.MoveRight;
+            
+            AssertNothingChangedAfterMoveOnEdge();
         }
 
         [Test]
         public void MovePlayerOnLeftEdgeOneSolidTileLeft()
         {
-            AssertPositionAndTileDidNotChangeAfterMoveOnEdge(new Vector2(0, 0), _firstPlayer.MoveLeft);
+            _playerPosition = new Vector2(0, 0);
+            MovementFunction = _firstPlayer.MoveLeft;
+            
+            AssertNothingChangedAfterMoveOnEdge();
         }
 
-        private void AssertPositionAndTileDidNotChangeAfterMoveOnEdge(
-            Vector2 playerPosition, Action MovementFunction)
+        private void AssertNothingChangedAfterMoveOnEdge()
         {
-            _firstPlayer.SetPosition(playerPosition);
+            _firstPlayer.SetPosition(_playerPosition);
             MovementFunction();
 
-            Assert.AreEqual(playerPosition, _firstPlayer.position);
-            Assert.IsTrue(!_board.grid[(int)playerPosition.X, (int)playerPosition.Y].isEmpty);
+            Assert.AreEqual(_playerPosition, _firstPlayer.position);
+            Assert.IsTrue(!_board.grid[(int)_playerPosition.X, (int)_playerPosition.Y].isEmpty);
         }
     }
 }

@@ -7,45 +7,65 @@ namespace Quoridor.Tests.PlayerMovement
     [TestFixture]
     public class GeneralMovement : Initialization
     {
-        private Vector2 _playerStartPosition = new Vector2(8, 2);
+        private Action MovementFunction;
+        private Vector2 _playerStartPosition;
+        private Vector2 _expectedPosition;
+
+        protected override void SetUp()
+        {
+            base.SetUp();
+            _playerStartPosition = new Vector2(8, 2);
+        }
 
         [Test]
         public void MovePlayerOneSolidTileUp()
         {
-            MovePlayerAndAssertPostion(_firstPlayer.MoveUp, new Vector2(8, 4));
+            MovementFunction = _firstPlayer.MoveUp;
+            _expectedPosition = new Vector2(8, 4);
+
+            MovePlayerAndAssertPostion();
         }
 
         [Test]
         public void MovePlayerOneSolidTileDown()
         {
-            MovePlayerAndAssertPostion(_firstPlayer.MoveDown, new Vector2(8, 0));
+            MovementFunction = _firstPlayer.MoveDown;
+            _expectedPosition = new Vector2(8, 0);
+
+            MovePlayerAndAssertPostion();
         }
 
         [Test]
         public void MovePlayerOneSolidTileRight()
         {
-            MovePlayerAndAssertPostion(_firstPlayer.MoveRight, new Vector2(10, 2));
+            MovementFunction = _firstPlayer.MoveRight;
+            _expectedPosition = new Vector2(10, 2);
+
+            MovePlayerAndAssertPostion();
         }
 
         [Test]
         public void MovePlayerOneSolidTileLeft()
         {
-            MovePlayerAndAssertPostion(_firstPlayer.MoveLeft, new Vector2(6, 2));
+            MovementFunction = _firstPlayer.MoveLeft;
+            _expectedPosition = new Vector2(6, 2);
+
+            MovePlayerAndAssertPostion();
         }
 
-        private void MovePlayerAndAssertPostion(Action MovementFunction, Vector2 currentPosition)
+        private void MovePlayerAndAssertPostion()
         {
             _firstPlayer.SetPosition(_playerStartPosition);
             MovementFunction();
 
-            AssertPreviousAndCurrentTilesPosition(currentPosition);
+            AssertPreviousAndCurrentTilesPosition();
         }
 
-        private void AssertPreviousAndCurrentTilesPosition(Vector2 currentTilePosition)
+        private void AssertPreviousAndCurrentTilesPosition()
         {
-            Assert.AreEqual(currentTilePosition, _firstPlayer.position);
+            Assert.AreEqual(_expectedPosition, _firstPlayer.position);
             Assert.IsTrue(_board.grid[(int)_playerStartPosition.X, (int)_playerStartPosition.Y].isEmpty);
-            Assert.IsTrue(!_board.grid[(int)currentTilePosition.X, (int)currentTilePosition.Y].isEmpty);
+            Assert.IsTrue(!_board.grid[(int)_expectedPosition.X, (int)_expectedPosition.Y].isEmpty);
         }
     }
 }

@@ -6,28 +6,43 @@ namespace Quoridor.Tests.WallPlacement
     [TestFixture]
     public class WrongWallPlacement : Initialization
     {
+        private Vector2 _wallStartPosition;
+        private Vector2 _wallEndPosition;
+        
         [Test]
         public void PlaceLongWall()
         {
-            PlaceAndAssertWrongWall(new Vector2(0, 1), new Vector2(4, 1));
+            _wallStartPosition = new Vector2(0, 1);
+            _wallEndPosition = new Vector2(4, 1);
+
+            PlaceAndAssertWrongWall();
         }
 
         [Test]
         public void PlaceWallInDifferentLines()
         {
-            PlaceAndAssertWrongWall(new Vector2(0, 1), new Vector2(2, 4));
+            _wallStartPosition = new Vector2(0, 1);
+            _wallEndPosition = new Vector2(2, 4);
+
+            PlaceAndAssertWrongWall();
         }
 
         [Test]
         public void PlaceWallWithTileWhichHavePairCoordinates()
         {
-            PlaceAndAssertWrongWall(new Vector2(0, 1), new Vector2(0, 3));
+            _wallStartPosition = new Vector2(0, 1);
+            _wallEndPosition = new Vector2(0, 3);
+
+            PlaceAndAssertWrongWall();
         }
 
         [Test]
         public void PlaceWallWhichDoesNotCoverTwoSolidTiles()
         {
-            PlaceAndAssertWrongWall(new Vector2(1, 1), new Vector2(3, 1));
+            _wallStartPosition = new Vector2(1, 1);
+            _wallEndPosition = new Vector2(3, 1);
+
+            PlaceAndAssertWrongWall();
         }
 
         [Test]
@@ -42,14 +57,14 @@ namespace Quoridor.Tests.WallPlacement
             Assert.IsTrue(_board.grid[1, 2].isEmpty);
         }
 
-        private void PlaceAndAssertWrongWall(Vector2 startPosition, Vector2 endPosition)
+        private void PlaceAndAssertWrongWall()
         {
-            _firstPlayer.PlaceWall(startPosition, endPosition);
+            _firstPlayer.PlaceWall(_wallStartPosition, _wallEndPosition);
 
             Assert.AreEqual(10, _firstPlayer.wallCounter);
             Assert.AreEqual(0, _firstPlayer.placedWalls.Count);
-            Assert.IsTrue(_board.grid[(int)startPosition.X, (int)startPosition.Y].isEmpty);
-            Assert.IsTrue(_board.grid[(int)endPosition.X, (int)endPosition.Y].isEmpty);
+            Assert.IsTrue(_board.grid[(int)_wallStartPosition.X, (int)_wallStartPosition.Y].isEmpty);
+            Assert.IsTrue(_board.grid[(int)_wallEndPosition.X, (int)_wallEndPosition.Y].isEmpty);
         }
     }
 }
