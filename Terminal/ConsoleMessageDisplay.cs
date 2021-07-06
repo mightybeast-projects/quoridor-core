@@ -15,10 +15,10 @@ namespace Quoridor.Terminal
         public void PrintMovePlayerMenu()
         {
             Console.WriteLine("Input command number:");
-            Console.WriteLine("1: Move player up");
-            Console.WriteLine("2: Move player down");
-            Console.WriteLine("3: Move player right");
-            Console.WriteLine("4: Move player left");
+            Console.WriteLine("1: (↑) Move player up");
+            Console.WriteLine("2: (↓) Move player down");
+            Console.WriteLine("3: (→) Move player right");
+            Console.WriteLine("4: (←) Move player left");
         }
 
         public void DisplayCantMoveErrorMessage()
@@ -56,9 +56,9 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("Wall intercepts with other wall.");
         }
 
-        public void DisplayPlacedAllAvailableWallsMessage()
+        public void DisplayNotEnoughWallsMessage()
         {
-            DisplayWarningMessage("You placed all of your available walls.");
+            DisplayWarningMessage("Not enough walls.");
         }
 
         public void DisplayWallIsOnTheWayMessage()

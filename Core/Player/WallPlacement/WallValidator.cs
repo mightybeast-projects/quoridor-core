@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Quoridor.Core.Player
+namespace Quoridor.Core.Player.WallPlacement
 {
     public class WallValidator
     {
@@ -10,7 +10,6 @@ namespace Quoridor.Core.Player
         private Vector2 _wallMiddlePosition;
         private Vector2 _wallEndPosition;
         private Player _player;
-        private IOutput _output;
 
         internal WallValidator(Player player)
         {
@@ -21,11 +20,6 @@ namespace Quoridor.Core.Player
         {
             _wallStartPosition = wallStartPosition;
             _wallEndPosition = wallEndPosition;
-        }
-
-        internal void SetOutput(IOutput output)
-        {
-            _output = output;
         }
 
         internal bool WallDoesNotMeetTheRequirements()
@@ -42,24 +36,24 @@ namespace Quoridor.Core.Player
 
         internal void SendAppropriateMessage()
         {
-            if (_output != null)
+            if (_player.output != null)
             {
                 if (WallIsNotOnTheSameLine())
-                    _output.DisplayWallIsNotOnTheSameLine();
+                    _player.output.DisplayWallIsNotOnTheSameLine();
                 if (WallIsTooLong())
-                    _output.DisplayWallIsTooLongMessage();
+                    _player.output.DisplayWallIsTooLongMessage();
                 if (WallTilesHavePairCoordinates())
-                    _output.DisplayWallTilesHavePairCoordinates();
+                    _player.output.DisplayWallTilesHavePairCoordinates();
                 if (WallDoesNotCoverTwoSolidTiles())
-                    _output.DisplayWallDoesNotCoverTwoSolidTiles();
-                if(WallInterceptsWithOtherWall())
-                    _output.DisplayWallInterceptsWithOtherWall();
+                    _player.output.DisplayWallDoesNotCoverTwoSolidTiles();
+                if (WallInterceptsWithOtherWall())
+                    _player.output.DisplayWallInterceptsWithOtherWall();
             }
         }
 
         private bool WallIsTooLong()
         {
-            return _wallEndPosition.X - _wallStartPosition.X > 2 || 
+            return _wallEndPosition.X - _wallStartPosition.X > 2 ||
                     _wallEndPosition.Y - _wallStartPosition.Y > 2;
         }
 
@@ -87,7 +81,7 @@ namespace Quoridor.Core.Player
 
         private bool WallInterceptsWithOtherWall()
         {
-            foreach(Wall placedWall in _player.placedWalls)
+            foreach (Wall placedWall in _player.placedWalls)
                 if (CurrentWallContainsSameTilesOf(placedWall))
                     return true;
 
@@ -103,8 +97,8 @@ namespace Quoridor.Core.Player
 
         private bool CurrentWallContainsPlacedWallTile(Vector2 tilePosition)
         {
-            return TilePositionsAreEqual(tilePosition, _wallStartPosition) || 
-                    TilePositionsAreEqual(tilePosition, _wallMiddlePosition) || 
+            return TilePositionsAreEqual(tilePosition, _wallStartPosition) ||
+                    TilePositionsAreEqual(tilePosition, _wallMiddlePosition) ||
                     TilePositionsAreEqual(tilePosition, _wallEndPosition);
         }
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Quoridor.Core.Player.Movement;
+using Quoridor.Core.Player.WallPlacement;
 
 namespace Quoridor.Core.Player
 {
@@ -39,7 +41,6 @@ namespace Quoridor.Core.Player
         public void SetOutput(IOutput output)
         {
             _output = output;
-            _wallPlacementController.SetOutput(output);
         }
 
         public void MoveUp()

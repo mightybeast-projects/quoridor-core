@@ -3,7 +3,7 @@ namespace Quoridor.Core
     public interface IOutput
     {
         void DisplayCantMoveErrorMessage();
-        void DisplayPlacedAllAvailableWallsMessage();
+        void DisplayNotEnoughWallsMessage();
         void DisplayWallIsTooLongMessage();
         void DisplayWallIsNotOnTheSameLine();
         void DisplayWallTilesHavePairCoordinates();
