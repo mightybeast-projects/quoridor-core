@@ -24,11 +24,8 @@ namespace Quoridor.Core.Player.WallPlacement
 
         internal void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
-            if (_wallCounter == 0)
-            {
-                _player.output.DisplayNotEnoughWallsMessage();
-                return;
-            }
+            _wallStartPosition = wallStartPosition;
+            _wallEndPosition = wallEndPosition;
 
             _wallValidator.InitializeVectors(wallStartPosition, wallEndPosition);
             if (_wallValidator.WallDoesNotMeetTheRequirements())
@@ -36,9 +33,6 @@ namespace Quoridor.Core.Player.WallPlacement
                 _wallValidator.SendAppropriateMessage();
                 return;
             }
-
-            _wallStartPosition = wallStartPosition;
-            _wallEndPosition = wallEndPosition;
 
             PlaceNewWall();
         }

@@ -25,7 +25,7 @@ namespace Quoridor
 
         private static void InitializeFields()
         {
-            _board = new Board(17, 17);
+            _board = new Board();
             _players = new List<Player>();
         }
 

@@ -16,7 +16,7 @@ namespace Quoridor.Tests
         protected virtual void SetUp()
         {
             _tile = new Tile();
-            _board = new Board(17, 17);
+            _board = new Board();
             _firstPlayer = new Player(_board);
             _secondPlayer = new Player(_board);
         }

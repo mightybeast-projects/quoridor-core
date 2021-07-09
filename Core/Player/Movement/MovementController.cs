@@ -31,13 +31,6 @@ namespace Quoridor.Core.Player.Movement
             SetNewPosition();
         }
 
-        internal void ChangeCurrentPositionTileEmptyStatus(bool isEmpty)
-        {
-            int playerPositionX = (int)_player.position.X;
-            int playerPositionY = (int)_player.position.Y;
-            _player.board.grid[playerPositionX, playerPositionY].isEmpty = isEmpty;
-        }
-
         internal void Move(Vector2 moveVector)
         {
             _moveVector = moveVector;
@@ -50,16 +43,29 @@ namespace Quoridor.Core.Player.Movement
 
         private void SetNewPosition()
         {
-            if (PositionIsNotSolidTile((int) _newPosition.X, (int) _newPosition.Y))
+            if (NewPositionIsNotASolidTile() || NewPositionIsBeyondBoard())
                 return;
             ChangeCurrentPositionTileEmptyStatus(true);
             _position = _newPosition;
             ChangeCurrentPositionTileEmptyStatus(false);
         }
 
-        private bool PositionIsNotSolidTile(int x, int y)
+        private void ChangeCurrentPositionTileEmptyStatus(bool isEmpty)
         {
-            return x % 2 != 0 || y % 2 != 0;
+            int playerPositionX = (int)_player.position.X;
+            int playerPositionY = (int)_player.position.Y;
+            _player.board.grid[playerPositionX, playerPositionY].isEmpty = isEmpty;
+        }
+
+        private bool NewPositionIsNotASolidTile()
+        {
+            return _newPosition.X % 2 != 0 || _newPosition.Y % 2 != 0;
+        }
+
+        private bool NewPositionIsBeyondBoard()
+        {
+            return _newPosition.X > 16 || _newPosition.Y > 16 ||
+                    _newPosition.X < 0 || _newPosition.Y < 0;
         }
     }
 }

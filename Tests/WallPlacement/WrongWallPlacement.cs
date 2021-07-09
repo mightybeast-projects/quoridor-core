@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 using NUnit.Framework;
 
@@ -46,6 +47,20 @@ namespace Quoridor.Tests.WallPlacement
         }
 
         [Test]
+        public void PlaceWallWithPositionBeyondBoard()
+        {
+            _wallStartPosition = new Vector2(-2, 0);
+            _wallEndPosition = new Vector2(0, 0);
+
+            PlaceAndAssertWrongWall();
+
+            _wallStartPosition = new Vector2(0, 17);
+            _wallEndPosition = new Vector2(0, 19);
+
+            PlaceAndAssertWrongWall();
+        }
+
+        [Test]
         public void PlaceWallWhichInterceptsWithOtherWall()
         {
             _firstPlayer.PlaceWall(new Vector2(0, 1), new Vector2(2, 1));
@@ -63,8 +78,12 @@ namespace Quoridor.Tests.WallPlacement
 
             Assert.AreEqual(10, _firstPlayer.wallCounter);
             Assert.AreEqual(0, _firstPlayer.placedWalls.Count);
-            Assert.IsTrue(_board.grid[(int)_wallStartPosition.X, (int)_wallStartPosition.Y].isEmpty);
-            Assert.IsTrue(_board.grid[(int)_wallEndPosition.X, (int)_wallEndPosition.Y].isEmpty);
+            try
+            {
+                Assert.IsTrue(_board.grid[(int)_wallStartPosition.X, (int)_wallStartPosition.Y].isEmpty);
+                Assert.IsTrue(_board.grid[(int)_wallEndPosition.X, (int)_wallEndPosition.Y].isEmpty);
+            }
+            catch (Exception) {}
         }
     }
 }

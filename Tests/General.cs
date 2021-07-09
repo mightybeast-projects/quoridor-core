@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 using NUnit.Framework;
 
@@ -50,11 +51,25 @@ namespace Quoridor.Tests
         }
 
         [Test]
-        public void SetWrongPlayerPosition()
+        public void WrongPlayerPosition()
         {
-            _firstPlayer.SetPosition(0, 1);
+            SetWrongPlayerPositionAndAssert(new Vector2(0, 1));
+            SetWrongPlayerPositionAndAssert(new Vector2(-1, 0));
+            SetWrongPlayerPositionAndAssert(new Vector2(0, -1));
+            SetWrongPlayerPositionAndAssert(new Vector2(17, 0));
+            SetWrongPlayerPositionAndAssert(new Vector2(0, 17));
+        }
 
-            Assert.IsTrue(_board.grid[0, 1].isEmpty);
+        private void SetWrongPlayerPositionAndAssert(Vector2 newPosition)
+        {
+            _firstPlayer.SetPosition(newPosition);
+
+            try 
+            { 
+                Assert.IsTrue(_board.grid[(int) newPosition.X, (int) newPosition.Y].isEmpty);
+            } 
+            catch (Exception) {}
+            
             Assert.IsFalse(_board.grid[0, 0].isEmpty);
             Assert.AreEqual(new Vector2(0, 0), _firstPlayer.position);
         }

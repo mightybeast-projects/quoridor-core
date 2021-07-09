@@ -24,7 +24,9 @@ namespace Quoridor.Core.Player.WallPlacement
 
         internal bool WallDoesNotMeetTheRequirements()
         {
-            if (WallIsNotOnTheSameLine() ||
+            if (WallPositionIsBeyondBoard()||
+                PlayerUsedAllAvailableWalls()||
+                WallIsNotOnTheSameLine() ||
                 WallIsTooLong() ||
                 WallTilesHavePairCoordinates() ||
                 WallDoesNotCoverTwoSolidTiles() ||
@@ -36,19 +38,31 @@ namespace Quoridor.Core.Player.WallPlacement
 
         internal void SendAppropriateMessage()
         {
-            if (_player.output != null)
-            {
-                if (WallIsNotOnTheSameLine())
-                    _player.output.DisplayWallIsNotOnTheSameLine();
-                if (WallIsTooLong())
-                    _player.output.DisplayWallIsTooLongMessage();
-                if (WallTilesHavePairCoordinates())
-                    _player.output.DisplayWallTilesHavePairCoordinates();
-                if (WallDoesNotCoverTwoSolidTiles())
-                    _player.output.DisplayWallDoesNotCoverTwoSolidTiles();
-                if (WallInterceptsWithOtherWall())
-                    _player.output.DisplayWallInterceptsWithOtherWall();
-            }
+            if (WallPositionIsBeyondBoard())
+                _player.output?.DisplayWallHasPositionBeyondBoardMessage();
+            if (PlayerUsedAllAvailableWalls())
+                _player.output?.DisplayNotEnoughWallsMessage();
+            if (WallIsNotOnTheSameLine())
+                _player.output?.DisplayWallIsNotOnTheSameLineMessage();
+            if (WallIsTooLong())
+                _player.output?.DisplayWallIsTooLongMessage();
+            if (WallTilesHavePairCoordinates())
+                _player.output?.DisplayWallTilesHavePairCoordinatesMessage();
+            if (WallDoesNotCoverTwoSolidTiles())
+                _player.output?.DisplayWallDoesNotCoverTwoSolidTilesMessage();
+            if (WallInterceptsWithOtherWall())
+                _player.output?.DisplayWallInterceptsWithOtherWallMessage();
+        }
+
+        private bool WallPositionIsBeyondBoard()
+        {
+            return PositionIsBeyondBoard(_wallStartPosition) ||
+                    PositionIsBeyondBoard(_wallEndPosition);
+        }
+
+        private bool PlayerUsedAllAvailableWalls()
+        {
+            return _player.wallCounter == 0;
         }
 
         private bool WallIsTooLong()
@@ -105,6 +119,12 @@ namespace Quoridor.Core.Player.WallPlacement
         private bool TilePositionsAreEqual(Vector2 firstTile, Vector2 secondTile)
         {
             return firstTile == secondTile;
+        }
+
+        private bool PositionIsBeyondBoard(Vector2 position)
+        {
+            return position.X > 16 || position.Y > 16 ||
+                    position.X < 0 || position.Y < 0;
         }
     }
 }

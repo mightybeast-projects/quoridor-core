@@ -5,10 +5,11 @@ namespace Quoridor.Core
         void DisplayCantMoveErrorMessage();
         void DisplayNotEnoughWallsMessage();
         void DisplayWallIsTooLongMessage();
-        void DisplayWallIsNotOnTheSameLine();
-        void DisplayWallTilesHavePairCoordinates();
-        void DisplayWallDoesNotCoverTwoSolidTiles();
-        void DisplayWallInterceptsWithOtherWall();
+        void DisplayWallIsNotOnTheSameLineMessage();
+        void DisplayWallTilesHavePairCoordinatesMessage();
+        void DisplayWallDoesNotCoverTwoSolidTilesMessage();
+        void DisplayWallInterceptsWithOtherWallMessage();
         void DisplayWallIsOnTheWayMessage();
+        void DisplayWallHasPositionBeyondBoardMessage();
     }
 }

@@ -6,22 +6,16 @@ namespace Quoridor.Core
     {
         public Tile[,] grid => _grid;
 
-        private int _width;
-        private int _height;
-
         private Tile[,] _grid;
 
-        public Board(int width, int height)
+        public Board()
         {
-            _width = width;
-            _height = height;
-
             GenerateGrid();
         }
 
         private void GenerateGrid()
         {
-            _grid = new Tile[_width, _height];
+            _grid = new Tile[17, 17];
             for(int i = 0; i < _grid.GetLength(0); i++)
                 for(int j = 0; j < _grid.GetLength(1); j++)
                     GenerateNewTile(i, j);

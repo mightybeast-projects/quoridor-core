@@ -36,22 +36,22 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("Wall is too long. Walls can only be 3 tiles long.");
         }
 
-        public void DisplayWallIsNotOnTheSameLine()
+        public void DisplayWallIsNotOnTheSameLineMessage()
         {
             DisplayWarningMessage("Wall is not on the same line. Walls can be placed in horizontal or vertical direction.");
         }
 
-        public void DisplayWallTilesHavePairCoordinates()
+        public void DisplayWallTilesHavePairCoordinatesMessage()
         {
             DisplayWarningMessage("Wall covers walkable tile.");
         }
 
-        public void DisplayWallDoesNotCoverTwoSolidTiles()
+        public void DisplayWallDoesNotCoverTwoSolidTilesMessage()
         {
             DisplayWarningMessage("Wall does not line up with two walkable tiles.");
         }
 
-        public void DisplayWallInterceptsWithOtherWall()
+        public void DisplayWallInterceptsWithOtherWallMessage()
         {
             DisplayWarningMessage("Wall intercepts with other wall.");
         }
@@ -64,6 +64,11 @@ namespace Quoridor.Terminal
         public void DisplayWallIsOnTheWayMessage()
         {
             DisplayWarningMessage("Wall is on the way of movement.");
+        }
+
+        public void DisplayWallHasPositionBeyondBoardMessage()
+        {
+            DisplayWarningMessage("Wall position contains negative coordinate.");
         }
 
         private void DisplayWarningMessage(String messageToShow)
