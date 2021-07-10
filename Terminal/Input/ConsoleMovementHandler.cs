@@ -35,6 +35,9 @@ namespace Quoridor.Terminal.Input
                 case 4:
                     _player.MoveLeft();
                     break;
+                case 5:
+                    _player.MoveDiagonallyTopRight();
+                    break;
             }
         }
     }

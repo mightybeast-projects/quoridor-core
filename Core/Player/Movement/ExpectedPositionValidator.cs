@@ -25,6 +25,11 @@ namespace Quoridor.Core.Player.Movement
             _moveVector = moveVector;
             _expectedPosition = _currentPosition + _moveVector;
 
+            InitializeCoordinates();
+        }
+
+        private void InitializeCoordinates()
+        {
             _expectedPositionX = (int)_expectedPosition.X;
             _expectedPositionY = (int)_expectedPosition.Y;
         }
@@ -35,6 +40,26 @@ namespace Quoridor.Core.Player.Movement
                     CheckForPlayerOnTheWay() ||
                     CheckForWallOnTheWay() ||
                     CheckForWallBehindAnotherPlayer();
+        }
+
+        internal bool CheckDiagonalMovement()
+        {
+            Vector2 expectedPositionTmp = _expectedPosition;
+            Vector2 moveVectorTmp = _moveVector;
+
+            CalculateExpectedPosition(_currentPosition, new Vector2(0, moveVectorTmp.Y));
+            Console.WriteLine(_moveVector + " " + _expectedPosition);
+            bool firstTileHavePlayerAndWallBehind = 
+                AnotherPlayerIsOnExpectedPosition() && WallIsBehindAnotherPlayer();
+            CalculateExpectedPosition(_currentPosition, new Vector2(moveVectorTmp.X, 0));
+            Console.WriteLine(_moveVector + " " + _expectedPosition);
+            bool secondTileHavePlayerAndWallBehind = 
+                AnotherPlayerIsOnExpectedPosition() && WallIsBehindAnotherPlayer();
+
+            _expectedPosition = expectedPositionTmp;
+            _moveVector = moveVectorTmp;
+
+            return firstTileHavePlayerAndWallBehind || secondTileHavePlayerAndWallBehind;
         }
 
         private bool CheckForBeyondBoardMovement()
@@ -109,6 +134,11 @@ namespace Quoridor.Core.Player.Movement
             
             try { return !_player.board.grid[wallX, wallY].isEmpty; } 
             catch (IndexOutOfRangeException) { return false; }
+        }
+
+        internal bool MoveVectorIsDiagonal()
+        {
+            return (Math.Abs(_moveVector.X) == Math.Abs(_moveVector.Y));
         }
     }
 }
