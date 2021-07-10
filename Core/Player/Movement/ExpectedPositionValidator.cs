@@ -48,11 +48,9 @@ namespace Quoridor.Core.Player.Movement
             Vector2 moveVectorTmp = _moveVector;
 
             CalculateExpectedPosition(_currentPosition, new Vector2(0, moveVectorTmp.Y));
-            Console.WriteLine(_moveVector + " " + _expectedPosition);
             bool firstTileHavePlayerAndWallBehind = 
                 AnotherPlayerIsOnExpectedPosition() && WallIsBehindAnotherPlayer();
             CalculateExpectedPosition(_currentPosition, new Vector2(moveVectorTmp.X, 0));
-            Console.WriteLine(_moveVector + " " + _expectedPosition);
             bool secondTileHavePlayerAndWallBehind = 
                 AnotherPlayerIsOnExpectedPosition() && WallIsBehindAnotherPlayer();
 
@@ -130,7 +128,6 @@ namespace Quoridor.Core.Player.Movement
             Vector2 wallBehindSecondPlayer = _currentPosition + _moveVector +_moveVector / 2;
             int wallX = (int) wallBehindSecondPlayer.X;
             int wallY = (int) wallBehindSecondPlayer.Y;
-            Console.WriteLine(wallBehindSecondPlayer);
             
             try { return !_player.board.grid[wallX, wallY].isEmpty; } 
             catch (IndexOutOfRangeException) { return false; }
