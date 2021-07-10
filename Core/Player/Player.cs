@@ -68,6 +68,21 @@ namespace Quoridor.Core.Player
             _movementController.Move(new Vector2(2, 2));
         }
 
+        public void MoveDiagonallyBottomRight()
+        {
+            _movementController.Move(new Vector2(2, -2));
+        }
+
+        public void MoveDiagonallyBottomLeft()
+        {
+            _movementController.Move(new Vector2(-2, -2));
+        }
+
+        public void MoveDiagonallyTopLeft()
+        {
+            _movementController.Move(new Vector2(-2, 2));
+        }
+
         public void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
             _wallPlacementController.PlaceWall(wallStartPosition, wallEndPosition);
