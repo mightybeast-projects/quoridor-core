@@ -6,5 +6,6 @@ namespace Quoridor.Core.Player.Movement
         MOVE_BEYOND_BOARD,
         WALL_ON_THE_WAY,
         WALL_BEHIND_ANOTHER_PLAYER,
+        CANNOT_MOVE_DIAGONALLY
     }
 }

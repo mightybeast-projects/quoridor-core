@@ -34,20 +34,41 @@ namespace Quoridor.Core.Player.Movement
             _expectedPositionY = (int)_expectedPosition.Y;
         }
 
-        internal bool CheckExpectedPosition()
+        internal MovementResult CheckExpectedPositionRequirements()
         {
-            return CheckForBeyondBoardMovement() ||
-                    CheckForWallOnTheWay() ||
-                    CheckForPlayerOnTheWay() ||
-                    CheckForWallBehindAnotherPlayer();
+            if (ExpectedPositionIsBeyondTheBoard())
+                return MovementResult.MOVE_BEYOND_BOARD;
+            if (WallIsOnTheWay())
+                return MovementResult.WALL_ON_THE_WAY;
+            if (WallIsBehindAnotherPlayer())
+                return MovementResult.WALL_BEHIND_ANOTHER_PLAYER;
+            
+            if (MoveIsDiagonalButPlayerCannotMoveDiagonally())
+                return MovementResult.CANNOT_MOVE_DIAGONALLY;
+            if (MoveIsDiagonalAndPlayerCanMoveDiagonally())
+                return MovementResult.SUCCESS;
+
+            if (AnotherPlayerIsOnExpectedPosition())
+            {
+                _expectedPosition = _currentPosition + _moveVector * 2;
+                if (ExpectedPositionIsBeyondTheBoard())
+                    return MovementResult.MOVE_BEYOND_BOARD;
+            }
+
+            return MovementResult.SUCCESS;
         }
 
         internal bool MoveIsDiagonalButPlayerCannotMoveDiagonally()
         {
-            return MoveVectorIsDiagonal() && !CheckDiagonalMovement();
+            return MoveVectorIsDiagonal() && !PlayerCanMoveDiagonally();
         }
 
-        private bool CheckDiagonalMovement()
+        internal bool MoveIsDiagonalAndPlayerCanMoveDiagonally()
+        {
+            return MoveVectorIsDiagonal() && PlayerCanMoveDiagonally();
+        }
+
+        private bool PlayerCanMoveDiagonally()
         {
             Vector2 expectedPositionTmp = _expectedPosition;
             Vector2 moveVectorTmp = _moveVector;
@@ -63,49 +84,6 @@ namespace Quoridor.Core.Player.Movement
             _moveVector = moveVectorTmp;
 
             return firstTileHavePlayerAndWallBehind || secondTileHavePlayerAndWallBehind;
-        }
-
-        private bool CheckForBeyondBoardMovement()
-        {
-            if (ExpectedPositionIsBeyondTheBoard())
-            {
-                if (_player.output != null)
-                    _player.output.DisplayCantMoveErrorMessage();
-                return true;
-            }
-            return false;
-        }
-
-        private bool CheckForPlayerOnTheWay()
-        {
-            if (AnotherPlayerIsOnExpectedPosition())
-                _expectedPosition = _currentPosition + _moveVector * 2;
-
-            if (CheckForBeyondBoardMovement()) return true;
-
-            return false;
-        }
-
-        private bool CheckForWallOnTheWay()
-        {
-            if (WallIsOnTheWay())
-            {
-                if (_player.output != null)
-                    _player.output.DisplayWallIsOnTheWayMessage();
-                return true;
-            }
-            return false;
-        }
-
-        private bool CheckForWallBehindAnotherPlayer()
-        {
-            if (WallIsBehindAnotherPlayer())
-            {
-                if (_player.output != null)
-                    _player.output.DisplayWallIsBehindAnotherPlayerMessage();
-                return true;
-            }
-            return false;
         }
 
         private bool ExpectedPositionIsBeyondTheBoard()
@@ -140,7 +118,7 @@ namespace Quoridor.Core.Player.Movement
 
         internal bool MoveVectorIsDiagonal()
         {
-            return (Math.Abs(_moveVector.X) == Math.Abs(_moveVector.Y));
+            return Math.Abs(_moveVector.X) == Math.Abs(_moveVector.Y);
         }
     }
 }

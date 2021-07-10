@@ -28,6 +28,8 @@ namespace Quoridor.Tests.PlayerMovement
             _firstPlayer.MoveDiagonallyTopLeft();
             _firstPlayer.MoveDiagonallyBottomRight();
             _firstPlayer.MoveDiagonallyBottomLeft();
+            _firstPlayer.MoveDiagonallyTopRight();
+            _firstPlayer.MoveDiagonallyTopRight();
 
             Assert.AreEqual(new Vector2(8, 0), _firstPlayer.position);
             Assert.IsFalse(_board.grid[8, 0].isEmpty);

@@ -76,6 +76,11 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("There is a wall behind another player on the way.");
         }
 
+        public void DisplayCannotMoveDiagonallyMessage()
+        {
+            DisplayWarningMessage("Cannot move diagonally");
+        }
+
         private void DisplayWarningMessage(String messageToShow)
         {
             SetWarningMessageConsoleColor();

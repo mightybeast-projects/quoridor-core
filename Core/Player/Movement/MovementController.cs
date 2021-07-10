@@ -12,11 +12,13 @@ namespace Quoridor.Core.Player.Movement
         private Vector2 _position;
         private Vector2 _moveVector;
         private ExpectedPositionValidator _positionValidator;
+        private MovementMessageSender _sender;
 
         public MovementController(Player player)
         {
             _player = player;
             _positionValidator = new ExpectedPositionValidator(_player);
+            _sender = new MovementMessageSender(_player);
         }
 
         internal void SetPosition(int x, int y)
@@ -35,10 +37,14 @@ namespace Quoridor.Core.Player.Movement
         {
             _moveVector = moveVector;
             _positionValidator.CalculateExpectedPosition(_position, _moveVector);
-            
-            if (_positionValidator.CheckExpectedPosition()) return;
 
-            if (_positionValidator.MoveIsDiagonalButPlayerCannotMoveDiagonally()) return;
+            MovementResult result = _positionValidator.CheckExpectedPositionRequirements();
+
+            if (result != MovementResult.SUCCESS)
+            {
+                _sender.SendAppropriateMessage(result);
+                return;
+            }
 
             SetPosition(_positionValidator.expectedPosition);
         }
