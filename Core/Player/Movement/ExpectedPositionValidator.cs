@@ -34,7 +34,7 @@ namespace Quoridor.Core.Player.Movement
             _expectedPositionY = (int)_expectedPosition.Y;
         }
 
-        internal bool ExpectedPositionDoesNotMeetRequirements()
+        internal bool CannotMoveToExpectedPosition()
         {
             return CheckForBeyondBoardMovement() ||
                     CheckForPlayerOnTheWay() ||
@@ -42,7 +42,12 @@ namespace Quoridor.Core.Player.Movement
                     CheckForWallBehindAnotherPlayer();
         }
 
-        internal bool CheckDiagonalMovement()
+        internal bool MoveIsDiagonalButPlayerCannotMoveDiagonally()
+        {
+            return MoveVectorIsDiagonal() && !CheckDiagonalMovement();
+        }
+
+        private bool CheckDiagonalMovement()
         {
             Vector2 expectedPositionTmp = _expectedPosition;
             Vector2 moveVectorTmp = _moveVector;
