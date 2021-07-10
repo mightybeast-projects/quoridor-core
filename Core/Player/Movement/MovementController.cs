@@ -36,7 +36,7 @@ namespace Quoridor.Core.Player.Movement
             _moveVector = moveVector;
             _positionValidator.CalculateExpectedPosition(_position, _moveVector);
             
-            if (_positionValidator.CannotMoveToExpectedPosition()) return;
+            if (_positionValidator.CheckExpectedPosition()) return;
 
             if (_positionValidator.MoveIsDiagonalButPlayerCannotMoveDiagonally()) return;
 

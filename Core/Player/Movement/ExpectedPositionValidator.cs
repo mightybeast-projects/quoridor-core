@@ -34,11 +34,11 @@ namespace Quoridor.Core.Player.Movement
             _expectedPositionY = (int)_expectedPosition.Y;
         }
 
-        internal bool CannotMoveToExpectedPosition()
+        internal bool CheckExpectedPosition()
         {
             return CheckForBeyondBoardMovement() ||
-                    CheckForPlayerOnTheWay() ||
                     CheckForWallOnTheWay() ||
+                    CheckForPlayerOnTheWay() ||
                     CheckForWallBehindAnotherPlayer();
         }
 
