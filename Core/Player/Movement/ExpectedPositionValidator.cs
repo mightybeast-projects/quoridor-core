@@ -74,7 +74,7 @@ namespace Quoridor.Core.Player.Movement
             if (WallIsBehindAnotherPlayer())
             {
                 if (_player.output != null)
-                    _player.output.DisplayWallIsBehindSecondPlayerMessage();
+                    _player.output.DisplayWallIsBehindAnotherPlayerMessage();
                 return true;
             }
             return false;

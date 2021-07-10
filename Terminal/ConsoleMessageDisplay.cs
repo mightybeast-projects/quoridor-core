@@ -71,9 +71,9 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("Wall position contains negative coordinate.");
         }
 
-        public void DisplayWallIsBehindSecondPlayerMessage()
+        public void DisplayWallIsBehindAnotherPlayerMessage()
         {
-            DisplayWarningMessage("There is a wall behind second player.");
+            DisplayWarningMessage("There is a wall behind another player on the way.");
         }
 
         private void DisplayWarningMessage(String messageToShow)

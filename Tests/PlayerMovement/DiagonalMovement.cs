@@ -7,7 +7,7 @@ namespace Quoridor.Tests.PlayerMovement
     public class DiagonalMovement : Initialization
     {
         [Test]
-        public void DoNotMoveIfThereIsWallBehindSecondPlayer()
+        public void DoNotMoveIfThereIsWallBehindAnotherPlayer()
         {
             _firstPlayer.SetPosition(8, 0);
             _secondPlayer.SetPosition(8, 2);
