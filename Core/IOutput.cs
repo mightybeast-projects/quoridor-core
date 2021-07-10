@@ -11,5 +11,6 @@ namespace Quoridor.Core
         void DisplayWallInterceptsWithOtherWallMessage();
         void DisplayWallIsOnTheWayMessage();
         void DisplayWallHasPositionBeyondBoardMessage();
+        void DisplayWallIsBehindSecondPlayerMessage();
     }
 }

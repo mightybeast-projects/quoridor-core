@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 
 namespace Quoridor.Core.Player.Movement
@@ -32,7 +33,8 @@ namespace Quoridor.Core.Player.Movement
         {
             return CheckForBeyondBoardMovement() ||
                     CheckForPlayerOnTheWay() ||
-                    CheckForWallOnTheWay();
+                    CheckForWallOnTheWay() ||
+                    CheckForWallBehindAnotherPlayer();
         }
 
         private bool CheckForBeyondBoardMovement()
@@ -67,6 +69,17 @@ namespace Quoridor.Core.Player.Movement
             return false;
         }
 
+        private bool CheckForWallBehindAnotherPlayer()
+        {
+            if (WallIsBehindAnotherPlayer())
+            {
+                if (_player.output != null)
+                    _player.output.DisplayWallIsBehindSecondPlayerMessage();
+                return true;
+            }
+            return false;
+        }
+
         private bool ExpectedPositionIsBeyondTheBoard()
         {
             return _expectedPosition.X > 16 || _expectedPosition.Y > 16 ||
@@ -85,6 +98,17 @@ namespace Quoridor.Core.Player.Movement
             int wallPositionY = (int)(wallCheckVector.Y + _currentPosition.Y);
 
             return !_player.board.grid[wallPositionX, wallPositionY].isEmpty;
+        }
+
+        private bool WallIsBehindAnotherPlayer()
+        {
+            Vector2 wallBehindSecondPlayer = _currentPosition + _moveVector +_moveVector / 2;
+            int wallX = (int) wallBehindSecondPlayer.X;
+            int wallY = (int) wallBehindSecondPlayer.Y;
+            Console.WriteLine(wallBehindSecondPlayer);
+            
+            try { return !_player.board.grid[wallX, wallY].isEmpty; } 
+            catch (IndexOutOfRangeException) { return false; }
         }
     }
 }
