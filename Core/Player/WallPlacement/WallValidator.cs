@@ -22,36 +22,24 @@ namespace Quoridor.Core.Player.WallPlacement
             _wallEndPosition = wallEndPosition;
         }
 
-        internal bool WallDoesNotMeetTheRequirements()
+        internal WallPlacementResult CheckWallRequirements()
         {
-            if (WallPositionIsBeyondBoard()||
-                PlayerUsedAllAvailableWalls()||
-                WallIsNotOnTheSameLine() ||
-                WallIsTooLong() ||
-                WallTilesHavePairCoordinates() ||
-                WallDoesNotCoverTwoSolidTiles() ||
-                WallInterceptsWithOtherWall())
-                return true;
+            if (WallPositionIsBeyondBoard()) 
+                return WallPlacementResult.BEYOND_BOARD;
+            if (PlayerUsedAllAvailableWalls()) 
+                return WallPlacementResult.PLAYER_USED_ALL_WALLS;
+            if (WallIsNotOnTheSameLine()) 
+                return WallPlacementResult.NOT_ON_THE_SAME_LINE;
+            if (WallIsTooLong()) 
+                return WallPlacementResult.TOO_LONG;
+            if (WallTilesHavePairCoordinates()) 
+                return WallPlacementResult.HAVE_PAIR_COORDINATES;
+            if (WallDoesNotCoverTwoSolidTiles()) 
+                return WallPlacementResult.DOES_NOT_COVER_TWO_TILES;
+            if (WallInterceptsWithOtherWall()) 
+                return WallPlacementResult.INTERCEPTS_WITH_OHER_WALL;
 
-            return false;
-        }
-
-        internal void SendAppropriateMessage()
-        {
-            if (WallPositionIsBeyondBoard())
-                _player.output?.DisplayWallHasPositionBeyondBoardMessage();
-            if (PlayerUsedAllAvailableWalls())
-                _player.output?.DisplayNotEnoughWallsMessage();
-            if (WallIsNotOnTheSameLine())
-                _player.output?.DisplayWallIsNotOnTheSameLineMessage();
-            if (WallIsTooLong())
-                _player.output?.DisplayWallIsTooLongMessage();
-            if (WallTilesHavePairCoordinates())
-                _player.output?.DisplayWallTilesHavePairCoordinatesMessage();
-            if (WallDoesNotCoverTwoSolidTiles())
-                _player.output?.DisplayWallDoesNotCoverTwoSolidTilesMessage();
-            if (WallInterceptsWithOtherWall())
-                _player.output?.DisplayWallInterceptsWithOtherWallMessage();
+            return WallPlacementResult.SUCCESS;
         }
 
         private bool WallPositionIsBeyondBoard()
