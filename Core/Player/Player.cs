@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Quoridor.Core.Output;
 using Quoridor.Core.Player.Movement;
 using Quoridor.Core.Player.WallPlacement;
 

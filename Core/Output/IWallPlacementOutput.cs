@@ -1,12 +1,7 @@
-namespace Quoridor.Core
+namespace Quoridor.Core.Output
 {
-    public interface IOutput
+    public interface IWallPlacementOutput
     {
-        void DisplayCantMoveErrorMessage();
-        void DisplayCannotMoveDiagonallyMessage();
-        void DisplayWallIsOnTheWayMessage();
-        void DisplayWallIsBehindAnotherPlayerMessage();
-
         void DisplayNotEnoughWallsMessage();
         void DisplayWallIsTooLongMessage();
         void DisplayWallIsNotOnTheSameLineMessage();

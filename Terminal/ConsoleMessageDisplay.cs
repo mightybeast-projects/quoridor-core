@@ -1,5 +1,5 @@
 using System;
-using Quoridor.Core;
+using Quoridor.Core.Output;
 
 namespace Quoridor.Terminal
 {
@@ -21,14 +21,29 @@ namespace Quoridor.Terminal
             Console.WriteLine("4: (←) Move player left");
         }
 
+        public void DisplayIncorrectMenuItemMessage()
+        {
+            DisplayWarningMessage("Incorrect menu index.");
+        }
+
         public void DisplayCantMoveErrorMessage()
         {
             DisplayErrorMessage("Can't move to the given direction.");
         }
 
-        public void DisplayIncorrectMenuItemMessage()
+        public void DisplayWallIsOnTheWayMessage()
         {
-            DisplayWarningMessage("Incorrect menu index.");
+            DisplayWarningMessage("Wall is on the way of movement.");
+        }
+
+        public void DisplayWallIsBehindAnotherPlayerMessage()
+        {
+            DisplayWarningMessage("There is a wall behind another player on the way.");
+        }
+
+        public void DisplayCannotMoveDiagonallyMessage()
+        {
+            DisplayWarningMessage("Cannot move diagonally");
         }
 
         public void DisplayWallIsTooLongMessage()
@@ -61,24 +76,9 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("Not enough walls.");
         }
 
-        public void DisplayWallIsOnTheWayMessage()
-        {
-            DisplayWarningMessage("Wall is on the way of movement.");
-        }
-
         public void DisplayWallHasPositionBeyondBoardMessage()
         {
             DisplayWarningMessage("Wall position contains negative coordinate.");
-        }
-
-        public void DisplayWallIsBehindAnotherPlayerMessage()
-        {
-            DisplayWarningMessage("There is a wall behind another player on the way.");
-        }
-
-        public void DisplayCannotMoveDiagonallyMessage()
-        {
-            DisplayWarningMessage("Cannot move diagonally");
         }
 
         private void DisplayWarningMessage(String messageToShow)
@@ -97,14 +97,19 @@ namespace Quoridor.Terminal
 
         private void SetErrorMessageConsoleColor()
         {
-            Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.ForegroundColor = ConsoleColor.White;
+            SetMessageConsoleColor(ConsoleColor.DarkRed, ConsoleColor.White);
         }
 
         private void SetWarningMessageConsoleColor()
         {
-            Console.BackgroundColor = ConsoleColor.DarkYellow;
-            Console.ForegroundColor = ConsoleColor.White;
+            SetMessageConsoleColor(ConsoleColor.DarkYellow, ConsoleColor.White);
+        }
+
+        private void SetMessageConsoleColor(
+            ConsoleColor backgroundColor, ConsoleColor foregroundColor)
+        {
+            Console.BackgroundColor = backgroundColor;
+            Console.ForegroundColor = foregroundColor;
         }
 
         private void ResetConsoleColor()

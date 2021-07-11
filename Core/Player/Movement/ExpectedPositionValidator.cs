@@ -108,11 +108,11 @@ namespace Quoridor.Core.Player.Movement
 
         private bool WallIsBehindAnotherPlayer()
         {
-            Vector2 wallBehindSecondPlayer = _currentPosition + _moveVector +_moveVector / 2;
+            Vector2 wallBehindSecondPlayer = _currentPosition + _moveVector + _moveVector / 2;
             int wallX = (int) wallBehindSecondPlayer.X;
             int wallY = (int) wallBehindSecondPlayer.Y;
             
-            try { return !_player.board.grid[wallX, wallY].isEmpty; } 
+            try { return !_player.board.grid[wallX, wallY].isEmpty; }
             catch (IndexOutOfRangeException) { return false; }
         }
 
