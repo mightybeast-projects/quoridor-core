@@ -28,12 +28,6 @@ namespace Quoridor.Core.Player.Movement
             InitializeCoordinates();
         }
 
-        private void InitializeCoordinates()
-        {
-            _expectedPositionX = (int)_expectedPosition.X;
-            _expectedPositionY = (int)_expectedPosition.Y;
-        }
-
         internal MovementResult CheckExpectedPositionRequirements()
         {
             if (ExpectedPositionIsBeyondTheBoard())
@@ -57,6 +51,12 @@ namespace Quoridor.Core.Player.Movement
             }
 
             return MovementResult.SUCCESS;
+        }
+
+        private void InitializeCoordinates()
+        {
+            _expectedPositionX = (int)_expectedPosition.X;
+            _expectedPositionY = (int)_expectedPosition.Y;
         }
 
         internal bool MoveIsDiagonalButPlayerCannotMoveDiagonally()
