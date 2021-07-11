@@ -80,9 +80,11 @@ namespace Quoridor.Core.Player.Movement
                 CheckExpectedPositionForPlayerAndWallBehind(new Vector2(moveVectorTmp.X, 0));
 
             bool wallIsOnFirstDiagonalMove = 
-                WallIsOnDiagonalMovement(_currentPosition + new Vector2(moveVectorTmp.X / 2, moveVectorTmp.Y));
+                WallIsOnDiagonalMovement(
+                    _currentPosition + new Vector2(moveVectorTmp.X / 2, moveVectorTmp.Y));
             bool wallIsOnSecondDiagonalMove = 
-                WallIsOnDiagonalMovement(_currentPosition + new Vector2(moveVectorTmp.X, moveVectorTmp.Y / 2));
+                WallIsOnDiagonalMovement(
+                    _currentPosition + new Vector2(moveVectorTmp.X, moveVectorTmp.Y / 2));
 
             _expectedPosition = expectedPositionTmp;
             _moveVector = moveVectorTmp;
