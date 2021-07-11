@@ -19,6 +19,16 @@ namespace Quoridor.Terminal
             Console.WriteLine("2: (↓) Move player down");
             Console.WriteLine("3: (→) Move player right");
             Console.WriteLine("4: (←) Move player left");
+            Console.WriteLine("5: Move diagonally");
+        }
+
+        public void PrintDiagonalMovementMenu()
+        {
+            Console.WriteLine("Input command number:");
+            Console.WriteLine("1: (↑ →) Move player up and right");
+            Console.WriteLine("2: (↑ ←) Move player up and left");
+            Console.WriteLine("3: (↓ →) Move player down and right");
+            Console.WriteLine("4: (↓ ←) Move player down and left");
         }
 
         public void DisplayIncorrectMenuItemMessage()

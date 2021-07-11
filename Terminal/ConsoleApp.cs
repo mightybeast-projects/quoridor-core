@@ -38,7 +38,6 @@ namespace Quoridor.Terminal
         private void RunConsoleGame()
         {
             _drawer.DrawBoard();
-            _messageDisplay.PrintConsoleMenu();
             _inputHandler.HandleInput();
         }
     }

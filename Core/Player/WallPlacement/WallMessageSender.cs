@@ -1,5 +1,3 @@
-using Quoridor.Core.Player.WallPlacement;
-
 namespace Quoridor.Core.Player.WallPlacement
 {
     public class WallMessageSender

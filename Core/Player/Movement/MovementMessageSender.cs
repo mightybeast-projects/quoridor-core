@@ -1,5 +1,3 @@
-using System;
-
 namespace Quoridor.Core.Player.Movement
 {
     public class MovementMessageSender

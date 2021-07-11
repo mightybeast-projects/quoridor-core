@@ -3,22 +3,21 @@ using Quoridor.Core.Player;
 
 namespace Quoridor.Terminal.Input
 {
-    public class ConsoleMovementHandler : InputHandler
+    public class ConsoleSimpleMovementHandler : InputHandler
     {
-        public ConsoleMessageDisplay messageDisplay 
-        { 
-            get => _messageDisplay;
-            internal set => _messageDisplay = value; 
-        }
-
+        private ConsoleDiagonalMovementHandler _diagonalMovementHandler;
         private ConsoleMessageDisplay _messageDisplay;
 
-        public ConsoleMovementHandler(Player player) : base(player) {}
+        public ConsoleSimpleMovementHandler(ConsoleMessageDisplay messageDisplay, Player player) :
+                base(player) 
+        {
+            _diagonalMovementHandler = new ConsoleDiagonalMovementHandler(messageDisplay, player);
+            _messageDisplay = messageDisplay;
+        }
 
         public override void HandleInput()
         {
             _messageDisplay.PrintMovePlayerMenu();
-
             _commandIndex = Convert.ToInt32(Console.ReadLine());
 
             switch (_commandIndex)
@@ -36,7 +35,7 @@ namespace Quoridor.Terminal.Input
                     _player.MoveLeft();
                     break;
                 case 5:
-                    _player.MoveDiagonallyTopRight();
+                    _diagonalMovementHandler.HandleInput();
                     break;
             }
         }
