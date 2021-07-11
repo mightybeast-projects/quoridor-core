@@ -79,16 +79,24 @@ namespace Quoridor.Core.Player.Movement
             bool secondTileHavePlayerAndWallBehind = 
                 CheckExpectedPositionForPlayerAndWallBehind(new Vector2(moveVectorTmp.X, 0));
 
+            bool wallIsOnFirstDiagonalMove = 
+                WallIsOnDiagonalMovement(_currentPosition + new Vector2(moveVectorTmp.X / 2, moveVectorTmp.Y));
+            bool wallIsOnSecondDiagonalMove = 
+                WallIsOnDiagonalMovement(_currentPosition + new Vector2(moveVectorTmp.X, moveVectorTmp.Y / 2));
+
             _expectedPosition = expectedPositionTmp;
             _moveVector = moveVectorTmp;
 
-            return firstTileHavePlayerAndWallBehind || secondTileHavePlayerAndWallBehind;
+            return (firstTileHavePlayerAndWallBehind && !wallIsOnFirstDiagonalMove) || 
+                    (secondTileHavePlayerAndWallBehind && !wallIsOnSecondDiagonalMove);
         }
 
         private bool CheckExpectedPositionForPlayerAndWallBehind(Vector2 moveVector)
         {
             CalculateExpectedPosition(_currentPosition, moveVector);
-            return AnotherPlayerIsOnExpectedPosition() && WallIsBehindAnotherPlayer();
+
+            return AnotherPlayerIsOnExpectedPosition() && 
+                    WallIsBehindAnotherPlayer();
         }
 
         private bool ExpectedPositionIsBeyondTheBoard()
@@ -100,6 +108,11 @@ namespace Quoridor.Core.Player.Movement
         private bool AnotherPlayerIsOnExpectedPosition()
         {
             return !_player.board.grid[_expectedPositionX, _expectedPositionY].isEmpty;
+        }
+
+        private bool WallIsOnDiagonalMovement(Vector2 moveVector)
+        {
+            return !_player.board.grid[(int) moveVector.X, (int) moveVector.Y].isEmpty;
         }
 
         private bool WallIsOnTheWay()
@@ -120,7 +133,6 @@ namespace Quoridor.Core.Player.Movement
             try { return !_player.board.grid[wallX, wallY].isEmpty; }
             catch (IndexOutOfRangeException) { return false; }
         }
-
         internal bool MoveVectorIsDiagonal()
         {
             return Math.Abs(_moveVector.X) == Math.Abs(_moveVector.Y);

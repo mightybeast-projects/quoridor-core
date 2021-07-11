@@ -123,5 +123,17 @@ namespace Quoridor.Tests.PlayerMovement
 
             Assert.AreEqual(new Vector2(6, 4), _firstPlayer.position);
         }
+
+        [Test]
+        public void DoNotMovePlayerDiagonallyTopRightIfThereIsWallOnTheWay1()
+        {
+            _firstPlayer.SetPosition(8, 0);
+            _secondPlayer.SetPosition(8, 2);
+            _firstPlayer.PlaceWall(new Vector2(8, 3), new Vector2(6, 3));
+            _firstPlayer.PlaceWall(new Vector2(9, 2), new Vector2(9, 4));
+            _firstPlayer.MoveDiagonallyTopRight();
+
+            Assert.AreEqual(new Vector2(8, 0), _firstPlayer.position);
+        }
     }
 }
