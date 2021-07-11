@@ -28,8 +28,8 @@ namespace Quoridor.Core.Player.WallPlacement
         {
             _wallStartPosition = wallStartPosition;
             _wallEndPosition = wallEndPosition;
-
             _wallValidator.InitializeVectors(wallStartPosition, wallEndPosition);
+            
             WallPlacementResult result = _wallValidator.CheckWallRequirements();
 
             if (result != WallPlacementResult.SUCCESS)

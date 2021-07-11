@@ -51,6 +51,7 @@ namespace Quoridor.Core.Player.Movement
             if (AnotherPlayerIsOnExpectedPosition())
             {
                 _expectedPosition = _currentPosition + _moveVector * 2;
+
                 if (ExpectedPositionIsBeyondTheBoard())
                     return MovementResult.MOVE_BEYOND_BOARD;
             }
@@ -73,17 +74,21 @@ namespace Quoridor.Core.Player.Movement
             Vector2 expectedPositionTmp = _expectedPosition;
             Vector2 moveVectorTmp = _moveVector;
 
-            CalculateExpectedPosition(_currentPosition, new Vector2(0, moveVectorTmp.Y));
             bool firstTileHavePlayerAndWallBehind = 
-                AnotherPlayerIsOnExpectedPosition() && WallIsBehindAnotherPlayer();
-            CalculateExpectedPosition(_currentPosition, new Vector2(moveVectorTmp.X, 0));
+                CheckExpectedPositionForPlayerAndWallBehind(new Vector2(0, moveVectorTmp.Y));
             bool secondTileHavePlayerAndWallBehind = 
-                AnotherPlayerIsOnExpectedPosition() && WallIsBehindAnotherPlayer();
+                CheckExpectedPositionForPlayerAndWallBehind(new Vector2(moveVectorTmp.X, 0));
 
             _expectedPosition = expectedPositionTmp;
             _moveVector = moveVectorTmp;
 
             return firstTileHavePlayerAndWallBehind || secondTileHavePlayerAndWallBehind;
+        }
+
+        private bool CheckExpectedPositionForPlayerAndWallBehind(Vector2 moveVector)
+        {
+            CalculateExpectedPosition(_currentPosition, moveVector);
+            return AnotherPlayerIsOnExpectedPosition() && WallIsBehindAnotherPlayer();
         }
 
         private bool ExpectedPositionIsBeyondTheBoard()
