@@ -6,20 +6,17 @@ namespace Quoridor.Core.Player.WallPlacement
     public class WallPlacementController
     {
         public int wallCounter => _wallCounter;
-        public List<Wall> placedWalls => _placedWalls;
 
         private Player _player;
         private WallValidator _wallValidator;
         private WallMessageSender _sender;
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;
-        private List<Wall> _placedWalls;
         private int _wallCounter = 10;
 
         internal WallPlacementController(Player player)
         {
             _player = player;
-            _placedWalls = new List<Wall>();
             _wallValidator = new WallValidator(player);
             _sender = new WallMessageSender(player);
         }
@@ -46,7 +43,8 @@ namespace Quoridor.Core.Player.WallPlacement
             _wallCounter--;
 
             Wall newWall = new Wall(_wallStartPosition, _wallEndPosition);
-            _placedWalls.Add(newWall);
+
+            _player.board.placedWalls.Add(newWall);
 
             for (int i = (int)_wallStartPosition.X; i <= (int)_wallEndPosition.X; i++)
                 for (int j = (int)_wallStartPosition.Y; j <= (int)_wallEndPosition.Y; j++)

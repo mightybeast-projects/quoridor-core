@@ -1,15 +1,20 @@
 using System;
+using System.Collections.Generic;
 
 namespace Quoridor.Core
 {
     public class Board
     {
         public Tile[,] grid => _grid;
-
+        public List<Wall> placedWalls => _placedWalls;
+        
         private Tile[,] _grid;
+        private List<Wall> _placedWalls;
 
         public Board()
         {
+            _placedWalls = new List<Wall>();
+            
             GenerateGrid();
         }
 

@@ -47,7 +47,7 @@ namespace Quoridor.Tests.WallPlacement
         private void AssertWallPlacedAndTilesAreNotEmpty()
         {
             Assert.AreEqual(9, _firstPlayer.wallCounter);
-            Assert.AreEqual(1, _firstPlayer.placedWalls.Count);
+            Assert.AreEqual(1, _firstPlayer.board.placedWalls.Count);
             Assert.IsFalse(_board.grid[(int) _startTile.X, (int) _startTile.Y].isEmpty);
             Assert.IsFalse(
                 _board.grid[(int) (_startTile.X + _endTile.X) / 2,

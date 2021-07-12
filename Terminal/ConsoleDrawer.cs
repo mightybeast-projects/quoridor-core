@@ -86,7 +86,7 @@ namespace Quoridor.Terminal
         {
             Vector2 currentPosition = new Vector2(i, j);
             foreach(Player player in _players)
-                foreach(Wall wall in player.placedWalls)
+                foreach(Wall wall in player.board.placedWalls)
                     if (CurrentPositionIsWall(currentPosition, wall) && !_board.grid[i, j].isEmpty) return true;
 
             return false;

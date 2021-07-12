@@ -81,7 +81,7 @@ namespace Quoridor.Core.Player.WallPlacement
 
         private bool WallInterceptsWithOtherWall()
         {
-            foreach (Wall placedWall in _player.placedWalls)
+            foreach (Wall placedWall in _player.board.placedWalls)
                 if (CurrentWallContainsSameTilesOf(placedWall))
                     return true;
 

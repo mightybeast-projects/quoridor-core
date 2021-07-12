@@ -10,7 +10,6 @@ namespace Quoridor.Core.Player
     public class Player
     {
         public Vector2 position => _movementController.position;
-        public List<Wall> placedWalls => _wallPlacementController.placedWalls;
         public int wallCounter => _wallPlacementController.wallCounter;
         public Board board => _board;
         public IOutput output => _output;
