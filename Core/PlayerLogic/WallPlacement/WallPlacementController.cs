@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Quoridor.Core.Player.WallPlacement
+namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
     public class WallPlacementController
     {

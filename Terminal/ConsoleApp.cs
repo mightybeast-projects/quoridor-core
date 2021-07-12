@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Quoridor.Core;
-using Quoridor.Core.Player;
+using Quoridor.Core.PlayerLogic;
 using Quoridor.Terminal.Input;
 
 namespace Quoridor.Terminal
@@ -28,17 +28,15 @@ namespace Quoridor.Terminal
         
         public void Start()
         {
-            while(true)
-            {
-                try { RunConsoleGame(); }
-                catch (FormatException) { _messageDisplay.DisplayIncorrectMenuItemMessage(); }
-            }
+            while(true) { RunConsoleGame(); }
         }
 
         private void RunConsoleGame()
         {
             _drawer.DrawBoard();
-            _inputHandler.HandleInput();
+            
+            try { _inputHandler.HandleInput(); }
+            catch (FormatException) { _messageDisplay.DisplayIncorrectMenuItemMessage(); }
         }
     }
 }

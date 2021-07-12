@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System;
 using System.Numerics;
 using Quoridor.Core;
-using Quoridor.Core.Player;
+using Quoridor.Core.PlayerLogic;
 using Quoridor.Terminal.Drawable;
 
 namespace Quoridor.Terminal

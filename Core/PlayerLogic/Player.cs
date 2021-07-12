@@ -1,22 +1,22 @@
-using System;
-using System.Collections.Generic;
 using System.Numerics;
 using Quoridor.Core.Output;
-using Quoridor.Core.Player.Movement;
-using Quoridor.Core.Player.WallPlacement;
+using Quoridor.Core.PlayerLogic.Movement;
+using Quoridor.Core.PlayerLogic.WallPlacement;
 
-namespace Quoridor.Core.Player
+namespace Quoridor.Core.PlayerLogic
 {
     public class Player
     {
         public Vector2 position => _movementController.position;
         public int wallCounter => _wallPlacementController.wallCounter;
         public Board board => _board;
+        public Tile goal => _goal;
         public IOutput output => _output;
         
         private MovementController _movementController;
         private WallPlacementController _wallPlacementController;
         private Board _board;
+        private Tile _goal;
         private IOutput _output;
 
         public Player(Board board)
@@ -36,11 +36,6 @@ namespace Quoridor.Core.Player
         public void SetPosition(Vector2 newPosition)
         {
             _movementController.SetPosition(newPosition);
-        }
-
-        public void SetOutput(IOutput output)
-        {
-            _output = output;
         }
 
         public void MoveUp()
@@ -68,6 +63,11 @@ namespace Quoridor.Core.Player
             _movementController.Move(new Vector2(2, 2));
         }
 
+        public void MoveDiagonallyTopLeft()
+        {
+            _movementController.Move(new Vector2(-2, 2));
+        }
+
         public void MoveDiagonallyBottomRight()
         {
             _movementController.Move(new Vector2(2, -2));
@@ -78,14 +78,19 @@ namespace Quoridor.Core.Player
             _movementController.Move(new Vector2(-2, -2));
         }
 
-        public void MoveDiagonallyTopLeft()
-        {
-            _movementController.Move(new Vector2(-2, 2));
-        }
-
         public void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
             _wallPlacementController.PlaceWall(wallStartPosition, wallEndPosition);
+        }
+
+        public void SetOutput(IOutput output)
+        {
+            _output = output;
+        }
+
+        public void SetGoal(int x, int y)
+        {
+            _goal = _board.grid[x, y];
         }
     }
 }

@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace Quoridor.Core.Player.WallPlacement
+namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
     public class WallValidator
     {
@@ -25,7 +25,7 @@ namespace Quoridor.Core.Player.WallPlacement
             if (WallPositionIsBeyondBoard()) 
                 return WallPlacementResult.BEYOND_BOARD;
             if (PlayerUsedAllAvailableWalls()) 
-                return WallPlacementResult.PLAYER_USED_ALL_WALLS;
+                return WallPlacementResult.USED_ALL_WALLS;
             if (WallIsNotOnTheSameLine()) 
                 return WallPlacementResult.NOT_ON_THE_SAME_LINE;
             if (WallIsTooLong()) 

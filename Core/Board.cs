@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Quoridor.Core
 {
@@ -28,7 +29,7 @@ namespace Quoridor.Core
 
         private void GenerateNewTile(int i, int j)
         {
-            Tile newTile = new Tile();
+            Tile newTile = new Tile(new Vector2(i, j));
             newTile.isSolid = TileIndexesAreDividableByTwo(i, j);
 
             _grid[i, j] = newTile;

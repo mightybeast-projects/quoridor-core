@@ -1,10 +1,10 @@
-namespace Quoridor.Core.Player.WallPlacement
+namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
     internal enum WallPlacementResult
     {
         SUCCESS,
         BEYOND_BOARD,
-        PLAYER_USED_ALL_WALLS,
+        USED_ALL_WALLS,
         NOT_ON_THE_SAME_LINE,
         TOO_LONG,
         HAVE_PAIR_COORDINATES,

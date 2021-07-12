@@ -1,6 +1,6 @@
 using System;
 using System.Numerics;
-using Quoridor.Core.Player;
+using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
 {

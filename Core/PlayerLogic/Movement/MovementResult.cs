@@ -1,4 +1,4 @@
-namespace Quoridor.Core.Player.Movement
+namespace Quoridor.Core.PlayerLogic.Movement
 {
     internal enum MovementResult
     {

@@ -1,4 +1,4 @@
-namespace Quoridor.Core.Player.WallPlacement
+namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
     public class WallMessageSender
     {
@@ -16,7 +16,7 @@ namespace Quoridor.Core.Player.WallPlacement
                 case WallPlacementResult.BEYOND_BOARD :
                     _player.output?.DisplayWallHasPositionBeyondBoardMessage();
                 break;
-                case WallPlacementResult.PLAYER_USED_ALL_WALLS :
+                case WallPlacementResult.USED_ALL_WALLS :
                     _player.output?.DisplayNotEnoughWallsMessage();
                 break;
                 case WallPlacementResult.NOT_ON_THE_SAME_LINE :

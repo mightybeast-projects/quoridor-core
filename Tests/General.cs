@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using NUnit.Framework;
+using Quoridor.Core.GameLogic;
 
 namespace Quoridor.Tests
 {
@@ -48,6 +49,21 @@ namespace Quoridor.Tests
             Assert.IsTrue(_board.grid[0, 0].isEmpty);
             Assert.IsTrue(!_board.grid[8, 0].isEmpty);
             Assert.AreEqual(new Vector2(8, 0), _firstPlayer.position);
+        }
+
+        [Test]
+        public void CreateGame()
+        {
+            _players.Add(_firstPlayer);
+            _players.Add(_secondPlayer);
+            _game = new Game(_board, _players);
+
+            Assert.AreEqual(2, _game.players.Count);
+            Assert.AreEqual(new Vector2(8, 0), _game.players[0].position);
+            Assert.AreEqual(new Vector2(8, 16), _game.players[1].position);
+            Assert.AreEqual(_board.grid[8, 16], _game.players[0].goal);
+            Assert.AreEqual(_board.grid[8, 0], _game.players[1].goal);
+            Assert.AreEqual(_game.players[0], _game.currentPlayer);
         }
 
         [Test]
