@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Quoridor.Core.Output;
 using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic

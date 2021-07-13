@@ -1,5 +1,4 @@
 using System.Numerics;
-using Quoridor.Core.Output;
 using Quoridor.Core.PlayerLogic.Movement;
 using Quoridor.Core.PlayerLogic.WallPlacement;
 

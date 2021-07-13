@@ -1,6 +1,6 @@
 using System;
 
-namespace Quoridor.Core.Output
+namespace Quoridor.Core
 {
     public interface IOutput
     {

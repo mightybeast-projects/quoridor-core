@@ -1,5 +1,5 @@
 using System;
-using Quoridor.Core.Output;
+using Quoridor.Core;
 
 namespace Quoridor.Terminal
 {
