@@ -16,7 +16,16 @@ namespace Quoridor.Tests.WallPlacement
             _wallStartPosition = new Vector2(0, 1);
             _wallEndPosition = new Vector2(4, 1);
 
-            PlaceAndAssertWrongWall();
+            _firstPlayer.PlaceWall(_wallStartPosition, _wallEndPosition);
+
+            Assert.AreEqual(10, _firstPlayer.wallCounter);
+            Assert.AreEqual(0, _firstPlayer.board.placedWalls.Count);
+            try
+            {
+                Assert.IsTrue(_board.grid[(int)_wallStartPosition.X, (int)_wallStartPosition.Y].isEmpty);
+                Assert.IsTrue(_board.grid[(int)_wallEndPosition.X, (int)_wallEndPosition.Y].isEmpty);
+            }
+            catch (Exception) {}
         }
 
         [Test]

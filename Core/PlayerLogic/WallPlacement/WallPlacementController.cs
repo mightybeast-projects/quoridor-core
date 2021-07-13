@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -9,7 +10,6 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 
         private Player _player;
         private WallValidator _wallValidator;
-        private WallMessageSender _sender;
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;
         private int _wallCounter = 10;
@@ -18,7 +18,6 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         {
             _player = player;
             _wallValidator = new WallValidator(player);
-            _sender = new WallMessageSender(player);
         }
 
         internal void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
@@ -27,11 +26,10 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
             _wallEndPosition = wallEndPosition;
             _wallValidator.InitializeVectors(wallStartPosition, wallEndPosition);
             
-            WallPlacementResult result = _wallValidator.CheckWallRequirements();
-
-            if (result != WallPlacementResult.SUCCESS)
+            try { _wallValidator.CheckWallRequirements(); }
+            catch (Exception e) 
             {
-                _sender.SendAppropriateMessage(result);
+                _player.output?.DisplayExceptionMessage(e);
                 return;
             }
 

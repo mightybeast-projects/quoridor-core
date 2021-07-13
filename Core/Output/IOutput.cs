@@ -1,7 +1,9 @@
+using System;
+
 namespace Quoridor.Core.Output
 {
-    public interface IOutput : IMovementOutput, IWallPlacementOutput
+    public interface IOutput : IMovementOutput
     {
-
+        void DisplayExceptionMessage(Exception e);
     }
 }

@@ -56,39 +56,9 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("Cannot move diagonally");
         }
 
-        public void DisplayWallIsTooLongMessage()
+        public void DisplayExceptionMessage(Exception e)
         {
-            DisplayWarningMessage("Wall is too long. Walls can only be 3 tiles long.");
-        }
-
-        public void DisplayWallIsNotOnTheSameLineMessage()
-        {
-            DisplayWarningMessage("Wall is not on the same line. Walls can be placed in horizontal or vertical direction.");
-        }
-
-        public void DisplayWallTilesHavePairCoordinatesMessage()
-        {
-            DisplayWarningMessage("Wall covers walkable tile.");
-        }
-
-        public void DisplayWallDoesNotCoverTwoSolidTilesMessage()
-        {
-            DisplayWarningMessage("Wall does not line up with two walkable tiles.");
-        }
-
-        public void DisplayWallInterceptsWithOtherWallMessage()
-        {
-            DisplayWarningMessage("Wall intercepts with other wall.");
-        }
-
-        public void DisplayNotEnoughWallsMessage()
-        {
-            DisplayWarningMessage("Not enough walls.");
-        }
-
-        public void DisplayWallHasPositionBeyondBoardMessage()
-        {
-            DisplayWarningMessage("Wall position contains negative coordinate.");
+            DisplayErrorMessage(e.Message);
         }
 
         private void DisplayWarningMessage(String messageToShow)

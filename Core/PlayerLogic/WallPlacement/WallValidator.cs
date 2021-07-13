@@ -1,4 +1,5 @@
 using System.Numerics;
+using Quoridor.Core.PlayerLogic.WallPlacement.Exceptions;
 
 namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
@@ -20,24 +21,22 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
             _wallEndPosition = wallEndPosition;
         }
 
-        internal WallPlacementResult CheckWallRequirements()
+        internal void CheckWallRequirements()
         {
             if (WallPositionIsBeyondBoard()) 
-                return WallPlacementResult.BEYOND_BOARD;
+                throw new WallIsBeyondBoardException();
             if (PlayerUsedAllAvailableWalls()) 
-                return WallPlacementResult.USED_ALL_WALLS;
+                throw new PlayerUsedWallsException();
             if (WallIsNotOnTheSameLine()) 
-                return WallPlacementResult.NOT_ON_THE_SAME_LINE;
+                throw new WallIsNotOnTheSameLineException();
             if (WallIsTooLong()) 
-                return WallPlacementResult.TOO_LONG;
+                throw new WallIsTooLongException();
             if (WallTilesHavePairCoordinates()) 
-                return WallPlacementResult.HAVE_PAIR_COORDINATES;
+                throw new WallTilesHavePairCoordinatesException();
             if (WallDoesNotCoverTwoSolidTiles()) 
-                return WallPlacementResult.DOES_NOT_COVER_TWO_TILES;
+                throw new WallDoesNotCoverSolidTilesException();
             if (WallInterceptsWithOtherWall()) 
-                return WallPlacementResult.INTERCEPTS_WITH_OHER_WALL;
-
-            return WallPlacementResult.SUCCESS;
+                throw new WallInterceptsWithOtherWallException();
         }
 
         private bool WallPositionIsBeyondBoard()
