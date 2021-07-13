@@ -15,7 +15,7 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
             _player = player;
         }
 
-        internal void InitializeVectors(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        internal void InitializeWallPositions(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
             _wallStartPosition = wallStartPosition;
             _wallEndPosition = wallEndPosition;

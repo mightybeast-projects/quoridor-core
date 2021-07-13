@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 
 namespace Quoridor.Core.PlayerLogic.Movement
@@ -11,13 +12,11 @@ namespace Quoridor.Core.PlayerLogic.Movement
         private Vector2 _position;
         private Vector2 _moveVector;
         private ExpectedPositionValidator _positionValidator;
-        private MovementMessageSender _sender;
 
         public MovementController(Player player)
         {
             _player = player;
             _positionValidator = new ExpectedPositionValidator(_player);
-            _sender = new MovementMessageSender(_player);
         }
 
         internal void SetPosition(int x, int y)
@@ -37,11 +36,10 @@ namespace Quoridor.Core.PlayerLogic.Movement
             _moveVector = moveVector;
             _positionValidator.CalculateExpectedPosition(_position, _moveVector);
 
-            MovementResult result = _positionValidator.CheckExpectedPositionRequirements();
-
-            if (result != MovementResult.SUCCESS)
+            try { _positionValidator.CheckExpectedPositionRequirements(); }
+            catch (Exception e)
             {
-                _sender.SendAppropriateMessage(result);
+                _player.output?.DisplayExceptionMessage(e);
                 return;
             }
 

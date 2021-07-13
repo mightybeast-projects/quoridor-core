@@ -36,26 +36,6 @@ namespace Quoridor.Terminal
             DisplayWarningMessage("Incorrect menu index.");
         }
 
-        public void DisplayCantMoveErrorMessage()
-        {
-            DisplayErrorMessage("Can't move to the given direction.");
-        }
-
-        public void DisplayWallIsOnTheWayMessage()
-        {
-            DisplayWarningMessage("Wall is on the way of movement.");
-        }
-
-        public void DisplayWallIsBehindAnotherPlayerMessage()
-        {
-            DisplayWarningMessage("There is a wall behind another player on the way.");
-        }
-
-        public void DisplayCannotMoveDiagonallyMessage()
-        {
-            DisplayWarningMessage("Cannot move diagonally");
-        }
-
         public void DisplayExceptionMessage(Exception e)
         {
             DisplayErrorMessage(e.Message);

@@ -24,7 +24,7 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         {
             _wallStartPosition = wallStartPosition;
             _wallEndPosition = wallEndPosition;
-            _wallValidator.InitializeVectors(wallStartPosition, wallEndPosition);
+            _wallValidator.InitializeWallPositions(wallStartPosition, wallEndPosition);
             
             try { _wallValidator.CheckWallRequirements(); }
             catch (Exception e) 

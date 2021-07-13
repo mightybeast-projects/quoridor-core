@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
 namespace Quoridor.Core.PlayerLogic.Movement
 {
@@ -28,29 +29,27 @@ namespace Quoridor.Core.PlayerLogic.Movement
             InitializeCoordinates();
         }
 
-        internal MovementResult CheckExpectedPositionRequirements()
+        internal void CheckExpectedPositionRequirements()
         {
             if (ExpectedPositionIsBeyondTheBoard())
-                return MovementResult.MOVE_BEYOND_BOARD;
+                throw new MoveBeyondBoardException();
             if (WallIsOnTheWay())
-                return MovementResult.WALL_ON_THE_WAY;
+                throw new WallOnTheWayException();
             if (WallIsBehindAnotherPlayer())
-                return MovementResult.WALL_BEHIND_ANOTHER_PLAYER;
+                throw new WallBehindAnotherPlayerException();
             
             if (MoveIsDiagonalButPlayerCannotMoveDiagonally())
-                return MovementResult.CANNOT_MOVE_DIAGONALLY;
+                throw new CannotMoveDiagonallyException();
             if (MoveIsDiagonalAndPlayerCanMoveDiagonally())
-                return MovementResult.SUCCESS;
+                return;
 
             if (AnotherPlayerIsOnExpectedPosition())
             {
                 _expectedPosition = _currentPosition + _moveVector * 2;
 
                 if (ExpectedPositionIsBeyondTheBoard())
-                    return MovementResult.MOVE_BEYOND_BOARD;
+                    throw new MoveBeyondBoardException();
             }
-
-            return MovementResult.SUCCESS;
         }
 
         private void InitializeCoordinates()
