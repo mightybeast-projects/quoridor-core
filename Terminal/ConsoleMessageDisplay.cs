@@ -16,7 +16,6 @@ namespace Quoridor.Terminal
 
         public void PrintConsoleMenu()
         {
-            Console.Write("Player ");
             DrawPlayer();
             Console.WriteLine(" turn");
             Console.WriteLine("Input command number:");
