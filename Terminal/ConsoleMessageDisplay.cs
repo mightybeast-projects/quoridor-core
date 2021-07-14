@@ -1,6 +1,7 @@
 using System;
 using Quoridor.Core;
 using Quoridor.Core.GameLogic;
+using Quoridor.Terminal.Drawable;
 
 namespace Quoridor.Terminal
 {
@@ -15,7 +16,9 @@ namespace Quoridor.Terminal
 
         public void PrintConsoleMenu()
         {
-            Console.WriteLine("Player " + (_game.currentPlayerIndex + 1) + " turn");
+            Console.Write("Player ");
+            DrawPlayer();
+            Console.WriteLine(" turn");
             Console.WriteLine("Input command number:");
             Console.WriteLine("1: Move player");
             Console.WriteLine("2: Place wall");
@@ -48,6 +51,13 @@ namespace Quoridor.Terminal
         public void DisplayExceptionMessage(Exception e)
         {
             DisplayErrorMessage(e.Message);
+        }
+
+        private void DrawPlayer()
+        {
+            PlayerDrawable _playerDrawable = new PlayerDrawable(_game.currentPlayerIndex);
+            _playerDrawable.Draw();
+            Console.ResetColor();
         }
 
         private void DisplayWarningMessage(String messageToShow)
