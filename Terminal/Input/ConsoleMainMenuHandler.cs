@@ -1,4 +1,5 @@
 using System;
+using Quoridor.Core.GameLogic;
 using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
@@ -8,13 +9,13 @@ namespace Quoridor.Terminal.Input
         private ConsoleSimpleMovementHandler _simpleMovementHandler;
         private ConsoleWallPlacementHandler _wallPlacementHandler;
         private ConsoleMessageDisplay _messageDisplay;
-        
-        public ConsoleMainMenuHandler(ConsoleMessageDisplay messageDisplay, Player player) : 
-                base(player)
+
+        public ConsoleMainMenuHandler(ConsoleMessageDisplay messageDisplay, Game game) : 
+                base(game)
         {
             _simpleMovementHandler = 
-                new ConsoleSimpleMovementHandler(messageDisplay, _player);
-            _wallPlacementHandler = new ConsoleWallPlacementHandler(_player);
+                new ConsoleSimpleMovementHandler(messageDisplay, game);
+            _wallPlacementHandler = new ConsoleWallPlacementHandler(game);
 
             _messageDisplay = messageDisplay;
         }

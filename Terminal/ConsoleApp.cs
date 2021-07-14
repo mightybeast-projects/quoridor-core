@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Quoridor.Core;
+using Quoridor.Core.GameLogic;
 using Quoridor.Core.PlayerLogic;
 using Quoridor.Terminal.Input;
 
@@ -8,21 +9,19 @@ namespace Quoridor.Terminal
 {
     public class ConsoleApp
     {
-        private Board _board;
-        private List<Player> _players;
+        private Game _game;
         private ConsoleDrawer _drawer;
         private ConsoleMessageDisplay _messageDisplay;
         private InputHandler _inputHandler;
 
-        public ConsoleApp(Board board, List<Player> players)
+        public ConsoleApp(Game game)
         {
-            _board = board;
-            _players = players;
-            _drawer = new ConsoleDrawer(board, _players);
-            _messageDisplay = new ConsoleMessageDisplay();
-            _inputHandler = new ConsoleMainMenuHandler(_messageDisplay, _players[0]);
+            _game = game;
+            _drawer = new ConsoleDrawer(game);
+            _messageDisplay = new ConsoleMessageDisplay(game);
+            _inputHandler = new ConsoleMainMenuHandler(_messageDisplay, _game);
 
-            foreach(Player player in _players)
+            foreach(Player player in _game.players)
                 player.SetOutput(_messageDisplay);
         }
         

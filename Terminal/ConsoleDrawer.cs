@@ -4,6 +4,7 @@ using System.Numerics;
 using Quoridor.Core;
 using Quoridor.Core.PlayerLogic;
 using Quoridor.Terminal.Drawable;
+using Quoridor.Core.GameLogic;
 
 namespace Quoridor.Terminal
 {
@@ -18,6 +19,12 @@ namespace Quoridor.Terminal
         {
             _board = board;
             _players = players;
+        }
+
+        public ConsoleDrawer(Game game)
+        {
+            _board = game.board;
+            _players = game.players;
         }
 
         public void DrawBoard()

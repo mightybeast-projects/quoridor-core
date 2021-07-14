@@ -1,12 +1,21 @@
 using System;
 using Quoridor.Core;
+using Quoridor.Core.GameLogic;
 
 namespace Quoridor.Terminal
 {
     public class ConsoleMessageDisplay : IOutput
     {
+        private Game _game;
+
+        public ConsoleMessageDisplay(Game game)
+        {
+            _game = game;
+        }
+
         public void PrintConsoleMenu()
         {
+            Console.WriteLine("Player " + (_game.currentPlayerIndex + 1) + " turn");
             Console.WriteLine("Input command number:");
             Console.WriteLine("1: Move player");
             Console.WriteLine("2: Place wall");

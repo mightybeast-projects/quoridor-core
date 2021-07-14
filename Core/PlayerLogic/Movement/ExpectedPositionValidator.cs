@@ -35,9 +35,6 @@ namespace Quoridor.Core.PlayerLogic.Movement
                 throw new MoveBeyondBoardException();
             if (WallIsOnTheWay())
                 throw new WallOnTheWayException();
-            if (WallIsBehindAnotherPlayer())
-                throw new WallBehindAnotherPlayerException();
-            
             if (MoveIsDiagonalButPlayerCannotMoveDiagonally())
                 throw new CannotMoveDiagonallyException();
             if (MoveIsDiagonalAndPlayerCanMoveDiagonally())
@@ -45,6 +42,9 @@ namespace Quoridor.Core.PlayerLogic.Movement
 
             if (AnotherPlayerIsOnExpectedPosition())
             {
+                if (WallIsBehindAnotherPlayer())
+                    throw new WallBehindAnotherPlayerException();
+
                 _expectedPosition = _currentPosition + _moveVector * 2;
 
                 if (ExpectedPositionIsBeyondTheBoard())

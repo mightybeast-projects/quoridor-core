@@ -1,15 +1,16 @@
+using Quoridor.Core.GameLogic;
 using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
 {
     public abstract class InputHandler
     {
-        protected Player _player;
+        protected Game _game;
         protected int _commandIndex;
 
-        public InputHandler(Player player)
+        public InputHandler(Game game)
         {
-            _player = player;
+            _game = game;
         }
 
         public abstract void HandleInput();

@@ -1,4 +1,5 @@
 using System;
+using Quoridor.Core.GameLogic;
 using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
@@ -8,10 +9,10 @@ namespace Quoridor.Terminal.Input
         private ConsoleDiagonalMovementHandler _diagonalMovementHandler;
         private ConsoleMessageDisplay _messageDisplay;
 
-        public ConsoleSimpleMovementHandler(ConsoleMessageDisplay messageDisplay, Player player) :
-                base(player) 
+        public ConsoleSimpleMovementHandler(ConsoleMessageDisplay messageDisplay, Game game) :
+                base(game) 
         {
-            _diagonalMovementHandler = new ConsoleDiagonalMovementHandler(messageDisplay, player);
+            _diagonalMovementHandler = new ConsoleDiagonalMovementHandler(messageDisplay, game);
             _messageDisplay = messageDisplay;
         }
 
@@ -23,16 +24,16 @@ namespace Quoridor.Terminal.Input
             switch (_commandIndex)
             {
                 case 1:
-                    _player.MoveUp();
+                    _game.MakeCurrentPlayerMove(PlayerMove.MOVE_UP);
                     break;
                 case 2:
-                    _player.MoveDown();
+                    _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DOWN);
                     break;
                 case 3:
-                    _player.MoveRight();
+                    _game.MakeCurrentPlayerMove(PlayerMove.MOVE_RIGHT);
                     break;
                 case 4:
-                    _player.MoveLeft();
+                    _game.MakeCurrentPlayerMove(PlayerMove.MOVE_LEFT);
                     break;
                 case 5:
                     _diagonalMovementHandler.HandleInput();

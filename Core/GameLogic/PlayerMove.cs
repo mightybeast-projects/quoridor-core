@@ -1,4 +1,4 @@
-namespace quoridor_core.Core.GameLogic
+namespace Quoridor.Core.GameLogic
 {
     public enum PlayerMove
     {

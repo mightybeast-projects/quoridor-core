@@ -12,7 +12,7 @@ namespace Quoridor.Tests.PlayerMovement
         private Action MovementFunction;
         
         [Test]
-        public void MovePlayerUpWithWallOnTheWay()
+        public void DoNotMovePlayerUpWithWallOnTheWay()
         {
             _wallStartPosition = new Vector2(8, 3);
             _wallEndPosition = new Vector2(10, 3);
@@ -22,7 +22,7 @@ namespace Quoridor.Tests.PlayerMovement
         }
 
         [Test]
-        public void MovePlayerDownWithWallOnTheWay()
+        public void DoNotMovePlayerDownWithWallOnTheWay()
         {
             _wallStartPosition = new Vector2(8, 1);
             _wallEndPosition = new Vector2(10, 1);
@@ -32,7 +32,7 @@ namespace Quoridor.Tests.PlayerMovement
         }
 
         [Test]
-        public void MovePlayerRightWithWallOnTheWay()
+        public void DoNotMovePlayerRightWithWallOnTheWay()
         {
             _wallStartPosition = new Vector2(9, 0);
             _wallEndPosition = new Vector2(9, 2);
@@ -42,7 +42,7 @@ namespace Quoridor.Tests.PlayerMovement
         }
 
         [Test]
-        public void MovePlayerLeftWithWallOnTheWay()
+        public void DoNotMovePlayerLeftWithWallOnTheWay()
         {
             _wallStartPosition = new Vector2(7, 0);
             _wallEndPosition = new Vector2(7, 2);

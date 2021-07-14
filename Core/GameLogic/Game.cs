@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using Quoridor.Core.PlayerLogic;
-using quoridor_core.Core.GameLogic;
+using Quoridor.Core.GameLogic;
 
 namespace Quoridor.Core.GameLogic
 {
@@ -11,6 +11,7 @@ namespace Quoridor.Core.GameLogic
         public List<Player> players => _players;
         public Board board => _board;
         public Player currentPlayer => _currentPlayer;
+        public int currentPlayerIndex => _currentPlayerIndex;
 
         private List<Player> _players;
         private Board _board;

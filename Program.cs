@@ -3,6 +3,7 @@ using Quoridor.Terminal;
 using Quoridor.Core;
 using System.Numerics;
 using Quoridor.Core.PlayerLogic;
+using Quoridor.Core.GameLogic;
 
 namespace Quoridor
 {
@@ -10,15 +11,14 @@ namespace Quoridor
     {
         private static Board _board;
         private static List<Player> _players;
+        private static Game _game;
         private static ConsoleApp _consoleApp;
 
         public static void Main()
         {
             InitializeFields();
 
-            //SinglePlayerExample();
-            TwoPlayersExample();
-            //FourPlayersExample();
+            GameExample();
 
             StartConsoleApp();
         }
@@ -29,45 +29,18 @@ namespace Quoridor
             _players = new List<Player>();
         }
 
-        private static void FourPlayersExample()
+        private static void GameExample()
         {
             Player firstPlayer = new Player(_board);
-            _players.Add(firstPlayer);
             Player secondPlayer = new Player(_board);
-            _players.Add(secondPlayer);
-            Player thirdPlayer = new Player(_board);
-            _players.Add(thirdPlayer);
-            Player fourthPlayer = new Player(_board);
-            _players.Add(fourthPlayer);
-
-            firstPlayer.SetPosition(8, 0);
-            secondPlayer.SetPosition(8, 16);
-            thirdPlayer.SetPosition(0, 8);
-            fourthPlayer.SetPosition(16, 8);
-        }
-
-        private static void TwoPlayersExample()
-        {
-            Player firstPlayer = new Player(_board);
             _players.Add(firstPlayer);
-            Player secondPlayer = new Player(_board);
             _players.Add(secondPlayer);
-
-            firstPlayer.SetPosition(8, 0);
-            secondPlayer.SetPosition(8, 2);
-        }
-
-        private static void SinglePlayerExample()
-        {
-            Player player = new Player(_board);
-            _players.Add(player);
-
-            player.SetPosition(8, 0);
+            _game = new Game(_board, _players);
         }
 
         private static void StartConsoleApp()
         {
-            _consoleApp = new ConsoleApp(_board, _players);
+            _consoleApp = new ConsoleApp(_game);
             _consoleApp.Start();
         }
     }

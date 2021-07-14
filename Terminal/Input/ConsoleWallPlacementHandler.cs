@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using Quoridor.Core.GameLogic;
 using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
@@ -12,14 +13,14 @@ namespace Quoridor.Terminal.Input
         private Vector2 _wallStartPosition = Vector2.Zero;
         private Vector2 _wallEndPosition = Vector2.Zero;
 
-        public ConsoleWallPlacementHandler(Player player) : base(player) {}
+        public ConsoleWallPlacementHandler(Game game) : base(game) {}
 
         public override void HandleInput()
         {
             ReadInput();
             ParseInput();
 
-            _player.PlaceWall(_wallStartPosition, _wallEndPosition);
+            _game.MakeCurrentPlayerPlaceWall(_wallStartPosition, _wallEndPosition);
         }
 
         private void ReadInput()

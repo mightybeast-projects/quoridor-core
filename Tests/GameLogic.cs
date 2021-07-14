@@ -2,7 +2,6 @@ using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core;
 using Quoridor.Core.GameLogic;
-using quoridor_core.Core.GameLogic;
 
 namespace Quoridor.Tests
 {
