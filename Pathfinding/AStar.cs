@@ -8,7 +8,6 @@ namespace Quoridor.Pathfinding
     {
         public List<Tile> path => _path;
 
-        private Tile _start;
         private Tile _goal;
         private List<Tile> _openSet;
         private List<Tile> _closedSet;
@@ -17,9 +16,9 @@ namespace Quoridor.Pathfinding
         private Tile _currentTileNeighbour;
         private float _tempG;
         private bool _newPathDiscovered;
+        
         public void DoAStar(Tile start, Tile goal)
         {
-            _start = start;
             _goal = goal;
 
             ResetLists();
@@ -56,7 +55,6 @@ namespace Quoridor.Pathfinding
 
                 if (!_closedSet.Contains(_currentTileNeighbour))
                     ProcessCurrentTileNeighbour();
-                else continue;
             }
         }
 
@@ -100,10 +98,10 @@ namespace Quoridor.Pathfinding
 
         private void AddTilesToPath()
         {
-            path.Add(_currentTile);
+            _path.Add(_currentTile);
             while (_currentTile.parent != null)
             {
-                path.Add(_currentTile.parent);
+                _path.Add(_currentTile.parent);
                 _currentTile = _currentTile.parent;
             }
         }
