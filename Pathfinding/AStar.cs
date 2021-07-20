@@ -44,7 +44,7 @@ namespace Quoridor.Pathfinding
                 openSet.Remove(current);
                 closedSet.Add(current);
 
-                foreach (Tile neighbor in current.neighbors)
+                foreach (Tile neighbor in current.GetNeighbours())
                 {
                     if(!closedSet.Contains(neighbor))
                     {

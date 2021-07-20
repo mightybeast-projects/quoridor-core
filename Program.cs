@@ -29,10 +29,14 @@ namespace Quoridor
         private static void tmp()
         {
             Board _board = new Board();
+            Player _player = new Player(_board);
+            _player.SetPosition(8, 0);
+            //_player.PlaceWall(new Vector2(7, 0), new Vector2(7, 2));
+            //_player.PlaceWall(new Vector2(8, 3), new Vector2(10, 3));
+            //_player.PlaceWall(new Vector2(11, 0), new Vector2(11, 2));
             AStar algo = new AStar();
-            algo.DoAStar(_board.grid[0, 0], _board.grid[16, 16]);
-            Console.WriteLine(_board.grid[0, 0].neighbors.Count);
-            Console.WriteLine(algo.path.Count);
+            algo.DoAStar(_board.grid[(int) _player.position.X, (int) _player.position.Y], _board.grid[16, 16]);
+            Console.WriteLine("Path count : " + algo.path.Count);
             foreach(Tile tile in algo.path)
                 Console.WriteLine(tile.position);
             Console.ReadKey();
