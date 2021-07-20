@@ -8,74 +8,129 @@ namespace Quoridor.Pathfinding
     {
         public List<Tile> path => _path;
 
+        private Tile _start;
+        private Tile _goal;
+        private List<Tile> _openSet;
+        private List<Tile> _closedSet;
         private List<Tile> _path;
+        private Tile _currentTile;
+        private Tile _currentTileNeighbour;
+        private float _tempG;
+        private bool _newPathDiscovered;
         public void DoAStar(Tile start, Tile goal)
         {
-            List<Tile> openSet = new List<Tile>();
-            List<Tile> closedSet = new List<Tile>();
-            _path = new List<Tile>(); 
+            _start = start;
+            _goal = goal;
 
-            openSet.Add(start);
+            ResetLists();
 
-            while (openSet.Count > 0)
+            _openSet.Add(start);
+
+            StartAlgorithm();
+        }
+
+        private void StartAlgorithm()
+        {
+            while (OpenSetHasTiles())
             {
-                int lowestIndex = 0;
-                for (int i = 0; i < openSet.Count; i++)
-                {
-                    Tile tile = openSet[i];
+                GetNearestToTheGoalTile();
 
-                    if(tile.f < openSet[lowestIndex].f)
-                        lowestIndex = i;
-                }
-                Tile current = openSet[lowestIndex];
-
-                if(current == goal)
+                if (_currentTile == _goal)
                 {
-                    Tile end = current;
-                    path.Add(end);
-                    while (end.parent != null)
-                    {
-                        path.Add(end.parent);
-                        end = end.parent;
-                    }
+                    AddTilesToPath();
                     break;
                 }
 
-                openSet.Remove(current);
-                closedSet.Add(current);
+                _openSet.Remove(_currentTile);
+                _closedSet.Add(_currentTile);
 
-                foreach (Tile neighbor in current.GetNeighbours())
-                {
-                    if(!closedSet.Contains(neighbor))
-                    {
-                        float tempG = current.g + 1;
-                        bool newPath = false;
-
-                        if(openSet.Contains(neighbor))
-                        {    
-                            if(tempG < neighbor.g)
-                            {
-                                neighbor.g = tempG;
-                                newPath = true;
-                            }
-                        }
-                        else
-                        {
-                            neighbor.g = tempG;
-                            openSet.Add(neighbor);
-                            newPath = true;
-                        }
-
-                        if(newPath)
-                        {
-                            neighbor.h = CalculateHeuristic(neighbor, goal);
-                            neighbor.f = neighbor.g + neighbor.h;
-                            neighbor.parent = current;
-                        }
-                    }
-                    else continue;
-                }
+                CheckCurrentTileNeighbors();
             }
+        }
+
+        private void CheckCurrentTileNeighbors()
+        {
+            foreach (Tile neighbour in _currentTile.GetNeighbours())
+            {
+                _currentTileNeighbour = neighbour;
+
+                if (!_closedSet.Contains(_currentTileNeighbour))
+                    ProcessCurrentTileNeighbour();
+                else continue;
+            }
+        }
+
+        private void ProcessCurrentTileNeighbour()
+        {
+            _tempG = _currentTile.g + 1;
+            _newPathDiscovered = false;
+
+            CheckCurrentTileNeighborG();
+
+            if (_newPathDiscovered)
+                CalculateCurrentTileNeighbourF();
+        }
+
+        private void CheckCurrentTileNeighborG()
+        {
+            if (_openSet.Contains(_currentTileNeighbour))
+            {
+                if (_tempG < _currentTileNeighbour.g)
+                    AssignNewCurrentTileNeighborGAndPath();
+            }
+            else
+            {
+                AssignNewCurrentTileNeighborGAndPath();
+                _openSet.Add(_currentTileNeighbour);
+            }
+        }
+
+        private void AssignNewCurrentTileNeighborGAndPath()
+        {
+            _currentTileNeighbour.g = _tempG;
+            _newPathDiscovered = true;
+        }
+
+        private void CalculateCurrentTileNeighbourF()
+        {
+            _currentTileNeighbour.h = CalculateHeuristic(_currentTileNeighbour, _goal);
+            _currentTileNeighbour.f = _currentTileNeighbour.g + _currentTileNeighbour.h;
+            _currentTileNeighbour.parent = _currentTile;
+        }
+
+        private void AddTilesToPath()
+        {
+            path.Add(_currentTile);
+            while (_currentTile.parent != null)
+            {
+                path.Add(_currentTile.parent);
+                _currentTile = _currentTile.parent;
+            }
+        }
+
+        private void GetNearestToTheGoalTile()
+        {
+            int lowestIndex = 0;
+            for (int i = 0; i < _openSet.Count; i++)
+            {
+                Tile tile = _openSet[i];
+
+                if (tile.f < _openSet[lowestIndex].f)
+                    lowestIndex = i;
+            }
+            _currentTile = _openSet[lowestIndex];
+        }
+
+        private bool OpenSetHasTiles()
+        {
+            return _openSet.Count > 0;
+        }
+
+        private void ResetLists()
+        {
+            _openSet = new List<Tile>();
+            _closedSet = new List<Tile>();
+            _path = new List<Tile>();
         }
 
         private float CalculateHeuristic(Tile neighbor, Tile goal)

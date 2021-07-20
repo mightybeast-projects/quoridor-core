@@ -18,12 +18,12 @@ namespace Quoridor
 
         public static void Main()
         {
-            /*InitializeFields();
+            InitializeFields();
 
             GameExample();
 
-            StartConsoleApp();*/
-            tmp();
+            StartConsoleApp();
+            //tmp();
         }
 
         private static void tmp()

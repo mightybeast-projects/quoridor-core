@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Quoridor.Core;
 
-namespace Quoridor.Tests.AStar
+namespace Quoridor.Tests.Pathfinding
 {
     [TestFixture]
     public class NeighborsCheck : Initialization
