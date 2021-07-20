@@ -10,7 +10,6 @@ namespace Quoridor.Tests.AStar
     {
         private List<Tile> _preNeighbors;
         private List<Tile> _neighbors;
-        private List<Tile> _listToAdd;
         private Tile _tileToCheck;
         private int _tileX;
         private int _tileY;
