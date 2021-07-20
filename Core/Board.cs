@@ -12,7 +12,6 @@ namespace Quoridor.Core
         
         private Tile[,] _grid;
         private List<Wall> _placedWalls;
-
         private Tile _currentTile;
 
         public Board()
@@ -36,35 +35,28 @@ namespace Quoridor.Core
                 {
                     _currentTile = _grid[i, j];
 
-                    AddPreNeighborTile(i, j + 1);
-                    AddNeighborTile(i, j + 2);
-
-                    AddPreNeighborTile(i + 1, j);
-                    AddNeighborTile(i + 2, j);
-
-                    AddPreNeighborTile(i, j - 1);
-                    AddNeighborTile(i, j - 2);
-
-                    AddPreNeighborTile(i - 1, j);
-                    AddNeighborTile(i - 2, j);
+                    AddAdjacentTilesToListWithIndex(_currentTile.preNeighbors, 1);
+                    AddAdjacentTilesToListWithIndex(_currentTile.neighbors, 2);
                 }
             }
         }
 
-        private void AddPreNeighborTile(int tileX, int tileY)
+        private void AddAdjacentTilesToListWithIndex(List<Tile> list, int neighborIndex)
         {
-            try
-            {
-                _currentTile.preNeighbors.Add(_grid[tileX, tileY]);
-            }
-            catch (IndexOutOfRangeException) {}
+            int i = (int) _currentTile.position.X;
+            int j = (int) _currentTile.position.Y;
+
+            AddAdjacentTileToList(list, i, j + neighborIndex);
+            AddAdjacentTileToList(list, i + neighborIndex, j);
+            AddAdjacentTileToList(list, i, j - neighborIndex);
+            AddAdjacentTileToList(list, i - neighborIndex, j);
         }
 
-        private void AddNeighborTile(int tileX, int tileY)
+        private void AddAdjacentTileToList(List<Tile> list, int tileX, int tileY)
         {
             try
             {
-                _currentTile.neighbors.Add(_grid[tileX, tileY]);
+                list.Add(_grid[tileX, tileY]);
             }
             catch (IndexOutOfRangeException) {}
         }

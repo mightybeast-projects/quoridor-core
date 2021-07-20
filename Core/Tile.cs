@@ -19,12 +19,20 @@ namespace Quoridor.Core
         public Vector2 position => _position;
         public List<Tile> neighbors => _neighbors;
         public List<Tile> preNeighbors => _preNeighbors;
+        public float f { get => _f; set => _f = value; }
+        public float g { get => _g; set => _g = value; }
+        public float h { get => _h; set => _h = value; }
+        public Tile parent { get => _parent; set => _parent = value; }
 
         private bool _isSolid = true;
         private bool _isEmpty = true;
         private Vector2 _position;
         private List<Tile> _neighbors;
         private List<Tile> _preNeighbors;
+        private float _f;
+        private float _g;
+        private float _h;
+        private Tile _parent;
 
         public Tile(Vector2 position)
         {

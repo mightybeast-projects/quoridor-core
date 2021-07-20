@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Quoridor.Terminal;
 using Quoridor.Core;
 using System.Numerics;
 using Quoridor.Core.PlayerLogic;
 using Quoridor.Core.GameLogic;
+using Quoridor.Pathfinding;
 
 namespace Quoridor
 {
@@ -16,11 +18,24 @@ namespace Quoridor
 
         public static void Main()
         {
-            InitializeFields();
+            /*InitializeFields();
 
             GameExample();
 
-            StartConsoleApp();
+            StartConsoleApp();*/
+            tmp();
+        }
+
+        private static void tmp()
+        {
+            Board _board = new Board();
+            AStar algo = new AStar();
+            algo.DoAStar(_board.grid[0, 0], _board.grid[16, 16]);
+            Console.WriteLine(_board.grid[0, 0].neighbors.Count);
+            Console.WriteLine(algo.path.Count);
+            foreach(Tile tile in algo.path)
+                Console.WriteLine(tile.position);
+            Console.ReadKey();
         }
 
         private static void InitializeFields()
