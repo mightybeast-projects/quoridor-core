@@ -9,10 +9,14 @@ namespace Quoridor.Core.GameLogic
         private Player _player;
         private AStar _algo;
 
+        public PathValidator()
+        {
+            _algo = new AStar();
+        }
+
         public void SetPlayer(Player player)
         {
             _player = player;
-            _algo = new AStar(_player.board);
         }
 
         internal bool CheckPathToGoal()

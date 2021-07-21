@@ -17,7 +17,7 @@ namespace Quoridor.Tests.Pathfinding
         protected override void SetUp()
         {
             base.SetUp();
-            _algo = new AStar(_board);
+            _algo = new AStar();
             _goal = _board.grid[8, 16];
         }
 

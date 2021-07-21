@@ -4,7 +4,7 @@ using Quoridor.Core.GameLogic;
 namespace Quoridor.Tests.Pathfinding
 {
     [TestFixture]
-    public class PlayerPathfinding : Initialization
+    public class GamePathfinding : Initialization
     {
         [Test]
         public void CheckPathOnFirstMove()

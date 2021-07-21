@@ -18,6 +18,8 @@ namespace Quoridor.Core.GameLogic
         private Player _currentPlayer;
         private int _currentPlayerIndex;
         private PathValidator _pathValidator;
+        private Vector2 _previousPosition;
+        private int _previousWallCounter;
 
         public Game(Board board, List<Player> players)
         {
@@ -35,11 +37,11 @@ namespace Quoridor.Core.GameLogic
 
         public void MakeCurrentPlayerMove(PlayerMove playerMove)
         {
-            Vector2 previousPosition = _currentPlayer.position;
+            _previousPosition = _currentPlayer.position;
 
             ChooseMove(playerMove);
 
-            if(_currentPlayer.position == previousPosition)
+            if (PlayerDidNotMove())
                 return;
 
             SwitchCurrentPlayer();
@@ -47,11 +49,11 @@ namespace Quoridor.Core.GameLogic
 
         public void MakeCurrentPlayerPlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
-            int previousWallCounter = _currentPlayer.wallCounter;
+            _previousWallCounter = _currentPlayer.wallCounter;
 
             _currentPlayer.PlaceWall(wallStartPosition, wallEndPosition);
 
-            if(_currentPlayer.wallCounter == previousWallCounter)
+            if (PlayerDidNotPlaceWall())
                 return;
 
             SwitchCurrentPlayer();
@@ -127,6 +129,16 @@ namespace Quoridor.Core.GameLogic
                     _currentPlayer.MoveDiagonallyBottomLeft();
                     break;
             }
+        }
+
+        private bool PlayerDidNotMove()
+        {
+            return _currentPlayer.position == _previousPosition;
+        }
+
+        private bool PlayerDidNotPlaceWall()
+        {
+            return _currentPlayer.wallCounter == _previousWallCounter;
         }
     }
 }
