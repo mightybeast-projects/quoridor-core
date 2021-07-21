@@ -6,18 +6,18 @@ namespace Quoridor.Pathfinding
 {
     public class AStar
     {
-        public List<Tile> path => _path;
+        public List<IPathfindingNode> path => _path;
 
-        private Tile _goal;
-        private List<Tile> _openSet;
-        private List<Tile> _closedSet;
-        private List<Tile> _path;
-        private Tile _currentTile;
-        private Tile _currentTileNeighbour;
+        private IPathfindingNode _goal;
+        private List<IPathfindingNode> _openSet;
+        private List<IPathfindingNode> _closedSet;
+        private List<IPathfindingNode> _path;
+        private IPathfindingNode _currentTile;
+        private IPathfindingNode _currentTileNeighbour;
         private float _tempG;
         private bool _newPathDiscovered;
         
-        public void DoAStar(Tile start, Tile goal)
+        public void DoAStar(IPathfindingNode start, IPathfindingNode goal)
         {
             _goal = goal;
 
@@ -49,7 +49,7 @@ namespace Quoridor.Pathfinding
 
         private void CheckCurrentTileNeighbors()
         {
-            foreach (Tile neighbour in _currentTile.GetNeighbours())
+            foreach (Tile neighbour in _currentTile.GetPathfindingNeighbours())
             {
                 _currentTileNeighbour = neighbour;
 
@@ -111,7 +111,7 @@ namespace Quoridor.Pathfinding
             int lowestIndex = 0;
             for (int i = 0; i < _openSet.Count; i++)
             {
-                Tile tile = _openSet[i];
+                IPathfindingNode tile = _openSet[i];
 
                 if (tile.f < _openSet[lowestIndex].f)
                     lowestIndex = i;
@@ -126,12 +126,12 @@ namespace Quoridor.Pathfinding
 
         private void ResetLists()
         {
-            _openSet = new List<Tile>();
-            _closedSet = new List<Tile>();
-            _path = new List<Tile>();
+            _openSet = new List<IPathfindingNode>();
+            _closedSet = new List<IPathfindingNode>();
+            _path = new List<IPathfindingNode>();
         }
 
-        private float CalculateHeuristic(Tile neighbor, Tile goal)
+        private float CalculateHeuristic(IPathfindingNode neighbor, IPathfindingNode goal)
         {
             return Dist((int) neighbor.position.Y, (int) neighbor.position.Y, 
                         (int) goal.position.X, (int) goal.position.Y);

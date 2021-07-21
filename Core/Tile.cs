@@ -1,10 +1,11 @@
 using System.Numerics;
 using System;
 using System.Collections.Generic;
+using Quoridor.Pathfinding;
 
 namespace Quoridor.Core
 {
-    public class Tile
+    public class Tile : IPathfindingNode
     {
         public bool isSolid 
         { 
@@ -26,7 +27,7 @@ namespace Quoridor.Core
         public float f { get => _f; set => _f = value; }
         public float g { get => _g; set => _g = value; }
         public float h { get => _h; set => _h = value; }
-        public Tile parent { get => _parent; set => _parent = value; }
+        public IPathfindingNode parent { get => _parent; set => _parent = value; }
 
         private bool _isSolid = true;
         private bool _isEmpty = true;
@@ -36,7 +37,7 @@ namespace Quoridor.Core
         private float _f;
         private float _g;
         private float _h;
-        private Tile _parent;
+        private IPathfindingNode _parent;
 
         public Tile(Vector2 position)
         {
@@ -46,9 +47,9 @@ namespace Quoridor.Core
             _preNeighbors = new List<Tile>();
         }
 
-        public List<Tile> GetNeighbours()
+        public List<IPathfindingNode> GetPathfindingNeighbours()
         {
-            List<Tile> tmpNeighbours = new List<Tile>();
+            List<IPathfindingNode> tmpNeighbours = new List<IPathfindingNode>();
                 for (int i = 0; i < _neighbors.Count; i++)
                     if (_preNeighbors[i].isEmpty)
                         tmpNeighbours.Add(_neighbors[i]);
