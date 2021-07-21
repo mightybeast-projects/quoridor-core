@@ -1,7 +1,7 @@
 using System.Numerics;
 using System;
 using System.Collections.Generic;
-using Quoridor.Pathfinding;
+using Pathfinding;
 
 namespace Quoridor.Core
 {

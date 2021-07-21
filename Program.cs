@@ -5,7 +5,7 @@ using Quoridor.Core;
 using System.Numerics;
 using Quoridor.Core.PlayerLogic;
 using Quoridor.Core.GameLogic;
-using Quoridor.Pathfinding;
+using Pathfinding;
 
 namespace Quoridor
 {

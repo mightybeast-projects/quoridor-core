@@ -1,8 +1,8 @@
 using System.Numerics;
 using NUnit.Framework;
+using Pathfinding;
 using Quoridor.Core;
 using Quoridor.Core.PlayerLogic;
-using Quoridor.Pathfinding;
 
 namespace Quoridor.Tests.Pathfinding
 {
