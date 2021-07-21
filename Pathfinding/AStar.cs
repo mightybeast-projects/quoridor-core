@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Quoridor.Core;
 
 namespace Quoridor.Pathfinding
 {
@@ -49,7 +48,7 @@ namespace Quoridor.Pathfinding
 
         private void CheckCurrentTileNeighbors()
         {
-            foreach (Tile neighbour in _currentTile.GetPathfindingNeighbours())
+            foreach (IPathfindingNode neighbour in _currentTile.GetPathfindingNeighbours())
             {
                 _currentTileNeighbour = neighbour;
 
