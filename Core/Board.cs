@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Microsoft.VisualStudio.TestPlatform.Common.Filtering;
+using Pathfinding;
 
 namespace Quoridor.Core
 {
-    public class Board
+    public class Board : IPathfindingGraph
     {
         public Tile[,] grid => _grid;
         public List<Wall> placedWalls => _placedWalls;
@@ -19,6 +19,21 @@ namespace Quoridor.Core
             _placedWalls = new List<Wall>();
             
             GenerateGrid();
+        }
+
+        public void ResetNodeValues()
+        {
+            for (int i = 0; i < _grid.GetLength(0); i++)
+                for (int j = 0; j < _grid.GetLength(1); j++)
+                    ResetTileValues(_grid[i, j]);
+        }
+
+        private void ResetTileValues(IPathfindingNode tile)
+        {
+            tile.f = 0;
+            tile.g = 0;
+            tile.h = 0;
+            tile.parent = null;
         }
 
         private void GenerateGrid()

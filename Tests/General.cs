@@ -61,8 +61,10 @@ namespace Quoridor.Tests
             Assert.AreEqual(2, _game.players.Count);
             Assert.AreEqual(new Vector2(8, 0), _game.players[0].position);
             Assert.AreEqual(new Vector2(8, 16), _game.players[1].position);
-            Assert.AreEqual(_board.grid[8, 16], _game.players[0].goal);
-            Assert.AreEqual(_board.grid[8, 0], _game.players[1].goal);
+            for (int i = 0; i < _game.players[0].goal.Length; i++)
+                Assert.AreEqual(_game.board.grid[i * 2, 16].position, _game.players[0].goal[i].position);
+            for (int i = 0; i < _game.players[1].goal.Length; i++)
+                Assert.AreEqual(_game.board.grid[i * 2, 0].position, _game.players[1].goal[i].position);
             Assert.AreEqual(_game.players[0], _game.currentPlayer);
         }
 

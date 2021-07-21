@@ -21,8 +21,7 @@ namespace Quoridor.Terminal
             _messageDisplay = new ConsoleMessageDisplay(game);
             _inputHandler = new ConsoleMainMenuHandler(_messageDisplay, _game);
 
-            foreach(Player player in _game.players)
-                player.SetOutput(_messageDisplay);
+            game.SetPlayersOutput(_messageDisplay);
         }
         
         public void Start()

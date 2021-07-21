@@ -9,20 +9,21 @@ namespace Quoridor.Core.PlayerLogic
         public Vector2 position => _movementController.position;
         public int wallCounter => _wallPlacementController.wallCounter;
         public Board board => _board;
-        public Tile goal => _goal;
         public IOutput output => _output;
+        public Tile[] goal => _goal;
         
         private MovementController _movementController;
         private WallPlacementController _wallPlacementController;
         private Board _board;
-        private Tile _goal;
         private IOutput _output;
+        private Tile[] _goal;
 
         public Player(Board board)
         {
             _board = board;
             _movementController = new MovementController(this);
             _wallPlacementController = new WallPlacementController(this);
+            _goal = new Tile[9];
 
             SetPosition(0, 0);
         }
@@ -85,11 +86,6 @@ namespace Quoridor.Core.PlayerLogic
         public void SetOutput(IOutput output)
         {
             _output = output;
-        }
-
-        public void SetGoal(int x, int y)
-        {
-            _goal = _board.grid[x, y];
         }
     }
 }

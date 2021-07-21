@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Threading;
 using Quoridor.Core.PlayerLogic;
-using Quoridor.Core.GameLogic;
 
 namespace Quoridor.Core.GameLogic
 {
@@ -17,17 +17,18 @@ namespace Quoridor.Core.GameLogic
         private Board _board;
         private Player _currentPlayer;
         private int _currentPlayerIndex;
+        private PathValidator _pathValidator;
 
         public Game(Board board, List<Player> players)
         {
             _board = board;
             _players = players;
+            _pathValidator = new PathValidator();
 
             _players[0].SetPosition(8, 0);
             _players[1].SetPosition(8, 16);
 
-            _players[0].SetGoal(8, 16);
-            _players[1].SetGoal(8, 0);
+            SetPlayerGoals();
 
             _currentPlayer = _players[_currentPlayerIndex];
         }
@@ -60,6 +61,33 @@ namespace Quoridor.Core.GameLogic
         {
             foreach (Player player in _players)
                 player.SetOutput(output);
+        }
+
+        public bool PlayerHavePathToGoal(Player player)
+        {
+            _pathValidator.SetPlayer(player);
+            return _pathValidator.CheckPathToGoal();
+        }
+
+        private void SetPlayerGoals()
+        {
+            int goalIndex = -1;
+
+            for (int i = 0; i < _players.Count; i++)
+            {
+                Player player = _players[i];
+                if ( i == 0 || i == 2)
+                    goalIndex = 16;
+                else    
+                    goalIndex = 0;
+                
+                if (i == 0 || i == 1)
+                    for (int x = 0; x < player.goal.Length; x++)
+                        player.goal[x] = _board.grid[x * 2, goalIndex];
+                else
+                    for (int y = 0; y < player.goal.Length; y++)
+                        player.goal[y] = _board.grid[goalIndex, y * 2];
+            }
         }
 
         private void SwitchCurrentPlayer()
