@@ -42,16 +42,6 @@ namespace Quoridor.Tests.Pathfinding
         [Test]
         public void DoNotPlaceWalIfOtherPlayerHaveNoPathToGoal3()
         {
-            _game.MakeCurrentPlayerPlaceWall(new Vector2(7, 16), new Vector2(7, 14));
-            _game.MakeCurrentPlayerPlaceWall(new Vector2(8, 15), new Vector2(10, 15));
-            _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16));
-
-            AssertLastPlacedWallCurrentPlayerAndWallCounter(_firstPlayer, 9);
-        }
-
-        [Test]
-        public void DoNotPlaceWalIfOtherPlayerHaveNoPathToGoal4()
-        {
             _firstPlayer.SetPosition(0, 0);
 
             _game.MakeCurrentPlayerPlaceWall(new Vector2(1, 0), new Vector2(1, 2));
@@ -61,7 +51,7 @@ namespace Quoridor.Tests.Pathfinding
         }
 
         [Test]
-        public void DoNotPlaceWalIfOtherPlayerHaveNoPathToGoal5()
+        public void DoNotPlaceWalIfOtherPlayerHaveNoPathToGoal4()
         {
             MakePlayersMoveToCenter();
 

@@ -40,32 +40,25 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 
         private void PlaceNewWall()
         {
-            _wallCounter--;
-
             _lastPlacedWall = new Wall(_wallStartPosition, _wallEndPosition);
 
             _player.board.placedWalls.Add(_lastPlacedWall);
 
             for (int i = (int)_wallStartPosition.X; i <= (int)_wallEndPosition.X; i++)
                 for (int j = (int)_wallStartPosition.Y; j <= (int)_wallEndPosition.Y; j++)
-                    InitializeTile(i, j);
+                    InitializeWallTile(i, j);
 
             PlaceReversedWallOnBoard(_wallEndPosition, _wallStartPosition);
             PlaceReversedWallOnBoard(_wallStartPosition, _wallEndPosition);
+
+            _wallCounter--;
         }
 
         public void RevertLastPlacedWall()
         {
-            int startPositionX = (int) _lastPlacedWall.startPosition.X;
-            int startPositionY = (int) _lastPlacedWall.startPosition.Y;
-            int middlePositionX = (int) _lastPlacedWall.middlePosition.X;
-            int middlePositionY = (int) _lastPlacedWall.middlePosition.Y;
-            int endPositionX = (int) _lastPlacedWall.endPosition.X;
-            int endPositionY = (int) _lastPlacedWall.endPosition.Y;
-
-            RevertTile(startPositionX, startPositionY);
-            RevertTile(middlePositionX, middlePositionY);
-            RevertTile(endPositionX, endPositionY);
+            for (int i = (int) _lastPlacedWall.startPosition.X; i <= (int) _lastPlacedWall.endPosition.X; i++)
+                for (int j = (int) _lastPlacedWall.startPosition.Y; j <= (int) _lastPlacedWall.endPosition.Y; j++)
+                    RevertWallTile(i, j);
 
             _wallCounter++;
         }
@@ -74,16 +67,16 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         {
             for (int i = (int)start.X; i <= (int)end.X; i++)
                 for (int j = (int)end.Y; j <= (int)start.Y; j++)
-                    InitializeTile(i, j);
+                    InitializeWallTile(i, j);
         }
 
-        private void InitializeTile(int i, int j)
+        private void InitializeWallTile(int i, int j)
         {
             Tile tile = _player.board.grid[i, j];
             tile.isEmpty = false;
         }
 
-        private void RevertTile(int i, int j)
+        private void RevertWallTile(int i, int j)
         {
             Tile tile = _player.board.grid[i, j];
             tile.isEmpty = true;
