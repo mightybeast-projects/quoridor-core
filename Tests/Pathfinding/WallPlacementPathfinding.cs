@@ -1,12 +1,16 @@
 using System.Numerics;
 using NUnit.Framework;
+using Quoridor.Core;
 using Quoridor.Core.GameLogic;
+using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Tests.Pathfinding
 {
     [TestFixture]
     public class WallPlacementPathfinding: Initialization
     {
+        private Wall _lastPlacedWall;
+
         protected override void SetUp()
         {
             base.SetUp();
@@ -22,11 +26,7 @@ namespace Quoridor.Tests.Pathfinding
             _game.MakeCurrentPlayerPlaceWall(new Vector2(8, 15), new Vector2(10, 15));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16));
 
-            Assert.AreEqual(9, _firstPlayer.wallCounter);
-            Assert.IsTrue(_board.grid[11, 14].isEmpty);
-            Assert.IsTrue(_board.grid[11, 15].isEmpty);
-            Assert.IsTrue(_board.grid[11, 16].isEmpty);
-            Assert.AreEqual(_firstPlayer, _game.currentPlayer);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_firstPlayer, 9);
         }
 
         [Test]
@@ -36,11 +36,7 @@ namespace Quoridor.Tests.Pathfinding
             _game.MakeCurrentPlayerPlaceWall(new Vector2(8, 1), new Vector2(10, 1));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 0), new Vector2(11, 2));
 
-            Assert.AreEqual(9, _firstPlayer.wallCounter);
-            Assert.IsTrue(_board.grid[11, 0].isEmpty);
-            Assert.IsTrue(_board.grid[11, 1].isEmpty);
-            Assert.IsTrue(_board.grid[11, 2].isEmpty);
-            Assert.AreEqual(_firstPlayer, _game.currentPlayer);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_firstPlayer, 9);
         }
 
         [Test]
@@ -50,11 +46,7 @@ namespace Quoridor.Tests.Pathfinding
             _game.MakeCurrentPlayerPlaceWall(new Vector2(8, 15), new Vector2(10, 15));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16));
 
-            Assert.AreEqual(9, _firstPlayer.wallCounter);
-            Assert.IsTrue(_board.grid[11, 14].isEmpty);
-            Assert.IsTrue(_board.grid[11, 15].isEmpty);
-            Assert.IsTrue(_board.grid[11, 16].isEmpty);
-            Assert.AreEqual(_firstPlayer, _game.currentPlayer);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_firstPlayer, 9);
         }
 
         [Test]
@@ -65,31 +57,23 @@ namespace Quoridor.Tests.Pathfinding
             _game.MakeCurrentPlayerPlaceWall(new Vector2(1, 0), new Vector2(1, 2));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(0, 3), new Vector2(2, 3));
 
-            Assert.AreEqual(10, _secondPlayer.wallCounter);
-            Assert.IsTrue(_board.grid[0, 3].isEmpty);
-            Assert.IsTrue(_board.grid[1, 3].isEmpty);
-            Assert.IsTrue(_board.grid[2, 3].isEmpty);
-            Assert.AreEqual(_secondPlayer, _game.currentPlayer);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_secondPlayer, 10);
         }
 
         [Test]
         public void DoNotPlaceWalIfOtherPlayerHaveNoPathToGoal5()
         {
-            MakeSeveralMoves();
+            MakePlayersMoveToCenter();
 
             BuildWallOnIndex(11);
 
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 10), new Vector2(11, 12));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16));
 
-            Assert.AreEqual(8, _secondPlayer.wallCounter);
-            Assert.IsTrue(_board.grid[11, 14].isEmpty);
-            Assert.IsTrue(_board.grid[11, 15].isEmpty);
-            Assert.IsTrue(_board.grid[11, 16].isEmpty);
-            Assert.AreEqual(_secondPlayer, _game.currentPlayer);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_secondPlayer, 8);
         }
 
-        private void MakeSeveralMoves()
+        private void MakePlayersMoveToCenter()
         {
             _game.MakeCurrentPlayerMove(PlayerMove.MOVE_UP);
             _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DOWN);
@@ -103,6 +87,28 @@ namespace Quoridor.Tests.Pathfinding
             _game.MakeCurrentPlayerPlaceWall(new Vector2(4, index), new Vector2(6, index));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(8, index), new Vector2(10, index));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(12, index), new Vector2(14, index));
+        }
+
+        private void AssertLastPlacedWallCurrentPlayerAndWallCounter(Player player, int counter)
+        {
+            AssertLastPlacedWall();
+            Assert.AreEqual(counter, player.wallCounter);
+            Assert.AreEqual(player, _game.currentPlayer);
+        }
+
+        private void AssertLastPlacedWall()
+        {
+            _lastPlacedWall = _game.currentPlayer.lastPlacedWall;
+            int startPositionX = (int) _lastPlacedWall.startPosition.X;
+            int startPositionY = (int) _lastPlacedWall.startPosition.Y;
+            int middlePositionX = (int) _lastPlacedWall.middlePosition.X;
+            int middlePositionY = (int) _lastPlacedWall.middlePosition.Y;
+            int endPositionX = (int) _lastPlacedWall.endPosition.X;
+            int endPositionY = (int) _lastPlacedWall.endPosition.Y;
+            
+            Assert.IsTrue(_board.grid[startPositionX, startPositionY].isEmpty);
+            Assert.IsTrue(_board.grid[middlePositionX, middlePositionY].isEmpty);
+            Assert.IsTrue(_board.grid[endPositionX, endPositionY].isEmpty);
         }
     }
 }

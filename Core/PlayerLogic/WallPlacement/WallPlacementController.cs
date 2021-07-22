@@ -6,7 +6,8 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
     public class WallPlacementController
     {
-        public int wallCounter => _wallCounter; 
+        public int wallCounter => _wallCounter;
+        public Wall lastPlacedWall => _lastPlacedWall;
 
         private Player _player;
         private WallValidator _wallValidator;

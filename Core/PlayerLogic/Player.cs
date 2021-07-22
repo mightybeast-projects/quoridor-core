@@ -6,10 +6,12 @@ namespace Quoridor.Core.PlayerLogic
 {
     public class Player
     {
-        public Vector2 position => _movementController.position;
+        
         public Board board => _board;
         public IOutput output => _output;
         public Tile[] goal => _goal;
+        public Wall lastPlacedWall => _wallPlacementController.lastPlacedWall;
+        public Vector2 position => _movementController.position;
         public int wallCounter => _wallPlacementController.wallCounter;
 
         private MovementController _movementController;
