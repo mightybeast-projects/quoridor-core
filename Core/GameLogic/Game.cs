@@ -16,7 +16,6 @@ namespace Quoridor.Core.GameLogic
         private List<Player> _players;
         private Board _board;
         private Player _currentPlayer;
-        private Board _tmpBoard;        
         private PathValidator _pathValidator;
         private Vector2 _previousPosition;
         private int _previousWallCounter;
@@ -56,10 +55,10 @@ namespace Quoridor.Core.GameLogic
 
             if (PlayerPlacedWrongWall())
                 return;
-            if (OtherPlayerDoNotHavePathToGoal())
+            if (OneOfThePlayersDoNotHavePathToGoal())
             {
                 _currentPlayer.RevertWallPlacement();
-                _currentPlayer.output?.DisplayExceptionMessage(new NoPathForOtherPlayerException());
+                _currentPlayer.output?.DisplayExceptionMessage(new NoPathForPlayerException());
                 return;
             }
 
@@ -72,18 +71,18 @@ namespace Quoridor.Core.GameLogic
                 player.SetOutput(output);
         }
 
-        public bool PlayerHavePathToGoal(Player player)
-        {
-            _pathValidator.SetPlayer(player);
-            return _pathValidator.CheckPathToGoal();
-        }
-
-        private bool OtherPlayerDoNotHavePathToGoal()
+        public bool OneOfThePlayersDoNotHavePathToGoal()
         {
             foreach (Player player in _players)
                 if(!PlayerHavePathToGoal(player)) return true;
 
             return false;
+        }
+
+        private bool PlayerHavePathToGoal(Player player)
+        {
+            _pathValidator.SetPlayer(player);
+            return _pathValidator.CheckPathToGoal();
         }
 
         private void SetPlayerGoals()

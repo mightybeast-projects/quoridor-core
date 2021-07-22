@@ -27,7 +27,7 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
                 throw new WallIsBeyondBoardException();
             if (PlayerUsedAllAvailableWalls()) 
                 throw new PlayerUsedWallsException();
-            if (WallIsNotOnTheSameLine()) 
+            if (WallIsNotOnTheSameLine())
                 throw new WallIsNotOnTheSameLineException();
             if (WallIsTooLong()) 
                 throw new WallIsTooLongException();
