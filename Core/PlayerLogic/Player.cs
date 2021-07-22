@@ -7,11 +7,11 @@ namespace Quoridor.Core.PlayerLogic
     public class Player
     {
         public Vector2 position => _movementController.position;
-        public int wallCounter => _wallPlacementController.wallCounter;
         public Board board => _board;
         public IOutput output => _output;
         public Tile[] goal => _goal;
-        
+        public int wallCounter => _wallPlacementController.wallCounter;
+
         private MovementController _movementController;
         private WallPlacementController _wallPlacementController;
         private Board _board;
@@ -81,6 +81,11 @@ namespace Quoridor.Core.PlayerLogic
         public void PlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
             _wallPlacementController.PlaceWall(wallStartPosition, wallEndPosition);
+        }
+
+        public void RevertWallPlacement()
+        {
+            _wallPlacementController.RevertLastPlacedWall();
         }
 
         public void SetOutput(IOutput output)

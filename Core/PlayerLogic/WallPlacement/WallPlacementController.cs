@@ -6,10 +6,11 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
     public class WallPlacementController
     {
-        public int wallCounter => _wallCounter;
+        public int wallCounter => _wallCounter; 
 
         private Player _player;
         private WallValidator _wallValidator;
+        private Wall _lastPlacedWall;
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;
         private int _wallCounter = 10;
@@ -40,9 +41,9 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         {
             _wallCounter--;
 
-            Wall newWall = new Wall(_wallStartPosition, _wallEndPosition);
+            _lastPlacedWall = new Wall(_wallStartPosition, _wallEndPosition);
 
-            _player.board.placedWalls.Add(newWall);
+            _player.board.placedWalls.Add(_lastPlacedWall);
 
             for (int i = (int)_wallStartPosition.X; i <= (int)_wallEndPosition.X; i++)
                 for (int j = (int)_wallStartPosition.Y; j <= (int)_wallEndPosition.Y; j++)
@@ -50,6 +51,22 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 
             PlaceReversedWallOnBoard(_wallEndPosition, _wallStartPosition);
             PlaceReversedWallOnBoard(_wallStartPosition, _wallEndPosition);
+        }
+
+        public void RevertLastPlacedWall()
+        {
+            int startPositionX = (int) _lastPlacedWall.startPosition.X;
+            int startPositionY = (int) _lastPlacedWall.startPosition.Y;
+            int middlePositionX = (int) _lastPlacedWall.middlePosition.X;
+            int middlePositionY = (int) _lastPlacedWall.middlePosition.Y;
+            int endPositionX = (int) _lastPlacedWall.endPosition.X;
+            int endPositionY = (int) _lastPlacedWall.endPosition.Y;
+
+            RevertTile(startPositionX, startPositionY);
+            RevertTile(middlePositionX, middlePositionY);
+            RevertTile(endPositionX, endPositionY);
+
+            _wallCounter++;
         }
 
         private void PlaceReversedWallOnBoard(Vector2 start, Vector2 end)
@@ -63,6 +80,12 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         {
             Tile tile = _player.board.grid[i, j];
             tile.isEmpty = false;
+        }
+
+        private void RevertTile(int i, int j)
+        {
+            Tile tile = _player.board.grid[i, j];
+            tile.isEmpty = true;
         }
     }
 }
