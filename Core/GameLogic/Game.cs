@@ -41,7 +41,7 @@ namespace Quoridor.Core.GameLogic
 
             ChooseMove(playerMove);
 
-            if (PlayerDidNotMove())
+            if (PlayerMadeWrongMove())
                 return;
 
             SwitchCurrentPlayer();
@@ -53,7 +53,7 @@ namespace Quoridor.Core.GameLogic
 
             _currentPlayer.PlaceWall(wallStartPosition, wallEndPosition);
 
-            if (PlayerDidNotPlaceWall())
+            if (PlayerPlacedWrongWall())
                 return;
 
             SwitchCurrentPlayer();
@@ -131,12 +131,12 @@ namespace Quoridor.Core.GameLogic
             }
         }
 
-        private bool PlayerDidNotMove()
+        private bool PlayerMadeWrongMove()
         {
             return _currentPlayer.position == _previousPosition;
         }
 
-        private bool PlayerDidNotPlaceWall()
+        private bool PlayerPlacedWrongWall()
         {
             return _currentPlayer.wallCounter == _previousWallCounter;
         }

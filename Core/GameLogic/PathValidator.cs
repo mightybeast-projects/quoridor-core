@@ -23,14 +23,16 @@ namespace Quoridor.Core.GameLogic
         {
             Board board = _player.board;
             Tile playerPositionTile = board.grid[(int) _player.position.X, (int) _player.position.Y];
+            bool pathToGoal = false;
 
+            Console.WriteLine(playerPositionTile.position);
             foreach (Tile tile in _player.goal)
             {
                 _algo.DoAStar(playerPositionTile, tile);
-                if(_algo.path.Count == 0) return false;
+                if(_algo.path.Count > 0) pathToGoal = true;
             }
 
-            return true;
+            return pathToGoal;
         }
     }
 }
