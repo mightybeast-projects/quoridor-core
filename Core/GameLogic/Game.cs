@@ -38,6 +38,7 @@ namespace Quoridor.Core.GameLogic
         public void Start()
         {
             SetPlayerPositions();
+            SetPlayerWallCounter();
             SetPlayerGoals();
 
             _currentPlayer = _players[_currentPlayerIndex];
@@ -113,6 +114,12 @@ namespace Quoridor.Core.GameLogic
                 else
                     player.SetPosition(startingPosition, 8);
             }
+        }
+
+        private void SetPlayerWallCounter()
+        {
+            foreach (Player player in _players)
+                player.SetStartingWallCounter(20 / _players.Count);
         }
 
         private void SetPlayerGoals()

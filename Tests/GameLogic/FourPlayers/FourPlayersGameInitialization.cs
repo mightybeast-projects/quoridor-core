@@ -1,5 +1,3 @@
-using NUnit.Framework;
-
 namespace Quoridor.Tests.GameLogic.FourPlayers
 {
     public class FourPlayersGameInitialization : Initialization
