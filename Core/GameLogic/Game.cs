@@ -26,14 +26,6 @@ namespace Quoridor.Core.GameLogic
             _pathValidator = new PathValidator();
         }
 
-        public void Start()
-        {
-            SetPlayerPositions();
-            SetPlayerGoals();
-
-            _currentPlayer = _players[_currentPlayerIndex];
-        }
-
         public void AddNewPlayerPair()
         {
             if (_players.Count < 4)
@@ -41,6 +33,14 @@ namespace Quoridor.Core.GameLogic
                 _players.Add(new Player(_board));
                 _players.Add(new Player(_board));
             }
+        }
+
+        public void Start()
+        {
+            SetPlayerPositions();
+            SetPlayerGoals();
+
+            _currentPlayer = _players[_currentPlayerIndex];
         }
 
         public void MakeCurrentPlayerMove(PlayerMove playerMove)

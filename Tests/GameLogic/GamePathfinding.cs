@@ -1,8 +1,9 @@
 using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core.GameLogic;
+using Quoridor.Tests.GameLogic.TwoPlayers;
 
-namespace Quoridor.Tests.Pathfinding
+namespace Quoridor.Tests.GameLogic
 {
     [TestFixture]
     public class GamePathfinding : TwoPlayersGameInitialization

@@ -1,7 +1,8 @@
-using Quoridor.Tests;
+using NUnit.Framework;
 
-namespace Quoridor.Core.GameLogic
+namespace Quoridor.Tests.GameLogic.TwoPlayers
 {
+    [TestFixture]
     public class TwoPlayersGameInitialization : Initialization
     {
         protected override void SetUp()

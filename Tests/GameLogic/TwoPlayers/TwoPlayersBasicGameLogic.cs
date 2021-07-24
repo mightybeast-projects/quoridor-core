@@ -1,12 +1,11 @@
 using System.Numerics;
 using NUnit.Framework;
-using Quoridor.Core;
 using Quoridor.Core.GameLogic;
 
-namespace Quoridor.Tests.GameLogic
+namespace Quoridor.Tests.GameLogic.TwoPlayers
 {
     [TestFixture]
-    public class BasicGameLogic : TwoPlayersGameInitialization
+    public class TwoPlayersBasicGameLogic : TwoPlayersGameInitialization
     {
         [Test]
         public void SwitchCurrentPlayerAfterCorrectMove()
@@ -55,6 +54,15 @@ namespace Quoridor.Tests.GameLogic
 
             Assert.AreEqual(10, _game.players[0].wallCounter);
             Assert.AreEqual(_game.players[0], _game.currentPlayer);
+        }
+
+        [Test]
+        public void DoNotAddMoreThanFourPlayers()
+        {
+            _game.AddNewPlayerPair();
+            _game.AddNewPlayerPair();
+
+            Assert.AreEqual(4, _game.players.Count);
         }
     }
 }

@@ -4,10 +4,10 @@ using Quoridor.Core;
 using Quoridor.Core.GameLogic;
 using Quoridor.Core.PlayerLogic;
 
-namespace Quoridor.Tests.Pathfinding
+namespace Quoridor.Tests.GameLogic.TwoPlayers
 {
     [TestFixture]
-    public class WallPlacementPathfinding: TwoPlayersGameInitialization
+    public class TwoPlayersWallPlacementPathfinding : TwoPlayersGameInitialization
     {
         private Wall _lastPlacedWall;
 
@@ -81,13 +81,13 @@ namespace Quoridor.Tests.Pathfinding
         private void AssertLastPlacedWall()
         {
             _lastPlacedWall = _game.currentPlayer.lastPlacedWall;
-            int startPositionX = (int) _lastPlacedWall.startPosition.X;
-            int startPositionY = (int) _lastPlacedWall.startPosition.Y;
-            int middlePositionX = (int) _lastPlacedWall.middlePosition.X;
-            int middlePositionY = (int) _lastPlacedWall.middlePosition.Y;
-            int endPositionX = (int) _lastPlacedWall.endPosition.X;
-            int endPositionY = (int) _lastPlacedWall.endPosition.Y;
-            
+            int startPositionX = (int)_lastPlacedWall.startPosition.X;
+            int startPositionY = (int)_lastPlacedWall.startPosition.Y;
+            int middlePositionX = (int)_lastPlacedWall.middlePosition.X;
+            int middlePositionY = (int)_lastPlacedWall.middlePosition.Y;
+            int endPositionX = (int)_lastPlacedWall.endPosition.X;
+            int endPositionY = (int)_lastPlacedWall.endPosition.Y;
+
             Assert.IsTrue(_game.board.grid[startPositionX, startPositionY].isEmpty);
             Assert.IsTrue(_game.board.grid[middlePositionX, middlePositionY].isEmpty);
             Assert.IsTrue(_game.board.grid[endPositionX, endPositionY].isEmpty);
