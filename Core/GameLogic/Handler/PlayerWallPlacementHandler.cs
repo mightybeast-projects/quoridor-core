@@ -4,24 +4,17 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic.Handler
 {
-    public class PlayerWallPlacementHandler
+    class PlayerWallPlacementHandler : GameHandler
     {
-        internal Player currentPlayer
-        {
-            get => _currentPlayer;
-            set => _currentPlayer = value;
-        }
-
-        private Player _currentPlayer;
         private List<Player> _players;
-        private PlayerPathHandler _pathHandler;
+        private PlayerPathValidator _pathValidator;
         private int _previousWallCounter;
 
 
         public PlayerWallPlacementHandler(List<Player> players)
         {
             _players = players;
-            _pathHandler = new PlayerPathHandler();
+            _pathValidator = new PlayerPathValidator();
         }
 
         internal bool HandleWallPlacement(Vector2 wallStartPosition, Vector2 wallEndPosition)
@@ -53,7 +46,7 @@ namespace Quoridor.Core.GameLogic.Handler
 
         private bool PlayerHavePathToGoal(Player player)
         {
-            bool pathAvailable = _pathHandler.CheckPathToGoalFor(player);
+            bool pathAvailable = _pathValidator.CheckPathToGoalFor(player);
             return pathAvailable;
         }
 

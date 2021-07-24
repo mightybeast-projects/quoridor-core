@@ -19,6 +19,8 @@ namespace Quoridor.Core.GameLogic
         private Board _board;
         private Player _currentPlayer;
         private int _currentPlayerIndex = -1;
+        private bool _movementSuccessful;
+        private bool _wallPlacementSuccessful;
 
         public Game()
         {
@@ -47,20 +49,18 @@ namespace Quoridor.Core.GameLogic
 
         public void MakeCurrentPlayerMove(PlayerMove playerMove)
         {
-            bool movementSuccessful 
+            _movementSuccessful 
                 = _movementHandler.HandlePlayerMove(playerMove);
 
-            if(movementSuccessful)
-                SwitchCurrentPlayer();
+            SwitchCurrentPlayerIf(_movementSuccessful);
         }
 
         public void MakeCurrentPlayerPlaceWall(Vector2 start, Vector2 end)
         {
-            bool wallPlacementSuccessful 
+            _wallPlacementSuccessful 
                 = _wallPlacementHandler.HandleWallPlacement(start, end);
 
-            if(wallPlacementSuccessful)
-                SwitchCurrentPlayer();
+            SwitchCurrentPlayerIf(_wallPlacementSuccessful);
         }
 
         public void SetPlayersOutput(IOutput output)
@@ -69,11 +69,19 @@ namespace Quoridor.Core.GameLogic
                 player.SetOutput(output);
         }
 
+        private void SwitchCurrentPlayerIf(bool actionSuccessful)
+        {
+            if(actionSuccessful)
+                SwitchCurrentPlayer();
+        }
+
         private void SwitchCurrentPlayer()
         {
             _currentPlayerIndex++;
+
             if (_currentPlayerIndex > _players.Count - 1)
                 _currentPlayerIndex = 0;
+            
             _currentPlayer = _players[_currentPlayerIndex];
             _movementHandler.currentPlayer = _currentPlayer;
             _wallPlacementHandler.currentPlayer = _currentPlayer;

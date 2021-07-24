@@ -3,15 +3,8 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic.Handler
 {
-    public class PlayerMovementHandler
+    class PlayerMovementHandler : GameHandler
     {
-        internal Player currentPlayer
-        {
-            get => _currentPlayer;
-            set => _currentPlayer = value;
-        }
-
-        private Player _currentPlayer;
         private Vector2 _previousPosition;
 
         internal bool HandlePlayerMove(PlayerMove playerMove)
