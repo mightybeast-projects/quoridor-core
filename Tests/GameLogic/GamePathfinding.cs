@@ -5,16 +5,8 @@ using Quoridor.Core.GameLogic;
 namespace Quoridor.Tests.Pathfinding
 {
     [TestFixture]
-    public class GamePathfinding : Initialization
+    public class GamePathfinding : TwoPlayersGameInitialization
     {
-        protected override void SetUp()
-        {
-            base.SetUp();
-            _players.Add(_firstPlayer);
-            _players.Add(_secondPlayer);
-            _game = new Game(_board, _players);
-        }
-
         [Test]
         public void CheckPathOnFirstMove()
         {

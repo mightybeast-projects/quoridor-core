@@ -7,17 +7,9 @@ using Quoridor.Core.PlayerLogic;
 namespace Quoridor.Tests.Pathfinding
 {
     [TestFixture]
-    public class WallPlacementPathfinding: Initialization
+    public class WallPlacementPathfinding: TwoPlayersGameInitialization
     {
         private Wall _lastPlacedWall;
-
-        protected override void SetUp()
-        {
-            base.SetUp();
-            _players.Add(_firstPlayer);
-            _players.Add(_secondPlayer);
-            _game = new Game(_board, _players);
-        }
 
         [Test]
         public void DoNotPlaceWalIfOtherPlayerHaveNoPathToGoal1()
@@ -26,7 +18,7 @@ namespace Quoridor.Tests.Pathfinding
             _game.MakeCurrentPlayerPlaceWall(new Vector2(8, 15), new Vector2(10, 15));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16));
 
-            AssertLastPlacedWallCurrentPlayerAndWallCounter(_firstPlayer, 9);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[0], 9);
         }
 
         [Test]
@@ -36,18 +28,18 @@ namespace Quoridor.Tests.Pathfinding
             _game.MakeCurrentPlayerPlaceWall(new Vector2(8, 1), new Vector2(10, 1));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 0), new Vector2(11, 2));
 
-            AssertLastPlacedWallCurrentPlayerAndWallCounter(_firstPlayer, 9);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[0], 9);
         }
 
         [Test]
         public void DoNotPlaceWalIfOtherPlayerHaveNoPathToGoal3()
         {
-            _firstPlayer.SetPosition(0, 0);
+            _game.players[0].SetPosition(0, 0);
 
             _game.MakeCurrentPlayerPlaceWall(new Vector2(1, 0), new Vector2(1, 2));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(0, 3), new Vector2(2, 3));
 
-            AssertLastPlacedWallCurrentPlayerAndWallCounter(_secondPlayer, 10);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[1], 10);
         }
 
         [Test]
@@ -60,7 +52,7 @@ namespace Quoridor.Tests.Pathfinding
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 10), new Vector2(11, 12));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16));
 
-            AssertLastPlacedWallCurrentPlayerAndWallCounter(_secondPlayer, 8);
+            AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[1], 8);
         }
 
         private void MakePlayersMoveToCenter()
@@ -96,9 +88,9 @@ namespace Quoridor.Tests.Pathfinding
             int endPositionX = (int) _lastPlacedWall.endPosition.X;
             int endPositionY = (int) _lastPlacedWall.endPosition.Y;
             
-            Assert.IsTrue(_board.grid[startPositionX, startPositionY].isEmpty);
-            Assert.IsTrue(_board.grid[middlePositionX, middlePositionY].isEmpty);
-            Assert.IsTrue(_board.grid[endPositionX, endPositionY].isEmpty);
+            Assert.IsTrue(_game.board.grid[startPositionX, startPositionY].isEmpty);
+            Assert.IsTrue(_game.board.grid[middlePositionX, middlePositionY].isEmpty);
+            Assert.IsTrue(_game.board.grid[endPositionX, endPositionY].isEmpty);
         }
     }
 }

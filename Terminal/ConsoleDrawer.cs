@@ -92,9 +92,10 @@ namespace Quoridor.Terminal
         private bool UnitIsWall(int i, int j)
         {
             Vector2 currentPosition = new Vector2(i, j);
-            foreach(Player player in _players)
-                foreach(Wall wall in player.board.placedWalls)
-                    if (CurrentPositionIsWall(currentPosition, wall) && !_board.grid[i, j].isEmpty) return true;
+            foreach (Player player in _players)
+                foreach (Wall wall in _board.placedWalls)
+                    if (CurrentPositionIsWall(currentPosition, wall) && !_board.grid[i, j].isEmpty) 
+                        return true;
 
             return false;
         }

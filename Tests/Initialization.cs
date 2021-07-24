@@ -25,6 +25,8 @@ namespace Quoridor.Tests
             _firstPlayer = new Player(_board);
             _secondPlayer = new Player(_board);
             _players = new List<Player>();
+
+            _game = new Game();
         }
     }
 }

@@ -54,9 +54,8 @@ namespace Quoridor.Tests
         [Test]
         public void CreateGame()
         {
-            _players.Add(_firstPlayer);
-            _players.Add(_secondPlayer);
-            _game = new Game(_board, _players);
+            _game.AddNewPlayerPair();
+            _game.Start();
 
             Assert.AreEqual(2, _game.players.Count);
             Assert.AreEqual(new Vector2(8, 0), _game.players[0].position);

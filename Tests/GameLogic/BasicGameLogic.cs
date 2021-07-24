@@ -3,19 +3,11 @@ using NUnit.Framework;
 using Quoridor.Core;
 using Quoridor.Core.GameLogic;
 
-namespace Quoridor.Tests
+namespace Quoridor.Tests.GameLogic
 {
     [TestFixture]
-    public class GameLogic : Initialization
+    public class BasicGameLogic : TwoPlayersGameInitialization
     {
-        protected override void SetUp()
-        {
-            base.SetUp();
-            _players.Add(_firstPlayer);
-            _players.Add(_secondPlayer);
-            _game = new Game(_board, _players);
-        }
-
         [Test]
         public void SwitchCurrentPlayerAfterCorrectMove()
         {

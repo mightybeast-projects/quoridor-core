@@ -19,6 +19,8 @@ namespace Quoridor.Tests.Pathfinding
             base.SetUp();
             _algo = new AStar();
             _goal = _board.grid[8, 16];
+            _game.AddNewPlayerPair();
+            _game.Start();
         }
 
         [Test]
