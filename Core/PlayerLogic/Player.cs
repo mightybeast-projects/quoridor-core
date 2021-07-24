@@ -7,7 +7,6 @@ namespace Quoridor.Core.PlayerLogic
 {
     public class Player
     {
-        
         public Board board => _board;
         public IOutput output => _output;
         public Tile[] goal => _goal;

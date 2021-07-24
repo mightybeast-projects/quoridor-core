@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Numerics;
+using Quoridor.Core.GameLogic.Handler;
 using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic
@@ -11,19 +12,21 @@ namespace Quoridor.Core.GameLogic
         public Player currentPlayer => _currentPlayer;
         public int currentPlayerIndex => _currentPlayerIndex;
 
+        private PlayerMovementHandler _movementHandler;
+        private PlayerWallPlacementHandler _wallPlacementHandler;
+        private PlayerConfigurator _configurator;
         private List<Player> _players;
         private Board _board;
         private Player _currentPlayer;
-        private PathValidator _pathValidator;
-        private Vector2 _previousPosition;
-        private int _previousWallCounter;
-        private int _currentPlayerIndex;
+        private int _currentPlayerIndex = -1;
 
         public Game()
         {
             _board = new Board();
             _players = new List<Player>();
-            _pathValidator = new PathValidator();
+            _movementHandler = new PlayerMovementHandler();
+            _wallPlacementHandler = new PlayerWallPlacementHandler(_players);
+            _configurator = new PlayerConfigurator(_board, _players);
         }
 
         public void AddNewPlayerPair()
@@ -37,41 +40,27 @@ namespace Quoridor.Core.GameLogic
 
         public void Start()
         {
-            SetPlayerPositions();
-            SetPlayerWallCounter();
-            SetPlayerGoals();
+            _configurator.ConfigurePlayers();
 
-            _currentPlayer = _players[_currentPlayerIndex];
+            SwitchCurrentPlayer();
         }
 
         public void MakeCurrentPlayerMove(PlayerMove playerMove)
         {
-            _previousPosition = _currentPlayer.position;
+            bool movementSuccessful 
+                = _movementHandler.HandlePlayerMove(playerMove);
 
-            ChooseMove(playerMove);
-
-            if (PlayerMadeWrongMove())
-                return;
-
-            SwitchCurrentPlayer();
+            if(movementSuccessful)
+                SwitchCurrentPlayer();
         }
 
-        public void MakeCurrentPlayerPlaceWall(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        public void MakeCurrentPlayerPlaceWall(Vector2 start, Vector2 end)
         {
-            _previousWallCounter = _currentPlayer.wallCounter;
+            bool wallPlacementSuccessful 
+                = _wallPlacementHandler.HandleWallPlacement(start, end);
 
-            _currentPlayer.PlaceWall(wallStartPosition, wallEndPosition);
-
-            if (PlayerPlacedWrongWall())
-                return;
-            if (OneOfThePlayersDoNotHavePathToGoal())
-            {
-                _currentPlayer.RevertWallPlacement();
-                _currentPlayer.output?.DisplayExceptionMessage(new NoPathForPlayerException());
-                return;
-            }
-
-            SwitchCurrentPlayer();
+            if(wallPlacementSuccessful)
+                SwitchCurrentPlayer();
         }
 
         public void SetPlayersOutput(IOutput output)
@@ -80,116 +69,14 @@ namespace Quoridor.Core.GameLogic
                 player.SetOutput(output);
         }
 
-        public bool OneOfThePlayersDoNotHavePathToGoal()
-        {
-            foreach (Player player in _players)
-                if (!PlayerHavePathToGoal(player)) return true;
-
-            return false;
-        }
-
-        private bool PlayerHavePathToGoal(Player player)
-        {
-            _pathValidator.SetPlayer(player);
-            return _pathValidator.CheckPathToGoal();
-        }
-
-        private void SetPlayerPositions()
-        {
-            Player player;
-            int startingPosition;
-
-            for (int i = 0; i < _players.Count; i++)
-            {
-                player = _players[i];
-                startingPosition = 0;
-
-                if (i == 0 || i == 2)
-                    startingPosition = 0;
-                else
-                    startingPosition = 16;
-
-                if (i < 2)
-                    player.SetPosition(8, startingPosition);
-                else
-                    player.SetPosition(startingPosition, 8);
-            }
-        }
-
-        private void SetPlayerWallCounter()
-        {
-            foreach (Player player in _players)
-                player.SetStartingWallCounter(20 / _players.Count);
-        }
-
-        private void SetPlayerGoals()
-        {
-            int goalIndex = -1;
-
-            for (int i = 0; i < _players.Count; i++)
-            {
-                Player player = _players[i];
-                if (i == 0 || i == 2)
-                    goalIndex = 16;
-                else
-                    goalIndex = 0;
-
-                if (i == 0 || i == 1)
-                    for (int x = 0; x < player.goal.Length; x++)
-                        player.goal[x] = _board.grid[x * 2, goalIndex];
-                else
-                    for (int y = 0; y < player.goal.Length; y++)
-                        player.goal[y] = _board.grid[goalIndex, y * 2];
-            }
-        }
-
         private void SwitchCurrentPlayer()
         {
             _currentPlayerIndex++;
             if (_currentPlayerIndex > _players.Count - 1)
                 _currentPlayerIndex = 0;
             _currentPlayer = _players[_currentPlayerIndex];
-        }
-
-        private void ChooseMove(PlayerMove playerMove)
-        {
-            switch (playerMove)
-            {
-                case PlayerMove.MOVE_UP:
-                    _currentPlayer.MoveUp();
-                    break;
-                case PlayerMove.MOVE_DOWN:
-                    _currentPlayer.MoveDown();
-                    break;
-                case PlayerMove.MOVE_RIGHT:
-                    _currentPlayer.MoveRight();
-                    break;
-                case PlayerMove.MOVE_LEFT:
-                    _currentPlayer.MoveLeft();
-                    break;
-                case PlayerMove.MOVE_DIAGONALLY_TOP_RIGHT:
-                    _currentPlayer.MoveDiagonallyTopRight();
-                    break;
-                case PlayerMove.MOVE_DIAGONALLY_TOP_LEFT:
-                    _currentPlayer.MoveDiagonallyTopLeft();
-                    break;
-                case PlayerMove.MOVE_DIAGONALLY_BOTOM_RIGHT:
-                    _currentPlayer.MoveDiagonallyBottomRight();
-                    break;
-                case PlayerMove.MOVE_DIAGONALLY_BOTTOM_LEFT:
-                    _currentPlayer.MoveDiagonallyBottomLeft();
-                    break;
-            }
-        }
-
-        private bool PlayerMadeWrongMove()
-        {
-            return _currentPlayer.position == _previousPosition;
-        }
-
-        private bool PlayerPlacedWrongWall()
-        {
-            return _currentPlayer.wallCounter == _previousWallCounter;
+            _movementHandler.currentPlayer = _currentPlayer;
+            _wallPlacementHandler.currentPlayer = _currentPlayer;
         }
     }
 }
