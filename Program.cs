@@ -1,4 +1,5 @@
-﻿using Quoridor.Terminal;
+﻿using Quoridor.Core.GameLogic;
+using Quoridor.Terminal;
 
 namespace Quoridor
 {
