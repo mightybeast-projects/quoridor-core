@@ -14,6 +14,7 @@ namespace Quoridor.Tests
         protected Wall _wall;
         protected Player _firstPlayer;
         protected Player _secondPlayer;
+        protected Player _thirdPlayer;
         protected Game _game;
         protected List<Player> _players;
 
@@ -24,6 +25,7 @@ namespace Quoridor.Tests
             _board = new Board();
             _firstPlayer = new Player(_board);
             _secondPlayer = new Player(_board);
+            _thirdPlayer = new Player(_board);
             _players = new List<Player>();
 
             _game = new Game();

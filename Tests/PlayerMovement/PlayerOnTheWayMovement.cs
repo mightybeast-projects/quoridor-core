@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using NUnit.Framework;
+using Quoridor.Core.GameLogic;
 
 namespace Quoridor.Tests.PlayerMovement
 {
@@ -72,16 +73,6 @@ namespace Quoridor.Tests.PlayerMovement
             _firstPlayerPosition = new Vector2(8, 2);
             _secondPlayerPosition = new Vector2(8, 0);
             FirstPlayerMovementFunction = _firstPlayer.MoveDown;
-
-            MoveAndAssertThatNothingChanged();
-        }
-
-        [Test]
-        public void PlayerOnTheWayRightAndOnTheEdge()
-        {
-            _firstPlayerPosition = new Vector2(14, 0);
-            _secondPlayerPosition = new Vector2(16, 0);
-            FirstPlayerMovementFunction = _firstPlayer.MoveRight;
 
             MoveAndAssertThatNothingChanged();
         }
