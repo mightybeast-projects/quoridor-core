@@ -1,7 +1,6 @@
 using System;
 using System.Numerics;
 using Quoridor.Core.PlayerLogic.Movement.Exceptions;
-using Quoridor.Tests.PlayerMovement;
 
 namespace Quoridor.Core.PlayerLogic.Movement
 {
@@ -78,9 +77,9 @@ namespace Quoridor.Core.PlayerLogic.Movement
             Vector2 expectedPositionTmp = _expectedPosition;
             Vector2 moveVectorTmp = _moveVector;
 
-            bool firstTileHavePlayerAndWallBehind = 
+            bool firstDirectionHavePlayerAndWallBehind = 
                 CheckExpectedPositionForPlayerAndWallBehind(new Vector2(0, moveVectorTmp.Y));
-            bool secondTileHavePlayerAndWallBehind = 
+            bool secondDirectionHavePlayerAndWallBehind = 
                 CheckExpectedPositionForPlayerAndWallBehind(new Vector2(moveVectorTmp.X, 0));
             
             bool firstDirectionHasTwoPlayers =
@@ -98,8 +97,8 @@ namespace Quoridor.Core.PlayerLogic.Movement
             _expectedPosition = expectedPositionTmp;
             _moveVector = moveVectorTmp;
 
-            return ((firstTileHavePlayerAndWallBehind && !wallIsOnFirstDiagonalMove) || 
-                    (secondTileHavePlayerAndWallBehind && !wallIsOnSecondDiagonalMove)) ||
+            return ((firstDirectionHavePlayerAndWallBehind && !wallIsOnFirstDiagonalMove) || 
+                    (secondDirectionHavePlayerAndWallBehind && !wallIsOnSecondDiagonalMove)) ||
                     ((firstDirectionHasTwoPlayers && !wallIsOnFirstDiagonalMove) ||
                      (secondDirectionHasTwoPlayers && !wallIsOnSecondDiagonalMove));
         }
