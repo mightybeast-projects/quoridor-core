@@ -5,7 +5,7 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic
 {
-    class PlayerPathValidator
+    internal class PlayerPathValidator
     {
         private Player _player;
         private AStar _algo;

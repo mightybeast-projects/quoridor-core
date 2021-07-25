@@ -2,7 +2,7 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic.Handler
 {
-    public abstract class GameHandler
+    internal abstract class GameHandler
     {
         internal Player currentPlayer
         {

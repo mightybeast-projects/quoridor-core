@@ -4,14 +4,13 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic.Handler
 {
-    class PlayerWallPlacementHandler : GameHandler
+    internal class PlayerWallPlacementHandler : GameHandler
     {
         private List<Player> _players;
         private PlayerPathValidator _pathValidator;
         private int _previousWallCounter;
 
-
-        public PlayerWallPlacementHandler(List<Player> players)
+        internal PlayerWallPlacementHandler(List<Player> players)
         {
             _players = players;
             _pathValidator = new PlayerPathValidator();

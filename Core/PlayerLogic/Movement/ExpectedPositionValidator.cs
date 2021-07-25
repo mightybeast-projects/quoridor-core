@@ -4,7 +4,7 @@ using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
 namespace Quoridor.Core.PlayerLogic.Movement
 {
-    public class ExpectedPositionValidator
+    internal class ExpectedPositionValidator
     {
         public Vector2 expectedPosition => _expectedPosition;
 
@@ -15,7 +15,7 @@ namespace Quoridor.Core.PlayerLogic.Movement
         private int _expectedPositionX;
         private int _expectedPositionY;
 
-        public ExpectedPositionValidator(Player player)
+        internal ExpectedPositionValidator(Player player)
         {
             _player = player;
         }
@@ -56,20 +56,20 @@ namespace Quoridor.Core.PlayerLogic.Movement
             }
         }
 
-        private void InitializeExpectedPositionCoordinates()
-        {
-            _expectedPositionX = (int)_expectedPosition.X;
-            _expectedPositionY = (int)_expectedPosition.Y;
-        }
-
-        internal bool MoveIsDiagonalButPlayerCannotMoveDiagonally()
+        private bool MoveIsDiagonalButPlayerCannotMoveDiagonally()
         {
             return MoveVectorIsDiagonal() && !PlayerCanMoveDiagonally();
         }
 
-        internal bool MoveIsDiagonalAndPlayerCanMoveDiagonally()
+        private bool MoveIsDiagonalAndPlayerCanMoveDiagonally()
         {
             return MoveVectorIsDiagonal() && PlayerCanMoveDiagonally();
+        }
+
+        private void InitializeExpectedPositionCoordinates()
+        {
+            _expectedPositionX = (int)_expectedPosition.X;
+            _expectedPositionY = (int)_expectedPosition.Y;
         }
 
         private bool PlayerCanMoveDiagonally()
@@ -158,7 +158,7 @@ namespace Quoridor.Core.PlayerLogic.Movement
             try { return !_player.board.grid[wallX, wallY].isEmpty; }
             catch (IndexOutOfRangeException) { return false; }
         }
-        internal bool MoveVectorIsDiagonal()
+        private bool MoveVectorIsDiagonal()
         {
             return Math.Abs(_moveVector.X) == Math.Abs(_moveVector.Y);
         }

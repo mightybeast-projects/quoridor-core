@@ -1,7 +1,7 @@
 using System;
 namespace Quoridor.Core.GameLogic
 {
-    class NoPathForPlayerException : Exception
+    internal class NoPathForPlayerException : Exception
     {
         public NoPathForPlayerException() : 
             base ("There is no path to goal for one of the players") { }

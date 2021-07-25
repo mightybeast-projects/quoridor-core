@@ -3,14 +3,14 @@ using Quoridor.Core.PlayerLogic.WallPlacement.Exceptions;
 
 namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
-    public class WallValidator
+    internal class WallValidator
     {
         private Vector2 _wallStartPosition;
         private Vector2 _wallMiddlePosition;
         private Vector2 _wallEndPosition;
         private Player _player;
 
-        internal WallValidator(Player player)
+        public WallValidator(Player player)
         {
             _player = player;
         }

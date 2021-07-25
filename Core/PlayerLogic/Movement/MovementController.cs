@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Quoridor.Core.PlayerLogic.Movement
 {
-    public class MovementController
+    internal class MovementController
     {
         public Vector2 position => _position;
 

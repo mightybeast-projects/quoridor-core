@@ -1,11 +1,9 @@
-using System.Xml.Linq;
 using System;
-using System.Collections.Generic;
 using System.Numerics;
 
 namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
-    public class WallPlacementController
+    internal class WallPlacementController
     {
         public int wallCounter
         {
@@ -47,6 +45,17 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
             PlaceNewWall();
         }
 
+        internal void RevertLastPlacedWall()
+        {
+            for (int i = (int) _lastPlacedWall.startPosition.X; i <= (int) _lastPlacedWall.endPosition.X; i++)
+                for (int j = (int) _lastPlacedWall.startPosition.Y; j <= (int) _lastPlacedWall.endPosition.Y; j++)
+                    RevertWallTile(i, j);
+
+            _player.board.placedWalls.Remove(_lastPlacedWall);
+
+            _wallCounter++;
+        }
+
         private void PlaceNewWall()
         {
             _wallCounter--;
@@ -61,17 +70,6 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 
             PlaceReversedWallOnBoard(_wallEndPosition, _wallStartPosition);
             PlaceReversedWallOnBoard(_wallStartPosition, _wallEndPosition);
-        }
-
-        public void RevertLastPlacedWall()
-        {
-            for (int i = (int) _lastPlacedWall.startPosition.X; i <= (int) _lastPlacedWall.endPosition.X; i++)
-                for (int j = (int) _lastPlacedWall.startPosition.Y; j <= (int) _lastPlacedWall.endPosition.Y; j++)
-                    RevertWallTile(i, j);
-
-            _player.board.placedWalls.Remove(_lastPlacedWall);
-
-            _wallCounter++;
         }
 
         private void PlaceReversedWallOnBoard(Vector2 start, Vector2 end)

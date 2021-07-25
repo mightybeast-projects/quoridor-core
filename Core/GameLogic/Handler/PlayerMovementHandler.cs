@@ -3,7 +3,7 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic.Handler
 {
-    class PlayerMovementHandler : GameHandler
+    internal class PlayerMovementHandler : GameHandler
     {
         private Vector2 _previousPosition;
 

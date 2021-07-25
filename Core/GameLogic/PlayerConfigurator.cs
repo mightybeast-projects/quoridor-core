@@ -12,7 +12,7 @@ namespace Quoridor.Core.GameLogic
         private int _startingPositionCoordinate;
         private int _goalPositionCoordinate;
 
-        public PlayerConfigurator(Board board, List<Player> players)
+        internal PlayerConfigurator(Board board, List<Player> players)
         {
             _board = board;
             _players = players;
