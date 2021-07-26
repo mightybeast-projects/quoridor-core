@@ -33,7 +33,7 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
                 throw new WallIsTooLongException();
             if (WallTilesHavePairCoordinates()) 
                 throw new WallTilesHavePairCoordinatesException();
-            if (WallDoesNotCoverTwoSolidTiles()) 
+            if (WallDoesNotCoverTwoSolidTiles())
                 throw new WallDoesNotCoverSolidTilesException();
             if (WallInterceptsWithOtherWall()) 
                 throw new WallInterceptsWithOtherWallException();

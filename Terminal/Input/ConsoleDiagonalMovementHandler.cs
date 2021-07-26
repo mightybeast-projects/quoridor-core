@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using Quoridor.Core.GameLogic;
-using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
 {

@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using Quoridor.Core.GameLogic;
-using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
 {
@@ -9,7 +6,7 @@ namespace Quoridor.Terminal.Input
     {
         private ConsoleSimpleMovementHandler _simpleMovementHandler;
         private ConsoleWallPlacementHandler _wallPlacementHandler;
-        
+
         public ConsoleMainMenuHandler(ConsoleMessageDisplay messageDisplay, Game game) : 
                 base(game)
         {

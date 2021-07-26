@@ -11,12 +11,12 @@ namespace Quoridor.Core.PlayerLogic.Movement
         private Vector2 _newPosition;
         private Vector2 _position;
         private Vector2 _moveVector;
-        private ExpectedPositionValidator _positionValidator;
+        private ExpectedPositionValidatorFacade _positionValidator;
 
         public MovementController(Player player)
         {
             _player = player;
-            _positionValidator = new ExpectedPositionValidator(_player);
+            _positionValidator = new ExpectedPositionValidatorFacade(_player);
         }
 
         internal void SetPosition(int x, int y)

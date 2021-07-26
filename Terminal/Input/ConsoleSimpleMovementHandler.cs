@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Quoridor.Core.GameLogic;
 
 namespace Quoridor.Terminal.Input
@@ -12,7 +10,7 @@ namespace Quoridor.Terminal.Input
                 base(game) 
         {
             _diagonalMovementHandler = new ConsoleDiagonalMovementHandler(messageDisplay, game);
-            
+
             PrintMenu = () => messageDisplay.PrintMovePlayerMenu();
         }
 
