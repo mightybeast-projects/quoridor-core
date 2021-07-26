@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace Quoridor.Core.PlayerLogic.Movement
+namespace Quoridor.Core.PlayerLogic.Movement.Validator
 {
     internal class ExpectedPositionValidatorFacade : ExpectedPositionValidator
     {
@@ -10,7 +10,7 @@ namespace Quoridor.Core.PlayerLogic.Movement
         private BasicExpectedPositionValidator _basicValidator;
         private PlayerExpectedPositionValidator _playerValidator;
 
-        public ExpectedPositionValidatorFacade(Player player) : base(player) 
+        public ExpectedPositionValidatorFacade(Player player) : base(player)
         {
             _diagonalValidator = new DiagonalExpectedPositionValidator(player);
             _basicValidator = new BasicExpectedPositionValidator(player);
@@ -28,7 +28,7 @@ namespace Quoridor.Core.PlayerLogic.Movement
         internal void CheckExpectedPositionRequirements()
         {
             _basicValidator.CheckBasicExpectedPosition();
-            
+
             _diagonalValidator.CheckDiagonalExpectedPosition();
 
             _playerValidator.CheckForPlayerOnExpectedPosition();

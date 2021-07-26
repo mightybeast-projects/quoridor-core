@@ -1,11 +1,11 @@
 using System.Numerics;
 using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
-namespace Quoridor.Core.PlayerLogic.Movement
+namespace Quoridor.Core.PlayerLogic.Movement.Validator
 {
     public class BasicExpectedPositionValidator : ExpectedPositionValidator
     {
-        public BasicExpectedPositionValidator(Player player) : base(player) {}
+        public BasicExpectedPositionValidator(Player player) : base(player) { }
 
         internal void CheckBasicExpectedPosition()
         {

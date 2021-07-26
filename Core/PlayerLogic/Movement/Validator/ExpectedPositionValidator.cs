@@ -1,7 +1,7 @@
 using System;
 using System.Numerics;
 
-namespace Quoridor.Core.PlayerLogic.Movement
+namespace Quoridor.Core.PlayerLogic.Movement.Validator
 {
     public abstract class ExpectedPositionValidator
     {
@@ -11,6 +11,10 @@ namespace Quoridor.Core.PlayerLogic.Movement
         protected Vector2 _expectedPosition;
         protected int _expectedPositionX;
         protected int _expectedPositionY;
+        private Vector2 _wallBehindSecondPlayer;
+        private int _wallX;
+        private int _wallY;
+
         protected ExpectedPositionValidator(Player player)
         {
             _player = player;
@@ -27,11 +31,11 @@ namespace Quoridor.Core.PlayerLogic.Movement
 
         protected bool WallIsBehindAnotherPlayer()
         {
-            Vector2 wallBehindSecondPlayer = _currentPosition + _moveVector + _moveVector / 2;
-            int wallX = (int) wallBehindSecondPlayer.X;
-            int wallY = (int) wallBehindSecondPlayer.Y;
-            
-            try { return !_player.board.grid[wallX, wallY].isEmpty; }
+            _wallBehindSecondPlayer = _currentPosition + _moveVector + _moveVector / 2;
+            _wallX = (int)_wallBehindSecondPlayer.X;
+            _wallY = (int)_wallBehindSecondPlayer.Y;
+
+            try { return !_player.board.grid[_wallX, _wallY].isEmpty; }
             catch (IndexOutOfRangeException) { return false; }
         }
 

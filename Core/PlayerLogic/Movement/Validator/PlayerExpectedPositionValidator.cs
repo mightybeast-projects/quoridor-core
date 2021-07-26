@@ -1,14 +1,13 @@
-using System.Numerics;
 using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
-namespace Quoridor.Core.PlayerLogic.Movement
+namespace Quoridor.Core.PlayerLogic.Movement.Validator
 {
     internal class PlayerExpectedPositionValidator : ExpectedPositionValidator
     {
         private ExpectedPositionValidatorFacade _facade;
 
-        public PlayerExpectedPositionValidator(ExpectedPositionValidatorFacade facade, Player player) 
-            : base(player) 
+        public PlayerExpectedPositionValidator(ExpectedPositionValidatorFacade facade, Player player)
+            : base(player)
         {
             _facade = facade;
         }

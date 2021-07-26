@@ -35,7 +35,7 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
                 throw new WallTilesHavePairCoordinatesException();
             if (WallDoesNotCoverTwoSolidTiles())
                 throw new WallDoesNotCoverSolidTilesException();
-            if (WallInterceptsWithOtherWall()) 
+            if (WallInterceptsWithOtherWall())
                 throw new WallInterceptsWithOtherWallException();
         }
 

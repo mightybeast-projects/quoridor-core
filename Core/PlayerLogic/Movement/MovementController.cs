@@ -1,5 +1,6 @@
 using System;
 using System.Numerics;
+using Quoridor.Core.PlayerLogic.Movement.Validator;
 
 namespace Quoridor.Core.PlayerLogic.Movement
 {
