@@ -49,8 +49,8 @@ namespace Quoridor.Tests.WallPlacement
             Assert.AreEqual(9, _firstPlayer.wallCounter);
             Assert.AreEqual(1, _firstPlayer.board.placedWalls.Count);
             Assert.IsFalse(_board.grid[(int) _startTile.X, (int) _startTile.Y].isEmpty);
-            Assert.IsFalse(
-                _board.grid[(int) (_startTile.X + _endTile.X) / 2,
+            Assert.IsFalse(_board.grid[
+                            (int) (_startTile.X + _endTile.X) / 2,
                             (int) (_startTile.Y + _endTile.Y) / 2].isEmpty);
             Assert.IsFalse(_board.grid[(int) _endTile.X, (int) _endTile.Y].isEmpty);
         }

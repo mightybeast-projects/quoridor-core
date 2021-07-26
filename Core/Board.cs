@@ -30,15 +30,16 @@ namespace Quoridor.Core
                     GenerateNewTile(i, j);
 
             for (int i = 0; i < _grid.GetLength(0); i += 2)
-            {
                 for (int j = 0; j < _grid.GetLength(1); j += 2)
-                {
-                    _currentTile = _grid[i, j];
+                    InitializeNeighboursForTileWithIndexes(i, j);
+        }
 
-                    AddAdjacentTilesToListWithIndex(_currentTile.preNeighbors, 1);
-                    AddAdjacentTilesToListWithIndex(_currentTile.neighbors, 2);
-                }
-            }
+        private void InitializeNeighboursForTileWithIndexes(int i, int j)
+        {
+            _currentTile = _grid[i, j];
+
+            AddAdjacentTilesToListWithIndex(_currentTile.preNeighbors, 1);
+            AddAdjacentTilesToListWithIndex(_currentTile.neighbors, 2);
         }
 
         private void AddAdjacentTilesToListWithIndex(List<Tile> list, int neighborIndex)

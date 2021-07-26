@@ -1,7 +1,7 @@
 using System.Numerics;
 using NUnit.Framework;
 
-namespace Quoridor.Tests.PlayerMovement
+namespace Quoridor.Tests.PlayerMovement.DiagonalMovement
 {
     [TestFixture]
     public class WrongDiagonalMovement : Initialization
@@ -56,7 +56,7 @@ namespace Quoridor.Tests.PlayerMovement
 
             Assert.AreEqual(new Vector2(8, 0), _firstPlayer.position);
         }
-        
+
         [Test]
         public void DoNotMovePlayerDiagonallyTopLeftIfThereIsWallOnTheWay2()
         {

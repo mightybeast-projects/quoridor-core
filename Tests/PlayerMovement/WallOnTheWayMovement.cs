@@ -58,7 +58,7 @@ namespace Quoridor.Tests.PlayerMovement
             MovementFunction();
 
             Assert.AreEqual(new Vector2(8, 2), _firstPlayer.position);
-            Assert.IsTrue(!_board.grid[8, 2].isEmpty);
+            Assert.IsFalse(_board.grid[8, 2].isEmpty);
         }
     }
 }

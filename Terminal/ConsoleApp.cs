@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using Quoridor.Core;
 using Quoridor.Core.GameLogic;
-using Quoridor.Core.PlayerLogic;
 using Quoridor.Terminal.Input;
 
 namespace Quoridor.Terminal
@@ -21,12 +18,12 @@ namespace Quoridor.Terminal
             _messageDisplay = new ConsoleMessageDisplay(game);
             _inputHandler = new ConsoleMainMenuHandler(_messageDisplay, _game);
 
-            game.SetPlayersOutput(_messageDisplay);
+            _game.SetPlayersOutput(_messageDisplay);
         }
         
         public void Start()
         {
-            while(true) { RunConsoleGame(); }
+            while (true) { RunConsoleGame(); }
         }
 
         private void RunConsoleGame()

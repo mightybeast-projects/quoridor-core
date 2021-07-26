@@ -41,14 +41,8 @@ namespace Quoridor.Tests
         public void CreatePlayer()
         {
             Assert.IsNotNull(_firstPlayer.board);
-            Assert.IsTrue(!_board.grid[0, 0].isEmpty);
+            Assert.IsFalse(_board.grid[0, 0].isEmpty);
             Assert.AreEqual(new Vector2(0, 0), _firstPlayer.position);
-
-            _firstPlayer.SetPosition(8, 0);
-
-            Assert.IsTrue(_board.grid[0, 0].isEmpty);
-            Assert.IsTrue(!_board.grid[8, 0].isEmpty);
-            Assert.AreEqual(new Vector2(8, 0), _firstPlayer.position);
         }
 
         [Test]
@@ -81,7 +75,7 @@ namespace Quoridor.Tests
         {
             _firstPlayer.SetPosition(newPosition);
 
-            try 
+            try
             { 
                 Assert.IsTrue(_board.grid[(int) newPosition.X, (int) newPosition.Y].isEmpty);
             } 

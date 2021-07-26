@@ -1,7 +1,7 @@
 using System.Numerics;
 using NUnit.Framework;
 
-namespace Quoridor.Tests.PlayerMovement
+namespace Quoridor.Tests.PlayerMovement.DiagonalMovement
 {
     [TestFixture]
     public class CorrectDiagonalMovement : Initialization

@@ -65,7 +65,7 @@ namespace Quoridor.Tests.PlayerMovement
         {
             Assert.AreEqual(_expectedPosition, _firstPlayer.position);
             Assert.IsTrue(_board.grid[(int)_playerStartPosition.X, (int)_playerStartPosition.Y].isEmpty);
-            Assert.IsTrue(!_board.grid[(int)_expectedPosition.X, (int)_expectedPosition.Y].isEmpty);
+            Assert.IsFalse(_board.grid[(int)_expectedPosition.X, (int)_expectedPosition.Y].isEmpty);
         }
     }
 }
