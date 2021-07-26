@@ -5,17 +5,21 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
 {
-    public class ConsoleWallPlacementHandler : InputHandler
+    public class ConsoleWallPlacementHandler
     {
         private string _startPositionString;
         private string _endPositionString;
 
         private Vector2 _wallStartPosition = Vector2.Zero;
         private Vector2 _wallEndPosition = Vector2.Zero;
+        private Game _game;
 
-        public ConsoleWallPlacementHandler(Game game) : base(game) {}
+        public ConsoleWallPlacementHandler(Game game)
+        {
+            _game = game;
+        }
 
-        public override void HandleInput()
+        public void HandleInput()
         {
             ReadInput();
             ParseInput();

@@ -1,44 +1,29 @@
 using System;
+using System.Collections.Generic;
 using Quoridor.Core.GameLogic;
-using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Terminal.Input
 {
     public class ConsoleSimpleMovementHandler : InputHandler
     {
         private ConsoleDiagonalMovementHandler _diagonalMovementHandler;
-        private ConsoleMessageDisplay _messageDisplay;
 
         public ConsoleSimpleMovementHandler(ConsoleMessageDisplay messageDisplay, Game game) :
                 base(game) 
         {
             _diagonalMovementHandler = new ConsoleDiagonalMovementHandler(messageDisplay, game);
-            _messageDisplay = messageDisplay;
+            
+            PrintMenu = () => messageDisplay.PrintMovePlayerMenu();
         }
 
-        public override void HandleInput()
+        protected override void InitializeCommands()
         {
-            _messageDisplay.PrintMovePlayerMenu();
-            _commandIndex = Convert.ToInt32(Console.ReadLine());
-
-            switch (_commandIndex)
-            {
-                case 1:
-                    _game.MakeCurrentPlayerMove(PlayerMove.MOVE_UP);
-                    break;
-                case 2:
-                    _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DOWN);
-                    break;
-                case 3:
-                    _game.MakeCurrentPlayerMove(PlayerMove.MOVE_RIGHT);
-                    break;
-                case 4:
-                    _game.MakeCurrentPlayerMove(PlayerMove.MOVE_LEFT);
-                    break;
-                case 5:
-                    _diagonalMovementHandler.HandleInput();
-                    break;
-            }
+            base.InitializeCommands();
+            _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_UP));
+            _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DOWN));
+            _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_RIGHT));
+            _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_LEFT));
+            _commandList.Add(() => _diagonalMovementHandler.HandleInput());
         }
     }
 }

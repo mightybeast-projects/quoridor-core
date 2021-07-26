@@ -1,5 +1,4 @@
 using System.Numerics;
-using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic.Handler
 {
