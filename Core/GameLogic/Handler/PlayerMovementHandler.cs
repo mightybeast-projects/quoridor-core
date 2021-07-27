@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Quoridor.Core.GameLogic.Handler
@@ -5,12 +7,18 @@ namespace Quoridor.Core.GameLogic.Handler
     internal class PlayerMovementHandler : GameHandler
     {
         private Vector2 _previousPosition;
+        private List<Action> _commandList;
+
+        public PlayerMovementHandler()
+        {
+            InitializeCommands();
+        }
 
         internal bool HandlePlayerMove(PlayerMove playerMove)
         {
             _previousPosition = _currentPlayer.position;
 
-            ChooseMove(playerMove);
+            _commandList[(int)playerMove]();
 
             if (PlayerMadeWrongMove())
                 return false;
@@ -18,35 +26,17 @@ namespace Quoridor.Core.GameLogic.Handler
                 return true;
         }
 
-        private void ChooseMove(PlayerMove playerMove)
+        private void InitializeCommands()
         {
-            switch (playerMove)
-            {
-                case PlayerMove.MOVE_UP:
-                    _currentPlayer.MoveUp();
-                    break;
-                case PlayerMove.MOVE_DOWN:
-                    _currentPlayer.MoveDown();
-                    break;
-                case PlayerMove.MOVE_RIGHT:
-                    _currentPlayer.MoveRight();
-                    break;
-                case PlayerMove.MOVE_LEFT:
-                    _currentPlayer.MoveLeft();
-                    break;
-                case PlayerMove.MOVE_DIAGONALLY_TOP_RIGHT:
-                    _currentPlayer.MoveDiagonallyTopRight();
-                    break;
-                case PlayerMove.MOVE_DIAGONALLY_TOP_LEFT:
-                    _currentPlayer.MoveDiagonallyTopLeft();
-                    break;
-                case PlayerMove.MOVE_DIAGONALLY_BOTOM_RIGHT:
-                    _currentPlayer.MoveDiagonallyBottomRight();
-                    break;
-                case PlayerMove.MOVE_DIAGONALLY_BOTTOM_LEFT:
-                    _currentPlayer.MoveDiagonallyBottomLeft();
-                    break;
-            }
+            _commandList = new List<Action>();
+            _commandList.Add(() => _currentPlayer.MoveUp());
+            _commandList.Add(() => _currentPlayer.MoveDown());
+            _commandList.Add(() => _currentPlayer.MoveRight());
+            _commandList.Add(() => _currentPlayer.MoveLeft());
+            _commandList.Add(() => _currentPlayer.MoveDiagonallyTopRight());
+            _commandList.Add(() => _currentPlayer.MoveDiagonallyTopLeft());
+            _commandList.Add(() => _currentPlayer.MoveDiagonallyBottomRight());
+            _commandList.Add(() => _currentPlayer.MoveDiagonallyBottomLeft());
         }
 
         private bool PlayerMadeWrongMove()

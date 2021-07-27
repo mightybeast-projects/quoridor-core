@@ -45,8 +45,7 @@ namespace Quoridor.Core.GameLogic.Handler
 
         private bool PlayerHavePathToGoal(Player player)
         {
-            bool pathAvailable = _pathValidator.CheckPathToGoalFor(player);
-            return pathAvailable;
+            return _pathValidator.CheckPathToGoalFor(player);
         }
 
         private bool PlayerPlacedWrongWall()
