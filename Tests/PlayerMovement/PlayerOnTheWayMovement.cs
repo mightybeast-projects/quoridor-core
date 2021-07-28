@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core.GameLogic;
+using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
 namespace Quoridor.Tests.PlayerMovement
 {
@@ -89,7 +90,9 @@ namespace Quoridor.Tests.PlayerMovement
 
         private void MoveAndAssertThatNothingChanged()
         {
-            ApplyInitializedFields();
+            AssertBeyondBoardException(
+                () => ApplyInitializedFields()
+            );
 
             Assert.IsFalse(
                 _board.grid[(int)_firstPlayerPosition.X, (int)_firstPlayerPosition.Y]
@@ -124,7 +127,15 @@ namespace Quoridor.Tests.PlayerMovement
         {
             _firstPlayer.SetPosition(_firstPlayerPosition);
             _secondPlayer.SetPosition(_secondPlayerPosition);
+            
             FirstPlayerMovementFunction();
+        }
+
+        private void AssertBeyondBoardException(Action MovementFunction)
+        {
+            Assert.Throws<MoveBeyondBoardException>(
+                () => MovementFunction()
+            );
         }
     }
 }

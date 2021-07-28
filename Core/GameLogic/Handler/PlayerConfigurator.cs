@@ -1,20 +1,16 @@
-using System.Collections.Generic;
 using Quoridor.Core.PlayerLogic;
 
-namespace Quoridor.Core.GameLogic
+namespace Quoridor.Core.GameLogic.Handler
 {
-    class PlayerConfigurator
+    internal class PlayerConfigurator : GameHandler
     {
-        private GameConfig _gameConfig;
         private Player _playerToConfig;
         private int _playerIndex;
         private int _startingPositionCoordinate;
         private int _goalPositionCoordinate;
 
-        internal PlayerConfigurator(GameConfig gameConfig)
-        {
-            _gameConfig = gameConfig;
-        }
+        internal PlayerConfigurator(GameConfig gameConfig) : 
+            base(gameConfig) { }
 
         internal void ConfigurePlayers()
         {

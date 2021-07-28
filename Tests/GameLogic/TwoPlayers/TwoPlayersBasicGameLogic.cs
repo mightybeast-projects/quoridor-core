@@ -1,6 +1,8 @@
 using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core.GameLogic;
+using Quoridor.Core.PlayerLogic.Movement.Exceptions;
+using Quoridor.Core.PlayerLogic.WallPlacement.Exceptions;
 
 namespace Quoridor.Tests.GameLogic.TwoPlayers
 {
@@ -32,7 +34,9 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
         [Test]
         public void DoNotSwitchPlayerAfterWrongMove()
         {
-            _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DOWN);
+            Assert.Throws<MoveBeyondBoardException>( () =>
+                _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DOWN)
+            );
 
             Assert.AreEqual(new Vector2(8, 0), _game.players[0].position);
             Assert.AreEqual(_game.players[0], _game.currentPlayer);
@@ -50,7 +54,9 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
         [Test]
         public void DoNotSwitchPlayerAfterWrongWallPlacement()
         {
-            _game.MakeCurrentPlayerPlaceWall(new Vector2(-1, 1), new Vector2(2, 1));
+            Assert.Throws<WallIsBeyondBoardException>( () =>
+                _game.MakeCurrentPlayerPlaceWall(new Vector2(-1, 1), new Vector2(2, 1))
+            );
 
             Assert.AreEqual(10, _game.players[0].wallCounter);
             Assert.AreEqual(_game.players[0], _game.currentPlayer);

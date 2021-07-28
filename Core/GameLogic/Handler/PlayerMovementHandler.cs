@@ -6,45 +6,42 @@ namespace Quoridor.Core.GameLogic.Handler
 {
     internal class PlayerMovementHandler : GameHandler
     {
-        private GameConfig _gameConfig;
         private Vector2 _previousPosition;
         private List<Action> _commandList;
 
-        public PlayerMovementHandler(GameConfig gameConfig)
+        public PlayerMovementHandler(GameConfig gameConfig) : 
+            base(gameConfig)
         {
-            _gameConfig = gameConfig;
             InitializeCommands();
         }
 
-        internal bool HandlePlayerMove(PlayerMove playerMove)
+        internal void HandlePlayerMove(PlayerMove playerMove)
         {
-            _currentPlayer = _gameConfig.currentPlayer;
-            _previousPosition = _currentPlayer.position;
+            _previousPosition = _gameConfig.currentPlayer.position;
 
-            _commandList[(int) playerMove]();
+            Action MovementFunction = _commandList[(int) playerMove];
+            MovementFunction();
 
-            if (PlayerMadeWrongMove())
-                return false;
-            else
-                return true;
+            if (!PlayerMadeWrongMove())
+                _gameConfig.SwitchCurrentPlayer();
         }
 
         private void InitializeCommands()
         {
             _commandList = new List<Action>();
-            _commandList.Add(() => _currentPlayer.MoveUp());
-            _commandList.Add(() => _currentPlayer.MoveDown());
-            _commandList.Add(() => _currentPlayer.MoveRight());
-            _commandList.Add(() => _currentPlayer.MoveLeft());
-            _commandList.Add(() => _currentPlayer.MoveDiagonallyTopRight());
-            _commandList.Add(() => _currentPlayer.MoveDiagonallyTopLeft());
-            _commandList.Add(() => _currentPlayer.MoveDiagonallyBottomRight());
-            _commandList.Add(() => _currentPlayer.MoveDiagonallyBottomLeft());
+            _commandList.Add(() => _gameConfig.currentPlayer.MoveUp());
+            _commandList.Add(() => _gameConfig.currentPlayer.MoveDown());
+            _commandList.Add(() => _gameConfig.currentPlayer.MoveRight());
+            _commandList.Add(() => _gameConfig.currentPlayer.MoveLeft());
+            _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyTopRight());
+            _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyTopLeft());
+            _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyBottomRight());
+            _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyBottomLeft());
         }
 
         private bool PlayerMadeWrongMove()
         {
-            return _currentPlayer.position == _previousPosition;
+            return _gameConfig.currentPlayer.position == _previousPosition;
         }
     }
 }

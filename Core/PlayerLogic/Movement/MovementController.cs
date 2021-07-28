@@ -35,14 +35,10 @@ namespace Quoridor.Core.PlayerLogic.Movement
         internal void Move(Vector2 moveVector)
         {
             _moveVector = moveVector;
+            
             _positionValidator.CalculateExpectedPosition(_position, _moveVector);
 
-            try { _positionValidator.CheckExpectedPositionRequirements(); }
-            catch (Exception e)
-            {
-                _player.output?.DisplayExceptionMessage(e);
-                return;
-            }
+            _positionValidator.CheckExpectedPositionRequirements();
 
             SetPosition(_positionValidator.expectedPosition);
         }

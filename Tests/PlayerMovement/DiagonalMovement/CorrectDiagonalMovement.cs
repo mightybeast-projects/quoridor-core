@@ -1,5 +1,6 @@
 using System.Numerics;
 using NUnit.Framework;
+using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
 namespace Quoridor.Tests.PlayerMovement.DiagonalMovement
 {
@@ -12,7 +13,9 @@ namespace Quoridor.Tests.PlayerMovement.DiagonalMovement
             _firstPlayer.SetPosition(8, 0);
             _secondPlayer.SetPosition(8, 2);
             _firstPlayer.PlaceWall(new Vector2(8, 3), new Vector2(10, 3));
-            _firstPlayer.MoveUp();
+            Assert.Throws<WallBehindAnotherPlayerException>(
+                () => _firstPlayer.MoveUp()
+            );
 
             Assert.AreEqual(new Vector2(8, 0), _firstPlayer.position);
             Assert.IsFalse(_board.grid[8, 0].isEmpty);

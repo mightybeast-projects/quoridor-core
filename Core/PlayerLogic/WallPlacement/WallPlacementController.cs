@@ -33,14 +33,10 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         {
             _wallStartPosition = wallStartPosition;
             _wallEndPosition = wallEndPosition;
+            
             _wallValidator.InitializeWallPositions(wallStartPosition, wallEndPosition);
             
-            try { _wallValidator.CheckWallRequirements(); }
-            catch (Exception e) 
-            {
-                _player.output?.DisplayExceptionMessage(e);
-                return;
-            }
+            _wallValidator.CheckWallRequirements();
 
             PlaceNewWall();
         }

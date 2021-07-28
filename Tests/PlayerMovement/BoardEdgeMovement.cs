@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using NUnit.Framework;
+using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
 namespace Quoridor.Tests.PlayerMovement
 {
@@ -49,10 +50,17 @@ namespace Quoridor.Tests.PlayerMovement
         private void AssertNothingChangedAfterMoveOnEdge()
         {
             _firstPlayer.SetPosition(_playerPosition);
-            MovementFunction();
+            AssertBeyondBoardException(MovementFunction);
 
             Assert.AreEqual(_playerPosition, _firstPlayer.position);
             Assert.IsTrue(!_board.grid[(int)_playerPosition.X, (int)_playerPosition.Y].isEmpty);
+        }
+
+        private void AssertBeyondBoardException(Action MovementFunction)
+        {
+            Assert.Throws<MoveBeyondBoardException>(
+                () => MovementFunction()
+            );
         }
     }
 }

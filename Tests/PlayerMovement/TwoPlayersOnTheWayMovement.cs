@@ -1,5 +1,6 @@
 using System.Numerics;
 using NUnit.Framework;
+using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 using Quoridor.Tests;
 
 namespace Quoridor.Tests.PlayerMovement
@@ -14,7 +15,9 @@ namespace Quoridor.Tests.PlayerMovement
             _secondPlayer.SetPosition(8, 6);
             _thirdPlayer.SetPosition(10, 6);
 
-            _firstPlayer.MoveRight();
+            Assert.Throws<JumpOverTwoPlayersException>(
+                () =>  _firstPlayer.MoveRight()
+            );
 
             Assert.AreEqual(new Vector2(6, 6), _firstPlayer.position);
         }

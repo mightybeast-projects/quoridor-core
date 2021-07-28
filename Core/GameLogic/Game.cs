@@ -29,11 +29,7 @@ namespace Quoridor.Core.GameLogic
 
         public void AddNewPlayerPair()
         {
-            if (_gameConfig.players.Count < 4)
-            {
-                _gameConfig.players.Add(new Player(_gameConfig.board));
-                _gameConfig.players.Add(new Player(_gameConfig.board));
-            }
+            _gameConfig.AddNewPlayers();
         }
 
         public void Start()
@@ -45,18 +41,12 @@ namespace Quoridor.Core.GameLogic
 
         public void MakeCurrentPlayerMove(PlayerMove playerMove)
         {
-            _movementSuccessful 
-                = _movementHandler.HandlePlayerMove(playerMove);
-
-            _gameConfig.SwitchCurrentPlayerIf(_movementSuccessful);
+            _movementHandler.HandlePlayerMove(playerMove);
         }
 
         public void MakeCurrentPlayerPlaceWall(Vector2 start, Vector2 end)
         {
-            _wallPlacementSuccessful 
-                = _wallPlacementHandler.HandleWallPlacement(start, end);
-
-            _gameConfig.SwitchCurrentPlayerIf(_wallPlacementSuccessful);
+            _wallPlacementHandler.HandleWallPlacement(start, end);
         }
 
         public void SetPlayersOutput(IOutput output)

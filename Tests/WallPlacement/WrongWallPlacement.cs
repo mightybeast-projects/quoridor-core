@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using NUnit.Framework;
+using Quoridor.Core.PlayerLogic.WallPlacement.Exceptions;
 
 namespace Quoridor.Tests.WallPlacement
 {
@@ -16,7 +17,7 @@ namespace Quoridor.Tests.WallPlacement
             _wallStartPosition = new Vector2(0, 1);
             _wallEndPosition = new Vector2(4, 1);
 
-            PlaceAndAssertWrongWall();
+            PlaceAndAssertWrongWallWithException<WallIsTooLongException>();
         }
 
         [Test]
@@ -25,7 +26,7 @@ namespace Quoridor.Tests.WallPlacement
             _wallStartPosition = new Vector2(0, 1);
             _wallEndPosition = new Vector2(2, 4);
 
-            PlaceAndAssertWrongWall();
+            PlaceAndAssertWrongWallWithException<WallIsNotOnTheSameLineException>();
         }
 
         [Test]
@@ -34,7 +35,7 @@ namespace Quoridor.Tests.WallPlacement
             _wallStartPosition = new Vector2(0, 1);
             _wallEndPosition = new Vector2(0, 3);
 
-            PlaceAndAssertWrongWall();
+            PlaceAndAssertWrongWallWithException<WallTilesHavePairCoordinatesException>();
         }
 
         [Test]
@@ -43,7 +44,7 @@ namespace Quoridor.Tests.WallPlacement
             _wallStartPosition = new Vector2(1, 1);
             _wallEndPosition = new Vector2(3, 1);
 
-            PlaceAndAssertWrongWall();
+            PlaceAndAssertWrongWallWithException<WallDoesNotCoverSolidTilesException>();
         }
 
         [Test]
@@ -52,32 +53,37 @@ namespace Quoridor.Tests.WallPlacement
             _wallStartPosition = new Vector2(-2, 0);
             _wallEndPosition = new Vector2(0, 0);
 
-            PlaceAndAssertWrongWall();
+            PlaceAndAssertWrongWallWithException<WallIsBeyondBoardException>();
 
             _wallStartPosition = new Vector2(0, 17);
             _wallEndPosition = new Vector2(0, 19);
 
-            PlaceAndAssertWrongWall();
+            PlaceAndAssertWrongWallWithException<WallIsBeyondBoardException>();
         }
 
         [Test]
         public void PlaceWallWhichInterceptsWithOtherWall()
         {
             _firstPlayer.PlaceWall(new Vector2(0, 1), new Vector2(2, 1));
-            _firstPlayer.PlaceWall(new Vector2(1, 0), new Vector2(1, 2));
+            _wallStartPosition = new Vector2(1, 0);
+            _wallEndPosition = new Vector2(1, 2);
 
+            Assert.Throws<WallInterceptsWithOtherWallException>(
+                () => _firstPlayer.PlaceWall(_wallStartPosition, _wallEndPosition)
+            );
             Assert.AreEqual(9, _firstPlayer.wallCounter);
-            Assert.AreEqual(1, _firstPlayer.board.placedWalls.Count);
-            Assert.IsTrue(_board.grid[1, 0].isEmpty);
-            Assert.IsTrue(_board.grid[1, 2].isEmpty);
+            Assert.AreEqual(1, _board.placedWalls.Count);
         }
 
-        private void PlaceAndAssertWrongWall()
+        private void PlaceAndAssertWrongWallWithException<T>() 
+            where T : Exception
         {
-            _firstPlayer.PlaceWall(_wallStartPosition, _wallEndPosition);
+            Assert.Throws<T>(
+                () => _firstPlayer.PlaceWall(_wallStartPosition, _wallEndPosition)
+            );
 
             Assert.AreEqual(10, _firstPlayer.wallCounter);
-            Assert.AreEqual(0, _firstPlayer.board.placedWalls.Count);
+            Assert.AreEqual(0, _board.placedWalls.Count);
             try
             {
                 Assert.IsTrue(_board.grid[(int)_wallStartPosition.X, (int)_wallStartPosition.Y].isEmpty);

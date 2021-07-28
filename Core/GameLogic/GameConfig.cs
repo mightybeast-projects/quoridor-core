@@ -30,10 +30,13 @@ namespace Quoridor.Core.GameLogic
             _board = new Board();
         }
 
-        internal void SwitchCurrentPlayerIf(bool actionSuccessful)
+        internal void AddNewPlayers()
         {
-            if(actionSuccessful)
-                SwitchCurrentPlayer();
+            if (_players.Count < 4)
+            {
+                _players.Add(new Player(_board));
+                _players.Add(new Player(_board));
+            }
         }
 
         internal void SwitchCurrentPlayer()

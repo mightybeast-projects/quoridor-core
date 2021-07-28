@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Numerics;
 using Quoridor.Core.PlayerLogic;
 
@@ -6,33 +5,31 @@ namespace Quoridor.Core.GameLogic.Handler
 {
     internal class PlayerWallPlacementHandler : GameHandler
     {
-        private GameConfig _gameConfig;
         private PlayerPathValidator _pathValidator;
         private int _previousWallCounter;
 
-        internal PlayerWallPlacementHandler(GameConfig gameConfig)
+        internal PlayerWallPlacementHandler(GameConfig gameConfig) : 
+            base(gameConfig)
         {
-            _gameConfig = gameConfig;
             _pathValidator = new PlayerPathValidator();
         }
 
-        internal bool HandleWallPlacement(Vector2 wallStartPosition, Vector2 wallEndPosition)
+        internal void HandleWallPlacement(Vector2 wallStartPosition, Vector2 wallEndPosition)
         {
-            _currentPlayer = _gameConfig.currentPlayer;
-            _previousWallCounter = _currentPlayer.wallCounter;
+            _previousWallCounter = _gameConfig.currentPlayer.wallCounter;
 
-            _currentPlayer.PlaceWall(wallStartPosition, wallEndPosition);
+            _gameConfig.currentPlayer.PlaceWall(wallStartPosition, wallEndPosition);
 
             if (PlayerPlacedWrongWall())
-                return false;
+                return;
             if (OneOfThePlayersDoNotHavePathToGoal())
             {
-                _currentPlayer.RevertWallPlacement();
-                _currentPlayer.output?.DisplayExceptionMessage(new NoPathForPlayerException());
-                return false;
+                _gameConfig.currentPlayer.RevertWallPlacement();
+                _gameConfig.currentPlayer.output?.DisplayExceptionMessage(new NoPathForPlayerException());
+                return;
             }
 
-            return true;
+            _gameConfig.SwitchCurrentPlayer();
         }
 
         private bool OneOfThePlayersDoNotHavePathToGoal()
@@ -51,7 +48,7 @@ namespace Quoridor.Core.GameLogic.Handler
 
         private bool PlayerPlacedWrongWall()
         {
-            return _currentPlayer.wallCounter == _previousWallCounter;
+            return _gameConfig.currentPlayer.wallCounter == _previousWallCounter;
         }
     }
 }
