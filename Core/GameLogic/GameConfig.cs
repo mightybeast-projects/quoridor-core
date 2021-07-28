@@ -29,5 +29,21 @@ namespace Quoridor.Core.GameLogic
             _players = new List<Player>();
             _board = new Board();
         }
+
+        internal void SwitchCurrentPlayerIf(bool actionSuccessful)
+        {
+            if(actionSuccessful)
+                SwitchCurrentPlayer();
+        }
+
+        internal void SwitchCurrentPlayer()
+        {
+            currentPlayerIndex++;
+
+            if (currentPlayerIndex > players.Count - 1)
+                currentPlayerIndex = 0;
+            
+            currentPlayer = players[currentPlayerIndex];
+        }
     }
 }

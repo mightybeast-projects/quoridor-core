@@ -40,7 +40,7 @@ namespace Quoridor.Core.GameLogic
         {
             _configurator.ConfigurePlayers();
 
-            SwitchCurrentPlayer();
+            _gameConfig.SwitchCurrentPlayer();
         }
 
         public void MakeCurrentPlayerMove(PlayerMove playerMove)
@@ -48,7 +48,7 @@ namespace Quoridor.Core.GameLogic
             _movementSuccessful 
                 = _movementHandler.HandlePlayerMove(playerMove);
 
-            SwitchCurrentPlayerIf(_movementSuccessful);
+            _gameConfig.SwitchCurrentPlayerIf(_movementSuccessful);
         }
 
         public void MakeCurrentPlayerPlaceWall(Vector2 start, Vector2 end)
@@ -56,29 +56,13 @@ namespace Quoridor.Core.GameLogic
             _wallPlacementSuccessful 
                 = _wallPlacementHandler.HandleWallPlacement(start, end);
 
-            SwitchCurrentPlayerIf(_wallPlacementSuccessful);
+            _gameConfig.SwitchCurrentPlayerIf(_wallPlacementSuccessful);
         }
 
         public void SetPlayersOutput(IOutput output)
         {
             foreach (Player player in _gameConfig.players)
                 player.SetOutput(output);
-        }
-
-        private void SwitchCurrentPlayerIf(bool actionSuccessful)
-        {
-            if(actionSuccessful)
-                SwitchCurrentPlayer();
-        }
-
-        private void SwitchCurrentPlayer()
-        {
-            _gameConfig.currentPlayerIndex++;
-
-            if (_gameConfig.currentPlayerIndex > _gameConfig.players.Count - 1)
-                _gameConfig.currentPlayerIndex = 0;
-            
-            _gameConfig.currentPlayer = _gameConfig.players[_gameConfig.currentPlayerIndex];
         }
     }
 }
