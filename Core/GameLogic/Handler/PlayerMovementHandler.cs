@@ -6,19 +6,22 @@ namespace Quoridor.Core.GameLogic.Handler
 {
     internal class PlayerMovementHandler : GameHandler
     {
+        private GameConfig _gameConfig;
         private Vector2 _previousPosition;
         private List<Action> _commandList;
 
-        public PlayerMovementHandler()
+        public PlayerMovementHandler(GameConfig gameConfig)
         {
+            _gameConfig = gameConfig;
             InitializeCommands();
         }
 
         internal bool HandlePlayerMove(PlayerMove playerMove)
         {
+            _currentPlayer = _gameConfig.currentPlayer;
             _previousPosition = _currentPlayer.position;
 
-            _commandList[(int)playerMove]();
+            _commandList[(int) playerMove]();
 
             if (PlayerMadeWrongMove())
                 return false;

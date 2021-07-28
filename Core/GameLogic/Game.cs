@@ -7,36 +7,32 @@ namespace Quoridor.Core.GameLogic
 {
     public class Game
     {
-        public List<Player> players => _players;
-        public Board board => _board;
-        public Player currentPlayer => _currentPlayer;
-        public int currentPlayerIndex => _currentPlayerIndex;
+        public List<Player> players => _gameConfig.players;
+        public Board board => _gameConfig.board;
+        public Player currentPlayer => _gameConfig.currentPlayer;
+        public int currentPlayerIndex => _gameConfig.currentPlayerIndex;
 
         private PlayerMovementHandler _movementHandler;
         private PlayerWallPlacementHandler _wallPlacementHandler;
         private PlayerConfigurator _configurator;
-        private List<Player> _players;
-        private Board _board;
-        private Player _currentPlayer;
-        private int _currentPlayerIndex = -1;
+        private GameConfig _gameConfig;
         private bool _movementSuccessful;
         private bool _wallPlacementSuccessful;
-
+        
         public Game()
         {
-            _board = new Board();
-            _players = new List<Player>();
-            _movementHandler = new PlayerMovementHandler();
-            _wallPlacementHandler = new PlayerWallPlacementHandler(_players);
-            _configurator = new PlayerConfigurator(_board, _players);
+            _gameConfig = new GameConfig();
+            _movementHandler = new PlayerMovementHandler(_gameConfig);
+            _wallPlacementHandler = new PlayerWallPlacementHandler(_gameConfig);
+            _configurator = new PlayerConfigurator(_gameConfig);
         }
 
         public void AddNewPlayerPair()
         {
-            if (_players.Count < 4)
+            if (_gameConfig.players.Count < 4)
             {
-                _players.Add(new Player(_board));
-                _players.Add(new Player(_board));
+                _gameConfig.players.Add(new Player(_gameConfig.board));
+                _gameConfig.players.Add(new Player(_gameConfig.board));
             }
         }
 
@@ -65,7 +61,7 @@ namespace Quoridor.Core.GameLogic
 
         public void SetPlayersOutput(IOutput output)
         {
-            foreach (Player player in _players)
+            foreach (Player player in _gameConfig.players)
                 player.SetOutput(output);
         }
 
@@ -77,14 +73,12 @@ namespace Quoridor.Core.GameLogic
 
         private void SwitchCurrentPlayer()
         {
-            _currentPlayerIndex++;
+            _gameConfig.currentPlayerIndex++;
 
-            if (_currentPlayerIndex > _players.Count - 1)
-                _currentPlayerIndex = 0;
+            if (_gameConfig.currentPlayerIndex > _gameConfig.players.Count - 1)
+                _gameConfig.currentPlayerIndex = 0;
             
-            _currentPlayer = _players[_currentPlayerIndex];
-            _movementHandler.currentPlayer = _currentPlayer;
-            _wallPlacementHandler.currentPlayer = _currentPlayer;
+            _gameConfig.currentPlayer = _gameConfig.players[_gameConfig.currentPlayerIndex];
         }
     }
 }

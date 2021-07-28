@@ -5,31 +5,29 @@ namespace Quoridor.Core.GameLogic
 {
     class PlayerConfigurator
     {
-        private List<Player> _players;
+        private GameConfig _gameConfig;
         private Player _playerToConfig;
-        private Board _board;
         private int _playerIndex;
         private int _startingPositionCoordinate;
         private int _goalPositionCoordinate;
 
-        internal PlayerConfigurator(Board board, List<Player> players)
+        internal PlayerConfigurator(GameConfig gameConfig)
         {
-            _board = board;
-            _players = players;
+            _gameConfig = gameConfig;
         }
 
         internal void ConfigurePlayers()
         {
             SetPlayersWallCounter();
 
-            for (int i = 0; i < _players.Count; i++)
+            for (int i = 0; i < _gameConfig.players.Count; i++)
                 ConfigurePlayer(i);
         }
 
         private void ConfigurePlayer(int playerIndex)
         {
             _playerIndex = playerIndex;
-            _playerToConfig = _players[playerIndex];
+            _playerToConfig = _gameConfig.players[playerIndex];
 
             ChoosePlayerStartingPositionCoordinate();
             ChoosePlayerGoalPositionCoordinate();
@@ -58,10 +56,10 @@ namespace Quoridor.Core.GameLogic
         {
             if (_playerIndex == 0 || _playerIndex == 1)
                 for (int x = 0; x < _playerToConfig.goal.Length; x++)
-                    _playerToConfig.goal[x] = _board.grid[x * 2, _goalPositionCoordinate];
+                    _playerToConfig.goal[x] = _gameConfig.board.grid[x * 2, _goalPositionCoordinate];
             else
                 for (int y = 0; y < _playerToConfig.goal.Length; y++)
-                    _playerToConfig.goal[y] = _board.grid[_goalPositionCoordinate, y * 2];
+                    _playerToConfig.goal[y] = _gameConfig.board.grid[_goalPositionCoordinate, y * 2];
         }
 
         private void SetPlayerPosition()
@@ -74,8 +72,8 @@ namespace Quoridor.Core.GameLogic
 
         private void SetPlayersWallCounter()
         {
-            foreach (Player player in _players)
-                player.SetStartingWallCounter(20 / _players.Count);
+            foreach (Player player in _gameConfig.players)
+                player.SetStartingWallCounter(20 / _gameConfig.players.Count);
         }
     }
 }
