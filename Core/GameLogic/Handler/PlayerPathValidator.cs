@@ -1,10 +1,9 @@
-using System.Numerics;
 using System;
+using System.Linq;
 using Pathfinding;
 using Quoridor.Core.PlayerLogic;
-using Quoridor.Core.GameLogic.Handler;
 
-namespace Quoridor.Core.GameLogic
+namespace Quoridor.Core.GameLogic.Handler
 {
     internal class PlayerPathValidator : GameHandler
     {
@@ -29,11 +28,7 @@ namespace Quoridor.Core.GameLogic
 
         private bool OneOfThePlayersDoNotHavePathToGoal()
         {
-            foreach (Player player in _gameConfig.players)
-                if (!PlayerHavePathToGoal(player))
-                    return true;
-
-            return false;
+            return _gameConfig.players.Any(player => !PlayerHavePathToGoal(player));
         }
 
         private bool PlayerHavePathToGoal(Player player)

@@ -11,10 +11,11 @@ namespace Quoridor.Terminal.Input
         protected List<Action> _commandList;
         private int _commandIndex;
 
-        public InputHandler(Game game)
+        protected InputHandler(Game game)
         {
             _game = game;
-            InitializeCommands();
+            _commandList = new List<Action>();
+            
         }
 
         public void HandleInput()
@@ -23,10 +24,7 @@ namespace Quoridor.Terminal.Input
             ReadAndExecuteCommand();
         }
 
-        protected virtual void InitializeCommands()
-        {
-            _commandList = new List<Action>();
-        }
+        protected abstract void InitializeCommands();
 
         private void ReadAndExecuteCommand()
         {

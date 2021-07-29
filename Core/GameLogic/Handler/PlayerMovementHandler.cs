@@ -24,15 +24,17 @@ namespace Quoridor.Core.GameLogic.Handler
 
         private void InitializeCommands()
         {
-            _commandList = new List<Action>();
-            _commandList.Add(() => _gameConfig.currentPlayer.MoveUp());
-            _commandList.Add(() => _gameConfig.currentPlayer.MoveDown());
-            _commandList.Add(() => _gameConfig.currentPlayer.MoveRight());
-            _commandList.Add(() => _gameConfig.currentPlayer.MoveLeft());
-            _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyTopRight());
-            _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyTopLeft());
-            _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyBottomRight());
-            _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyBottomLeft());
+            _commandList = new List<Action>
+            {
+                () => _gameConfig.currentPlayer.MoveUp(),
+                () => _gameConfig.currentPlayer.MoveDown(),
+                () => _gameConfig.currentPlayer.MoveRight(),
+                () => _gameConfig.currentPlayer.MoveLeft(),
+                () => _gameConfig.currentPlayer.MoveDiagonallyTopRight(),
+                () => _gameConfig.currentPlayer.MoveDiagonallyTopLeft(),
+                () => _gameConfig.currentPlayer.MoveDiagonallyBottomRight(),
+                () => _gameConfig.currentPlayer.MoveDiagonallyBottomLeft()
+            };
         }
     }
 }

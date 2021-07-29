@@ -15,12 +15,6 @@ namespace Quoridor.Terminal
         private Player _currentPlayer;
         private IDrawable _drawable;
 
-        public ConsoleDrawer(Board board, List<Player> players)
-        {
-            _board = board;
-            _players = players;
-        }
-
         public ConsoleDrawer(Game game)
         {
             _board = game.board;

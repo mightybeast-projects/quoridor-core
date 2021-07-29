@@ -11,12 +11,12 @@ namespace Quoridor.Terminal.Input
         {
             _diagonalMovementHandler = new ConsoleDiagonalMovementHandler(messageDisplay, game);
 
-            PrintMenu = () => messageDisplay.PrintMovePlayerMenu();
+            PrintMenu = messageDisplay.PrintMovePlayerMenu;
+            InitializeCommands();
         }
 
-        protected override void InitializeCommands()
+        protected sealed override void InitializeCommands()
         {
-            base.InitializeCommands();
             _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_UP));
             _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DOWN));
             _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_RIGHT));

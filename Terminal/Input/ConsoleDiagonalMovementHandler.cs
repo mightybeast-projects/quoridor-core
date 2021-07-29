@@ -6,12 +6,12 @@ namespace Quoridor.Terminal.Input
     {
         public ConsoleDiagonalMovementHandler(ConsoleMessageDisplay messageDisplay, Game game) : base(game)
         {
-            PrintMenu = () => messageDisplay.PrintDiagonalMovementMenu();
+            PrintMenu = messageDisplay.PrintDiagonalMovementMenu;
+            InitializeCommands();
         }
 
-        protected override void InitializeCommands()
+        protected sealed override void InitializeCommands()
         {
-            base.InitializeCommands();
             _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DIAGONALLY_TOP_RIGHT));
             _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DIAGONALLY_TOP_LEFT));
             _commandList.Add(() => _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DIAGONALLY_BOTOM_RIGHT));

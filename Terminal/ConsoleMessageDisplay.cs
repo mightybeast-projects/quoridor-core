@@ -5,7 +5,7 @@ using Quoridor.Terminal.Drawable;
 
 namespace Quoridor.Terminal
 {
-    public class ConsoleMessageDisplay : IOutput
+    public class ConsoleMessageDisplay
     {
         private Game _game;
 

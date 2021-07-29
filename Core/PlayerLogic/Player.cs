@@ -87,9 +87,9 @@ namespace Quoridor.Core.PlayerLogic
             _wallPlacementController.RevertLastPlacedWall();
         }
 
-        public void SetStartingWallCounter(int wallCounter)
+        public void SetStartingWallCounter(int counter)
         {
-            _wallPlacementController.wallCounter = wallCounter;
+            _wallPlacementController.wallCounter = counter;
         }
     }
 }

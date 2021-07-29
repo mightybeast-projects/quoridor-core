@@ -14,12 +14,12 @@ namespace Quoridor.Terminal.Input
                 new ConsoleSimpleMovementHandler(messageDisplay, game);
             _wallPlacementHandler = new ConsoleWallPlacementHandler(game);
 
-            PrintMenu = () => messageDisplay.PrintConsoleMenu();
+            PrintMenu = messageDisplay.PrintConsoleMenu;
+            InitializeCommands();
         }
 
-        protected override void InitializeCommands()
+        protected sealed override void InitializeCommands()
         {
-            base.InitializeCommands();
             _commandList.Add(() => _simpleMovementHandler.HandleInput());
             _commandList.Add(() => _wallPlacementHandler.HandleInput());
         }
