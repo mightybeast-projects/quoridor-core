@@ -18,7 +18,6 @@ namespace Quoridor.Tests.PlayerMovement
             Assert.Throws<JumpOverTwoPlayersException>(
                 () =>  _firstPlayer.MoveRight()
             );
-
             Assert.AreEqual(new Vector2(6, 6), _firstPlayer.position);
         }
 

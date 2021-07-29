@@ -6,7 +6,6 @@ namespace Quoridor.Core.GameLogic.Handler
 {
     internal class PlayerMovementHandler : GameHandler
     {
-        private Vector2 _previousPosition;
         private List<Action> _commandList;
 
         public PlayerMovementHandler(GameConfig gameConfig) : 
@@ -17,13 +16,10 @@ namespace Quoridor.Core.GameLogic.Handler
 
         internal void HandlePlayerMove(PlayerMove playerMove)
         {
-            _previousPosition = _gameConfig.currentPlayer.position;
-
             Action MovementFunction = _commandList[(int) playerMove];
             MovementFunction();
 
-            if (!PlayerMadeWrongMove())
-                _gameConfig.SwitchCurrentPlayer();
+            _gameConfig.SwitchCurrentPlayer();
         }
 
         private void InitializeCommands()
@@ -37,11 +33,6 @@ namespace Quoridor.Core.GameLogic.Handler
             _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyTopLeft());
             _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyBottomRight());
             _commandList.Add(() => _gameConfig.currentPlayer.MoveDiagonallyBottomLeft());
-        }
-
-        private bool PlayerMadeWrongMove()
-        {
-            return _gameConfig.currentPlayer.position == _previousPosition;
         }
     }
 }

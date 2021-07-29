@@ -20,8 +20,6 @@ namespace Quoridor
             _game = new Game();
             _game.AddNewPlayerPair();
             _game.Start();
-            _game.players[0].SetPosition(8, 2);
-            _game.players[1].SetPosition(10, 2);
         }
 
         private static void StartConsoleApp()

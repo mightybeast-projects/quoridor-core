@@ -7,7 +7,6 @@ namespace Quoridor.Core.PlayerLogic
     public class Player
     {
         public Board board => _board;
-        public IOutput output => _output;
         public Tile[] goal => _goal;
         public Wall lastPlacedWall => _wallPlacementController.lastPlacedWall;
         public Vector2 position => _movementController.position;
@@ -16,7 +15,6 @@ namespace Quoridor.Core.PlayerLogic
         private MovementController _movementController;
         private WallPlacementController _wallPlacementController;
         private Board _board;
-        private IOutput _output;
         private Tile[] _goal;
 
         public Player(Board board)
@@ -92,11 +90,6 @@ namespace Quoridor.Core.PlayerLogic
         public void SetStartingWallCounter(int wallCounter)
         {
             _wallPlacementController.wallCounter = wallCounter;
-        }
-
-        public void SetOutput(IOutput output)
-        {
-            _output = output;
         }
     }
 }

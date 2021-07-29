@@ -8,12 +8,8 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         public int wallCounter
         {
             get => _wallCounter;
-            internal set 
-            {
-                _wallCounter = value;
-            }
+            internal set => _wallCounter = value;
         }
-
         public Wall lastPlacedWall => _lastPlacedWall;
 
         private Player _player;

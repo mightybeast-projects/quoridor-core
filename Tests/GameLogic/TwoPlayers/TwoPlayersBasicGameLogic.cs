@@ -37,7 +37,6 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
             Assert.Throws<MoveBeyondBoardException>( () =>
                 _game.MakeCurrentPlayerMove(PlayerMove.MOVE_DOWN)
             );
-
             Assert.AreEqual(new Vector2(8, 0), _game.players[0].position);
             Assert.AreEqual(_game.players[0], _game.currentPlayer);
         }

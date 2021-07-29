@@ -16,8 +16,6 @@ namespace Quoridor.Core.GameLogic
         private PlayerWallPlacementHandler _wallPlacementHandler;
         private PlayerConfigurator _configurator;
         private GameConfig _gameConfig;
-        private bool _movementSuccessful;
-        private bool _wallPlacementSuccessful;
         
         public Game()
         {
@@ -47,12 +45,6 @@ namespace Quoridor.Core.GameLogic
         public void MakeCurrentPlayerPlaceWall(Vector2 start, Vector2 end)
         {
             _wallPlacementHandler.HandleWallPlacement(start, end);
-        }
-
-        public void SetPlayersOutput(IOutput output)
-        {
-            foreach (Player player in _gameConfig.players)
-                player.SetOutput(output);
         }
     }
 }

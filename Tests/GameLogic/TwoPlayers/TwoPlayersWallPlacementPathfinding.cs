@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core;
@@ -16,8 +17,10 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
         {
             _game.MakeCurrentPlayerPlaceWall(new Vector2(7, 16), new Vector2(7, 14));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(8, 15), new Vector2(10, 15));
-            _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16));
 
+            AssertNoPathForGoalException(
+                () => _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16))
+            );
             AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[0], 9);
         }
 
@@ -26,8 +29,10 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
         {
             _game.MakeCurrentPlayerPlaceWall(new Vector2(7, 0), new Vector2(7, 2));
             _game.MakeCurrentPlayerPlaceWall(new Vector2(8, 1), new Vector2(10, 1));
-            _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 0), new Vector2(11, 2));
 
+            AssertNoPathForGoalException(
+                () => _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 0), new Vector2(11, 2))
+            );
             AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[0], 9);
         }
 
@@ -37,8 +42,10 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
             _game.players[0].SetPosition(0, 0);
 
             _game.MakeCurrentPlayerPlaceWall(new Vector2(1, 0), new Vector2(1, 2));
-            _game.MakeCurrentPlayerPlaceWall(new Vector2(0, 3), new Vector2(2, 3));
-
+            
+            AssertNoPathForGoalException(
+                () => _game.MakeCurrentPlayerPlaceWall(new Vector2(0, 3), new Vector2(2, 3))
+            );
             AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[1], 10);
         }
 
@@ -50,8 +57,10 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
             BuildWallOnIndex(11);
 
             _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 10), new Vector2(11, 12));
-            _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16));
-
+            
+            AssertNoPathForGoalException(
+                () => _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16))
+            );
             AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[1], 8);
         }
 
@@ -91,6 +100,13 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
             Assert.IsTrue(_game.board.grid[startPositionX, startPositionY].isEmpty);
             Assert.IsTrue(_game.board.grid[middlePositionX, middlePositionY].isEmpty);
             Assert.IsTrue(_game.board.grid[endPositionX, endPositionY].isEmpty);
+        }
+
+        private void AssertNoPathForGoalException(Action MovementFunction)
+        {
+            Assert.Throws<NoPathForPlayerException>(
+                () => MovementFunction()
+            );
         }
     }
 }

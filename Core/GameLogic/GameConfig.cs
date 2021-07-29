@@ -5,8 +5,8 @@ namespace Quoridor.Core.GameLogic
 {
     public class GameConfig
     {
-        public List<Player> players => _players;
-        public Board board => _board;
+        internal List<Player> players => _players;
+        internal Board board => _board;
         internal Player currentPlayer
         {
             get => _currentPlayer;

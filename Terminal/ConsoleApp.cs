@@ -17,8 +17,6 @@ namespace Quoridor.Terminal
             _drawer = new ConsoleDrawer(game);
             _messageDisplay = new ConsoleMessageDisplay(game);
             _inputHandler = new ConsoleMainMenuHandler(_messageDisplay, _game);
-
-            _game.SetPlayersOutput(_messageDisplay);
         }
         
         public void Start()
@@ -31,7 +29,8 @@ namespace Quoridor.Terminal
             _drawer.DrawBoard();
             
             try { _inputHandler.HandleInput(); }
-            catch (FormatException) { _messageDisplay.DisplayIncorrectMenuItemMessage(); }
+            catch (ArgumentOutOfRangeException) { _messageDisplay.DisplayIncorrectMenuItemMessage(); }
+            catch (Exception e) { _messageDisplay.DisplayExceptionMessage(e); }
         }
     }
 }
