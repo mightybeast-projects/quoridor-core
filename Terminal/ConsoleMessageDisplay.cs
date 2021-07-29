@@ -1,5 +1,4 @@
 using System;
-using Quoridor.Core;
 using Quoridor.Core.GameLogic;
 using Quoridor.Terminal.Drawable;
 

@@ -1,4 +1,5 @@
 using System;
+
 namespace Quoridor.Core.PlayerLogic.Movement.Exceptions
 {
     internal class CannotMoveDiagonallyException : Exception

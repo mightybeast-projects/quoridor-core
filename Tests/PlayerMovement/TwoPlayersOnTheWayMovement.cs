@@ -1,7 +1,6 @@
 using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core.PlayerLogic.Movement.Exceptions;
-using Quoridor.Tests;
 
 namespace Quoridor.Tests.PlayerMovement
 {

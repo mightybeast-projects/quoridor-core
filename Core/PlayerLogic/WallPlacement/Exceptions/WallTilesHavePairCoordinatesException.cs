@@ -1,4 +1,5 @@
 using System;
+
 namespace Quoridor.Core.PlayerLogic.WallPlacement.Exceptions
 {
     internal class WallTilesHavePairCoordinatesException : Exception

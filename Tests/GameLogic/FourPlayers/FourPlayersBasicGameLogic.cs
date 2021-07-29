@@ -1,4 +1,3 @@
-using System.Numerics;
 using NUnit.Framework;
 using Quoridor.Core.GameLogic;
 using Quoridor.Core.PlayerLogic;
