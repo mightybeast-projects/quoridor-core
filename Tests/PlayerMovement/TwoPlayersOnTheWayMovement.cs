@@ -5,7 +5,7 @@ using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 namespace Quoridor.Tests.PlayerMovement
 {
     [TestFixture]
-    public class TwoPlayersOnTheWayMovement : Initialization
+    internal class TwoPlayersOnTheWayMovement : Initialization
     {
         [Test]
         public void DoNotJumpOverTwoOtherPlayers()

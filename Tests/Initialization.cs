@@ -7,7 +7,7 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Tests
 {
-    public class Initialization
+    internal class Initialization
     {
         protected Tile _tile;
         protected Board _board;

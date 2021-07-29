@@ -1,6 +1,6 @@
 namespace Quoridor.Tests.GameLogic.FourPlayers
 {
-    public class FourPlayersGameInitialization : Initialization
+    internal class FourPlayersGameInitialization : Initialization
     {
         protected override void SetUp()
         {

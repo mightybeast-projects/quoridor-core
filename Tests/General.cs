@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Quoridor.Tests
 {
     [TestFixture]
-    public class General : Initialization
+    internal class General : Initialization
     {
         [Test]
         public void CreateTile()

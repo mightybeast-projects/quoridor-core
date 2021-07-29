@@ -5,7 +5,7 @@ using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 namespace Quoridor.Tests.PlayerMovement.DiagonalMovement
 {
     [TestFixture]
-    public class CorrectDiagonalMovement : Initialization
+    internal class CorrectDiagonalMovement : Initialization
     {
         [Test]
         public void DoNotMoveIfThereIsWallBehindAnotherPlayer()

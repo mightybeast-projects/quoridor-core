@@ -6,7 +6,7 @@ using Quoridor.Core;
 namespace Quoridor.Tests.Pathfinding
 {
     [TestFixture]
-    public class NeighborsCheck : Initialization
+    internal class NeighborsCheck : Initialization
     {
         private List<Tile> _preNeighbors;
         private List<Tile> _neighbors;

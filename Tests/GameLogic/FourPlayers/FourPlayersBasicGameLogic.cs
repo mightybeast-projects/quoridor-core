@@ -5,7 +5,7 @@ using Quoridor.Core.PlayerLogic;
 namespace Quoridor.Tests.GameLogic.FourPlayers
 {
     [TestFixture]
-    public class FourPlayersBasicGameLogic : FourPlayersGameInitialization
+    internal class FourPlayersBasicGameLogic : FourPlayersGameInitialization
     {
         [Test]
         public void SwitchBackToFirstPlayerAfterFourthPlayerMoved()

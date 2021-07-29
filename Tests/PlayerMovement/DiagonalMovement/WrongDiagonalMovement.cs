@@ -6,7 +6,7 @@ using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 namespace Quoridor.Tests.PlayerMovement.DiagonalMovement
 {
     [TestFixture]
-    public class WrongDiagonalMovement : Initialization
+    internal class WrongDiagonalMovement : Initialization
     {
         [Test]
         public void MovePlayerDiagonallyWithoutWallBehind()

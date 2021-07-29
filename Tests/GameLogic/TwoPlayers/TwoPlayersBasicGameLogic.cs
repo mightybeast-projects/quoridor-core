@@ -7,7 +7,7 @@ using Quoridor.Core.PlayerLogic.WallPlacement.Exceptions;
 namespace Quoridor.Tests.GameLogic.TwoPlayers
 {
     [TestFixture]
-    public class TwoPlayersBasicGameLogic : TwoPlayersGameInitialization
+    internal class TwoPlayersBasicGameLogic : TwoPlayersGameInitialization
     {
         [Test]
         public void SwitchCurrentPlayerAfterCorrectMove()

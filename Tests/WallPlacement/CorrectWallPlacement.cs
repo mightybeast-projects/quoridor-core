@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Quoridor.Tests.WallPlacement
 {
     [TestFixture]
-    public class CorrectWallPlacement : Initialization
+    internal class CorrectWallPlacement : Initialization
     {
         private Vector2 _startTile;
         private Vector2 _endTile;

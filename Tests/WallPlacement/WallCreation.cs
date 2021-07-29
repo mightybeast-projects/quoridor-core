@@ -5,7 +5,7 @@ using Quoridor.Core;
 namespace Quoridor.Tests.WallPlacement
 {
     [TestFixture]
-    public class WallCreation : Initialization
+    internal class WallCreation : Initialization
     {
         [Test]
         public void CreateHorizontalWall()

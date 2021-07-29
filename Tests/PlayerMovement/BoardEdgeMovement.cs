@@ -6,7 +6,7 @@ using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 namespace Quoridor.Tests.PlayerMovement
 {
     [TestFixture]
-    public class BoardEdgeMovement : Initialization
+    internal class BoardEdgeMovement : Initialization
     {
         private Vector2 _playerPosition;
         private Action MovementFunction;

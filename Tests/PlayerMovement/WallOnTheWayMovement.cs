@@ -6,7 +6,7 @@ using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 namespace Quoridor.Tests.PlayerMovement
 {
     [TestFixture]
-    public class WallOnTheWayMovement : Initialization
+    internal class WallOnTheWayMovement : Initialization
     {
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;

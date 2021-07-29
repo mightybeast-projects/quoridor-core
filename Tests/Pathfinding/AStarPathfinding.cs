@@ -7,7 +7,7 @@ using Quoridor.Core.PlayerLogic;
 namespace Quoridor.Tests.Pathfinding
 {
     [TestFixture]
-    public class AStarPathfinding : Initialization
+    internal class AStarPathfinding : Initialization
     {
         private Player _player;
         private AStar _algo;

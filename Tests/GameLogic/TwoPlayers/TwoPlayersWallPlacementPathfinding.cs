@@ -8,7 +8,7 @@ using Quoridor.Core.PlayerLogic;
 namespace Quoridor.Tests.GameLogic.TwoPlayers
 {
     [TestFixture]
-    public class TwoPlayersWallPlacementPathfinding : TwoPlayersGameInitialization
+    internal class TwoPlayersWallPlacementPathfinding : TwoPlayersGameInitialization
     {
         private Wall _lastPlacedWall;
 

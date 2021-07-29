@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Quoridor.Tests.PlayerMovement
 {
     [TestFixture]
-    public class GeneralMovement : Initialization
+    internal class GeneralMovement : Initialization
     {
         private Action MovementFunction;
         private Vector2 _playerStartPosition;

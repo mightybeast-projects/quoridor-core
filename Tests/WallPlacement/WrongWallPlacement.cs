@@ -6,7 +6,7 @@ using Quoridor.Core.PlayerLogic.WallPlacement.Exceptions;
 namespace Quoridor.Tests.WallPlacement
 {
     [TestFixture]
-    public class WrongWallPlacement : Initialization
+    internal class WrongWallPlacement : Initialization
     {
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;
