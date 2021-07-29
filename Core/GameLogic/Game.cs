@@ -10,7 +10,6 @@ namespace Quoridor.Core.GameLogic
         public List<Player> players => _gameConfig.players;
         public Board board => _gameConfig.board;
         public Player currentPlayer => _gameConfig.currentPlayer;
-        public int currentPlayerIndex => _gameConfig.currentPlayerIndex;
 
         private PlayerMovementHandler _movementHandler;
         private PlayerWallPlacementHandler _wallPlacementHandler;
