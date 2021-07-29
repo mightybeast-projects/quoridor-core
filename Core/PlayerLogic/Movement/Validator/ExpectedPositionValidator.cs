@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace Quoridor.Core.PlayerLogic.Movement.Validator
 {
-    public abstract class ExpectedPositionValidator
+    internal abstract class ExpectedPositionValidator
     {
         protected Player _player;
         protected Vector2 _currentPosition;

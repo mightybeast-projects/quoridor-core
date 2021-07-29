@@ -4,7 +4,7 @@ using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
 namespace Quoridor.Core.PlayerLogic.Movement.Validator
 {
-    public class DiagonalExpectedPositionValidator : ExpectedPositionValidator
+    internal class DiagonalExpectedPositionValidator : ExpectedPositionValidator
     {
         private Vector2 _expectedPositionTmp;
         private Vector2 _moveVectorTmp;

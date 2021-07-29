@@ -5,7 +5,7 @@ namespace Quoridor.Core.PlayerLogic.Movement
 {
     internal class MovementController
     {
-        public Vector2 position => _position;
+        internal Vector2 position => _position;
 
         private Player _player;
         private Vector2 _newPosition;

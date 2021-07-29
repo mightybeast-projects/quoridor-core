@@ -4,7 +4,7 @@ namespace Quoridor.Core.PlayerLogic.Movement.Validator
 {
     internal class ExpectedPositionValidatorFacade : ExpectedPositionValidator
     {
-        public Vector2 expectedPosition => _expectedPosition;
+        internal Vector2 expectedPosition => _expectedPosition;
 
         private DiagonalExpectedPositionValidator _diagonalValidator;
         private BasicExpectedPositionValidator _basicValidator;

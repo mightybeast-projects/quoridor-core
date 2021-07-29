@@ -3,7 +3,7 @@ using Quoridor.Core.PlayerLogic;
 
 namespace Quoridor.Core.GameLogic
 {
-    public class GameConfig
+    internal class GameConfig
     {
         internal List<Player> players => _players;
         internal Board board => _board;
@@ -12,7 +12,6 @@ namespace Quoridor.Core.GameLogic
             get => _currentPlayer;
             set => _currentPlayer = value;
         }
-
         internal int currentPlayerIndex
         {
             get => _currentPlayerIndex;

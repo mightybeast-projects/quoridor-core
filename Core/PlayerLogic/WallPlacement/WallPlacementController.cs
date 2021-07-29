@@ -4,12 +4,12 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 {
     internal class WallPlacementController
     {
-        public int wallCounter
+        internal int wallCounter
         {
             get => _wallCounter;
-            internal set => _wallCounter = value;
+            set => _wallCounter = value;
         }
-        public Wall lastPlacedWall { get; private set; }
+        internal Wall lastPlacedWall { get; private set; }
 
         private Player _player;
         private WallValidator _wallValidator;

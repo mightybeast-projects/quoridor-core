@@ -3,7 +3,7 @@ using Quoridor.Core.PlayerLogic.Movement.Exceptions;
 
 namespace Quoridor.Core.PlayerLogic.Movement.Validator
 {
-    public class BasicExpectedPositionValidator : ExpectedPositionValidator
+    internal class BasicExpectedPositionValidator : ExpectedPositionValidator
     {
         public BasicExpectedPositionValidator(Player player) : base(player) { }
 
