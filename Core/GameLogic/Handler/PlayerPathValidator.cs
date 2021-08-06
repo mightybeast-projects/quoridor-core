@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Pathfinding;
 using Quoridor.Core.PlayerLogic;
@@ -36,7 +35,6 @@ namespace Quoridor.Core.GameLogic.Handler
             _playerPositionTile = _gameConfig.board.grid[(int) player.position.X, (int) player.position.Y];
             _pathToGoal = false;
 
-            Console.WriteLine(_playerPositionTile.position);
             foreach (Tile tile in player.goal)
                 CheckPathToTile(tile);
 
