@@ -37,13 +37,16 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 
         internal void RevertLastPlacedWall()
         {
+            _wallCounter++;
+
+            _player.board.placedWalls.Remove(lastPlacedWall);
+
             for (int i = (int) lastPlacedWall.startPosition.X; i <= (int) lastPlacedWall.endPosition.X; i++)
                 for (int j = (int) lastPlacedWall.startPosition.Y; j <= (int) lastPlacedWall.endPosition.Y; j++)
                     RevertWallTile(i, j);
 
-            _player.board.placedWalls.Remove(lastPlacedWall);
-
-            _wallCounter++;
+            RevertReversedWallOnBoard(_wallEndPosition, _wallStartPosition);
+            RevertReversedWallOnBoard(_wallStartPosition, _wallEndPosition);
         }
 
         private void PlaceNewWall()
@@ -67,6 +70,13 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
             for (int i = (int) start.X; i <= (int) end.X; i++)
                 for (int j = (int) end.Y; j <= (int) start.Y; j++)
                     InitializeWallTile(i, j);
+        }
+
+        private void RevertReversedWallOnBoard(Vector2 start, Vector2 end)
+        {
+            for (int i = (int) start.X; i <= (int) end.X; i++)
+                for (int j = (int) end.Y; j <= (int) start.Y; j++)
+                    RevertWallTile(i, j);
         }
 
         private void InitializeWallTile(int i, int j)

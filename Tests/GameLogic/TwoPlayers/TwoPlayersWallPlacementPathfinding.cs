@@ -22,6 +22,7 @@ namespace Quoridor.Tests.GameLogic.TwoPlayers
                 () => _game.MakeCurrentPlayerPlaceWall(new Vector2(11, 14), new Vector2(11, 16))
             );
             AssertLastPlacedWallCurrentPlayerAndWallCounter(_game.players[0], 9);
+            _game.MakeCurrentPlayerPlaceWall(new Vector2(12, 15), new Vector2(14, 15));
         }
 
         [Test]
