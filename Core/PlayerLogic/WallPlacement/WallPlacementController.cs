@@ -16,6 +16,7 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         private Vector2 _wallStartPosition;
         private Vector2 _wallEndPosition;
         private int _wallCounter = 10;
+        private bool _isEmptyStatus;
 
         internal WallPlacementController(Player player)
         {
@@ -35,20 +36,6 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
             PlaceNewWall();
         }
 
-        internal void RevertLastPlacedWall()
-        {
-            _wallCounter++;
-
-            _player.board.placedWalls.Remove(lastPlacedWall);
-
-            for (int i = (int) lastPlacedWall.startPosition.X; i <= (int) lastPlacedWall.endPosition.X; i++)
-                for (int j = (int) lastPlacedWall.startPosition.Y; j <= (int) lastPlacedWall.endPosition.Y; j++)
-                    RevertWallTile(i, j);
-
-            RevertReversedWallOnBoard(_wallEndPosition, _wallStartPosition);
-            RevertReversedWallOnBoard(_wallStartPosition, _wallEndPosition);
-        }
-
         private void PlaceNewWall()
         {
             _wallCounter--;
@@ -57,38 +44,50 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
 
             _player.board.placedWalls.Add(lastPlacedWall);
 
+            _isEmptyStatus = false;
+            ChangeWallStatus();
+        }
+
+        internal void RevertLastPlacedWall()
+        {
+            _wallCounter++;
+
+            _player.board.placedWalls.Remove(lastPlacedWall);
+
+            _isEmptyStatus = true;
+            ChangeWallStatus();
+        }
+
+        private void ChangeWallStatus()
+        {
+            ChangeSimpleWallStatus();
+            ChangeReverseWallStatus();
+        }
+
+        private void ChangeSimpleWallStatus()
+        {
             for (int i = (int) _wallStartPosition.X; i <= (int) _wallEndPosition.X; i++)
                 for (int j = (int) _wallStartPosition.Y; j <= (int) _wallEndPosition.Y; j++)
-                    InitializeWallTile(i, j);
-
-            PlaceReversedWallOnBoard(_wallEndPosition, _wallStartPosition);
-            PlaceReversedWallOnBoard(_wallStartPosition, _wallEndPosition);
+                    ChangeTileEmptyStatus(i, j);
         }
 
-        private void PlaceReversedWallOnBoard(Vector2 start, Vector2 end)
+        private void ChangeReverseWallStatus()
+        {
+            ChangeReverseWallVariationStatus(_wallEndPosition, _wallStartPosition);
+            ChangeReverseWallVariationStatus(_wallStartPosition, _wallEndPosition);
+        }
+
+        private void ChangeReverseWallVariationStatus(Vector2 start, Vector2 end)
         {
             for (int i = (int) start.X; i <= (int) end.X; i++)
                 for (int j = (int) end.Y; j <= (int) start.Y; j++)
-                    InitializeWallTile(i, j);
+                    ChangeTileEmptyStatus(i, j);
         }
 
-        private void RevertReversedWallOnBoard(Vector2 start, Vector2 end)
-        {
-            for (int i = (int) start.X; i <= (int) end.X; i++)
-                for (int j = (int) end.Y; j <= (int) start.Y; j++)
-                    RevertWallTile(i, j);
-        }
-
-        private void InitializeWallTile(int i, int j)
+        private void ChangeTileEmptyStatus(int i, int j)
         {
             Tile tile = _player.board.grid[i, j];
-            tile.isEmpty = false;
-        }
-
-        private void RevertWallTile(int i, int j)
-        {
-            Tile tile = _player.board.grid[i, j];
-            tile.isEmpty = true;
+            tile.isEmpty = _isEmptyStatus;
         }
     }
 }
