@@ -33,7 +33,7 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
                 throw new WallIsTooLongException();
             if (WallTilesHavePairCoordinates()) 
                 throw new WallTilesHavePairCoordinatesException();
-            if (WallDoesNotCoverTwoSolidTiles())
+            if (WallDoesNotCoverTwoSolidTiles() || WallTilesAreAtTheSameSpot())
                 throw new WallDoesNotCoverSolidTilesException();
             if (WallInterceptsWithOtherWall())
                 throw new WallInterceptsWithOtherWallException();
@@ -48,6 +48,11 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
         private bool PlayerUsedAllAvailableWalls()
         {
             return _player.wallCounter == 0;
+        }
+
+        private bool WallTilesAreAtTheSameSpot()
+        {
+            return _wallStartPosition == _wallEndPosition;
         }
 
         private bool WallIsTooLong()

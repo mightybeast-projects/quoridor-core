@@ -21,6 +21,15 @@ namespace Quoridor.Tests.WallPlacement
         }
 
         [Test]
+        public void PlaceWallWithTilesInTheSameSpots()
+        {
+            _wallStartPosition = new Vector2(0, 1);
+            _wallEndPosition = new Vector2(0, 1);
+            
+            PlaceAndAssertWrongWallWithException<WallDoesNotCoverSolidTilesException>();
+        }
+
+        [Test]
         public void PlaceWallInDifferentLines()
         {
             _wallStartPosition = new Vector2(0, 1);
