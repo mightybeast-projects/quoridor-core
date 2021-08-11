@@ -31,7 +31,7 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
             
             _wallValidator.InitializeWallPositions(wallStartPosition, wallEndPosition);
             
-            _wallValidator.CheckWallRequirements();
+            _wallValidator.CheckSimpleAndReversedWallRequirements();
 
             PlaceNewWall();
         }

@@ -90,13 +90,16 @@ namespace Quoridor.Tests.WallPlacement
             Assert.Throws<T>(
                 () => _firstPlayer.PlaceWall(_wallStartPosition, _wallEndPosition)
             );
+            Assert.Throws<T>(
+                () => _firstPlayer.PlaceWall(_wallEndPosition, _wallStartPosition)
+            );
 
             Assert.AreEqual(10, _firstPlayer.wallCounter);
             Assert.AreEqual(0, _board.placedWalls.Count);
             try
             {
-                Assert.IsTrue(_board.grid[(int)_wallStartPosition.X, (int)_wallStartPosition.Y].isEmpty);
-                Assert.IsTrue(_board.grid[(int)_wallEndPosition.X, (int)_wallEndPosition.Y].isEmpty);
+                Assert.IsTrue(_board.grid[(int) _wallStartPosition.X, (int) _wallStartPosition.Y].isEmpty);
+                Assert.IsTrue(_board.grid[(int) _wallEndPosition.X, (int) _wallEndPosition.Y].isEmpty);
             }
             catch (Exception) {}
         }

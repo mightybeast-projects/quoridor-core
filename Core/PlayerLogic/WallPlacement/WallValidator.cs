@@ -21,7 +21,14 @@ namespace Quoridor.Core.PlayerLogic.WallPlacement
             _wallEndPosition = wallEndPosition;
         }
 
-        internal void CheckWallRequirements()
+        internal void CheckSimpleAndReversedWallRequirements()
+        {
+            CheckWallRequirements();
+            InitializeWallPositions(_wallEndPosition, _wallStartPosition);
+            CheckWallRequirements();
+        }
+
+        private void CheckWallRequirements()
         {
             if (WallPositionIsBeyondBoard()) 
                 throw new WallIsBeyondBoardException();
